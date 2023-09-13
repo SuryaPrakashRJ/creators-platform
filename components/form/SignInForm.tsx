@@ -2,21 +2,24 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { set } from "zod";
 
 export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     console.log(email, password);
-
+setLoading(true);
     e.preventDefault();
     const signInData = await signIn("credentials", {
       email: email,
       password: password,
       redirect: false,
     });
+    setLoading(false);
     if (signInData?.error) {
       alert(signInData.error);
     } else {
@@ -77,7 +80,7 @@ export default function SignInForm() {
                 type="submit"
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Login
+                {loading ? "Logging In..." : "Login"}
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don&apos;t have an account yet?{" "}
