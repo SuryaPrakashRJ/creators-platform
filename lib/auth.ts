@@ -7,6 +7,7 @@ import prisma from "@/lib/db";
 
 export const authOptions: NextAuthOptions = {
     adapter:PrismaAdapter(prisma),
+    secret:process.env.NEXTAUTH_SECRET,
     session:{
         strategy:'jwt',
     },
@@ -49,6 +50,33 @@ export const authOptions: NextAuthOptions = {
             }
           }
         })
-      ]
+      ],
+        callbacks:{
+            async jwt({ token,user }) {
+                
+                if (user) {
+                    return{
+                    ...token,
+                    name:user.name,
+                    }
+                }
+                return token
+                
+              },
+              async session({ session, user, token }) {
+                console.log(session , token.name)
+                return{
+                    ...session,
+                    user:{
+                        ...session.user,
+                        name:token.name,
+                    }
+                    
+                }
+              
+  
+              
+        },
+    }
 
 }
