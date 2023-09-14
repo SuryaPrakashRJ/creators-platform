@@ -3,6 +3,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast"
+// import GoogleButton from "react-google-button"
 
 
 export default function SignInForm() {
@@ -34,7 +35,7 @@ setLoading(true);
     }
   };
   return (
-    <section className="bg-gray-900 h-screen flex w-full">
+    <section className="bg-gray-900 flex h-screen w-full">
       <div className="flex flex-col items-center justify-center px-6 py-8 w-full md:h-screen lg:py-0">
         
         <div className="w-full  rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-white border-gray-700">
@@ -55,7 +56,7 @@ setLoading(true);
                   name="email"
                   id="email"
                   className=" border  sm:text-sm rounded-lg  block w-full p-2.5 bg-white "
-                  placeholder="name@company.com"
+                  placeholder="name@gmail.com"
                   onChange={(e: any) => setEmail(e.target.value)}
                   required
                 />
@@ -94,6 +95,7 @@ setLoading(true);
                 </a>
               </p>
             </form>
+            {/* <GoogleButton onClick={() =>signIn("google")} className="mx-auto"/> */}
           </div>
         </div>
       </div>
