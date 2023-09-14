@@ -2,13 +2,15 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { set } from "zod";
+import { useToast } from "@/components/ui/use-toast"
+
 
 export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     console.log(email, password);
@@ -21,9 +23,14 @@ setLoading(true);
     });
     setLoading(false);
     if (signInData?.error) {
-      alert(signInData.error);
+      toast({
+        title: "Oops! Something Went Wrong",
+        description: "Check your credentials and try again",
+        variant: "destructive",
+      })
     } else {
-      router.push("/dashboard");
+      router.refresh()
+      router.push("/admin");
     }
   };
   return (
