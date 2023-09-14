@@ -1,6 +1,7 @@
 "use client";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import { useToast } from "@/components/ui/use-toast"
 
 
 export default function SignUpForm() {
@@ -11,6 +12,7 @@ export default function SignUpForm() {
     const [errorPass, setErrorPass] = useState(false);
     const [country, setCountry] = useState("");
     const [loading, setLoading] = useState(false);
+    const { toast } = useToast()
     const router = useRouter();
 
    
@@ -43,13 +45,25 @@ setLoading(true);
             router.push("/sign-in");
         }
         if (data.message === "User Name already exists") {
-            alert("User Already Exists");
+          toast({
+            title: "User Already Exists",
+            description: "Check your details and try again",
+            variant: "destructive",
+          })
         }
         if (data.message === "Email already exists") {
-          alert("Email Already Exists");
+          toast({
+            title: "Email Already Exists",
+            description: "Check your details and try again",
+            variant: "destructive",
+          })
       }
       if (data.message === "Error") {
-        alert("Something went wrong. Please try again later");
+        toast({
+          title: "Oops! Something Went Wrong",
+          description: "Check your details and try again",
+          variant: "destructive",
+        })
     }
     
     }
