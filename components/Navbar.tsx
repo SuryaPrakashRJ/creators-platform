@@ -14,14 +14,14 @@ const Navbar = async () => {
             </span>
           </a>
           {session?.user ? (
-            <div className="flex items-center space-x-24">
+            <div className="flex items-center space-x-24  text-white">
               <div>
                 <h1>Welcome {session?.user?.name}</h1>
               </div>
               <UserAccountNav />
             </div>
           ) : (
-            <div className="flex items-center">
+            <div className="flex items-center  text-white">
               <a
                 href="/sign-up"
                 className="mr-6 text-sm  text-white hover:underline"
