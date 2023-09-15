@@ -86,7 +86,7 @@ const transport = nodemailer.createTransport({
     to: newUser.email,
     // cc: email, (uncomment this line if you want to send a copy to the sender)
     subject: `Authenticate your mail on Zello`,
-    text: `Click this link to authenticate your account: http://localhost:3000/api/user/activate/${token.token}`,
+    text: `Click this link to authenticate your account: ${process.env.DOMAIN}/api/user/activate/${token.token}`,
   };
 
   const sendMailPromise = () =>

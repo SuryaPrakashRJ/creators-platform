@@ -45,7 +45,7 @@ export async function POST(req:Request) {
             to: user.email,
             // cc: email, (uncomment this line if you want to send a copy to the sender)
             subject: `Reset Password for ${user.name}`,
-            text: `Click this link to reset your password for your account: http://localhost:3000/change-password/${token.token}`,
+            text: `Click this link to reset your password for your account: ${process.env.DOMAIN}/change-password/${token.token}`,
           };
         
           const sendMailPromise = () =>
