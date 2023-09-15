@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
+
 export default function SignUpForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -37,6 +38,7 @@ export default function SignUpForm() {
     });
     const data = await res.json();
     console.log(data);
+ 
     setLoading(false);
     if (data.message === "Success") {
       localStorage.setItem('userId', data.user.id);

@@ -3,7 +3,8 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast"
-// import GoogleButton from "react-google-button"
+import GoogleButton from "react-google-button"
+
 
 
 export default function SignInForm() {
@@ -15,13 +16,17 @@ export default function SignInForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     console.log(email, password);
-setLoading(true);
+    setLoading(true);
     e.preventDefault();
+
     const signInData = await signIn("credentials", {
       email: email,
       password: password,
       redirect: false,
     });
+
+ 
+
     setLoading(false);
     if (signInData?.error) {
       toast({
@@ -43,7 +48,7 @@ setLoading(true);
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xltext-white">
               Login into your account
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4 md:space-y-3" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -85,11 +90,19 @@ setLoading(true);
               >
                 {loading ? "Logging In..." : "Login"}
               </button>
+              
+                <a
+                  href="/reset-password"
+                  className="font-semibold  flex justify-center  text-gray-600 hover:underline text-primary-500 "
+                >
+                  Forgot Password?
+                </a>
+           
               <p className="text-sm font-light  text-gray-400">
                 Don&apos;t have an account yet?{" "}
                 <a
                   href="/sign-up"
-                  className="font-medium text-primary-600 hover:underline text-primary-500"
+                  className="font-medium  text-primary-600 hover:underline text-primary-500"
                 >
                   Register here
                 </a>

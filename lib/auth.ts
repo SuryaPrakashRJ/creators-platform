@@ -2,11 +2,12 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { compare } from "bcrypt";
-import prisma from "@/lib/db";
+import prisma from "@/lib/db"; 
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
-  
+  pages: {
+    signIn: "/sign-in",
+  },
   session: {
     strategy: "jwt",
   },
@@ -33,9 +34,13 @@ export const authOptions: NextAuthOptions = {
         if (!user) {
           return null;
         }
+        if (!user.hashedPassword) {
+          console.error("No hashed password found for user:", user.email);
+          return null;
+      }
         const passwordMatch = await compare(
           credentials.password,
-          user.password
+          user.hashedPassword
         );
         if (!passwordMatch) {
           return null;
@@ -44,17 +49,16 @@ export const authOptions: NextAuthOptions = {
           id: `${user.id}`,
           name: user.name,
           email: user.email,
-          country: user.country,
         };
       },
     }),
+
+
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  adapter: PrismaAdapter(prisma),
   callbacks: {
-    // async signIn({ profile }): Promise<string | boolean> {
-    //     console.log(profile);
-    //     return true; 
-    // },
+    
     async jwt({ token, user }) {
       if (user) {
         return {
