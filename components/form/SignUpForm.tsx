@@ -10,7 +10,6 @@ export default function SignUpForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorPass, setErrorPass] = useState(false);
-  const [country, setCountry] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
@@ -33,7 +32,6 @@ export default function SignUpForm() {
         email,
         password,
         confirm_password: confirmPassword,
-        country,
       }),
     });
     const data = await res.json();
@@ -146,26 +144,6 @@ export default function SignUpForm() {
               {errorPass && (
                 <p className="text-red-500">Password does not match</p>
               )}
-              <div>
-                <label
-                  htmlFor="countries"
-                  className="block text-sm font-medium text-gray-900 "
-                >
-                  Select an option
-                </label>
-                <select
-                  id="countries"
-                  onChange={(e: any) => setCountry(e.target.value)}
-                  defaultValue={country}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                >
-                  <option hidden>Choose a country</option>
-                  <option value="India">India</option>
-                  <option value="US">United States</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
-                </select>
-              </div>
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <input

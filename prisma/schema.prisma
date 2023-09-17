@@ -34,11 +34,21 @@ model User {
   bio           String?
   emailVerified Boolean @default(false)
   image         String?
+  socialMediaLinks String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  // sessions      Session[]
+  sessions      Session[]
   ActivateToken ActivateToken[]
 }
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 
 model ActivateToken {
   id         String   @id @default(cuid())
