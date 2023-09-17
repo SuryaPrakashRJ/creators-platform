@@ -2,6 +2,23 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+type FormErrors = {
+  name?: string[];
+  email?: string[];
+  password?: string[];
+  confirm_password?: string[];
+};
+import * as z from 'zod'
+
+const userSchema = z.object({
+  email:z.string().min(1,'Email is required').email('Invalid Email'),
+  name:z.string().min(1,'Name is required'),
+  password:z.string().min(1,'Password is required').min(8,'Password must be at least 8 characters'),
+  confirm_password:z.string().min(1,'Confirm Password is required').min(8,'Confirm Password must be at least 8 characters'),
+})
+.refine((data) => data.password === data.confirm_password,{
+  message:"Passwords do not match",
+})
 
 
 export default function SignUpForm() {
@@ -9,7 +26,7 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorPass, setErrorPass] = useState(false);
+  const [formErrors, setFormErrors] =  useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
@@ -17,10 +34,19 @@ export default function SignUpForm() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    if (password !== confirmPassword) {
-      setErrorPass(true);
-      return;
-    }
+    const validationResult = userSchema.safeParse({
+      email,
+      name: username,
+      password,
+      confirm_password: confirmPassword
+  });
+
+  if (!validationResult.success) {
+      // Set the form errors
+      setFormErrors(validationResult.error.formErrors.fieldErrors);
+      setLoading(false);
+      return; // Exit early if there are validation errors
+  }
 
     const res = await fetch("/api/user/register", {
       method: "POST",
@@ -84,11 +110,12 @@ export default function SignUpForm() {
                   type="name"
                   name="name"
                   id="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                  className={`bg-gray-50 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                   placeholder="Rahul M"
                   onChange={(e: any) => setUsername(e.target.value)}
                   required
                 />
+                {formErrors.name && <p className="text-red-500">{formErrors.name[0]}</p>}
               </div>
               <div>
                 <label
@@ -101,11 +128,12 @@ export default function SignUpForm() {
                   type="email"
                   name="email"
                   id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                  className={`bg-gray-50 border ${formErrors.email ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                   placeholder="name@company.com"
                   onChange={(e: any) => setEmail(e.target.value)}
                   required
                 />
+                 {formErrors.email && <p className="text-red-500">{formErrors.email[0]}</p>}
               </div>
               <div>
                 <label
@@ -119,15 +147,16 @@ export default function SignUpForm() {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                  className={`bg-gray-50 border ${formErrors.password ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                   onChange={(e: any) => setPassword(e.target.value)}
                   required
                 />
+                {formErrors.password && <p className="text-red-500">{formErrors.password[0]}</p>}
               </div>
               <div>
                 <label
                   htmlFor="confirm-password"
-                  className="block mb-2 text-sm font-medium text-gray-900 "
+                 className="block mb-2 text-sm font-medium text-gray-900 "
                 >
                   Confirm password
                 </label>
@@ -140,10 +169,9 @@ export default function SignUpForm() {
                   onChange={(e: any) => setConfirmPassword(e.target.value)}
                   required
                 />
+                {formErrors.confirm_password && <p className="text-red-500">{formErrors.confirm_password[0]}</p>}
               </div>
-              {errorPass && (
-                <p className="text-red-500">Password does not match</p>
-              )}
+              
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <input
