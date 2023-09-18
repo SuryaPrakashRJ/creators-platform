@@ -156,7 +156,7 @@ export default async function Page({ params }: Props) {
                 {data.name}
               </p>
               <p
-                className={`text-[18px] text-[#3D3D3D] md:text-[20px] ${nunito_sans.className}`}
+                className={`text-[18px] text-[#3D3D3D] md:text-[20px] px-5 md:w-[500px] ${nunito_sans.className}`}
               >
                 {data.bio}
               </p>
@@ -164,7 +164,7 @@ export default async function Page({ params }: Props) {
           </div>
           <div className="flex flex-col items-center space-y-3 overflow-y-auto md:max-h-screen md:w-1/2 md:mt-5">
             <div className="">
-              <p className={`font-bold text-[26px] ${nunito_sans.className}`}>
+              <p className={`font-bold text-[24px] mt-2 ${nunito_sans.className}`}>
                 Products
               </p>
             </div>
