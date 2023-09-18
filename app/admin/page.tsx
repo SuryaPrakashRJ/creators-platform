@@ -22,6 +22,9 @@ if (email === null || email === undefined) {
     }
 
     const data = user as any
+    if (data.image === null || data.image === undefined) {
+        data.image = "/default-pfp.png"
+    }
     
     return (
         <div className="flex flex-col space-y-4  text-center justify-center">

@@ -2,6 +2,7 @@
 
 import "@uploadthing/react/styles.css";
 import { UploadButton } from "@/src/types/uploadthing";
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
@@ -22,12 +23,15 @@ import {
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 
+
 const page = () => {
   const [picUrl, setPicUrl] = useState("");
   const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(false);
+  
   const [socialMediaLinks, setSocialMediaLinks] = useState([
     { url: "", platform: "", open: false, value: "" },
+    
   ]);
   const { toast } = useToast();
   const router = useRouter();
@@ -111,7 +115,6 @@ const page = () => {
   };
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
   const frameworks = [
     {
       value: "instagram",
@@ -155,10 +158,12 @@ const page = () => {
                     Your Uploaded Picture
                   </label>
                   <div className="flex flex-col justify-center items-center text-center">
-                    <img
+                    <Image
                       src={picUrl}
                       alt="profile pic"
-                      className="w-36 h-36 rounded-xl"
+                      className="w-36 h-36 rounded-xl object-center object-cover"
+                      height={144}
+                      width={144}
                     />
                   </div>
                 </div>
@@ -170,8 +175,10 @@ const page = () => {
                 >
                   Upload Your Display Picture
                 </label>
+
                 <UploadButton
                   endpoint="imageUploader"
+
                   onClientUploadComplete={(res) => {
                     // Do something with the response
                     console.log("Files: ", res);
@@ -183,7 +190,7 @@ const page = () => {
                     alert(`ERROR! ${error.message}`);
                   }}
                 />
-                <div></div>
+
               </div>
             </div>
 
@@ -198,7 +205,7 @@ const page = () => {
                 id="message"
                 className="block p-2.5 w-full text-sm  rounded-lg border bg-gray-700  placeholder-gray-400 text-white focus:border-white"
                 placeholder="Write your thoughts here..."
-                rows={10}
+                rows={6}
                 onChange={(e) => setBio(e.target.value)}
               ></textarea>
             </div>

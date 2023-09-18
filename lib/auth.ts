@@ -65,6 +65,7 @@ authOptions: NextAuthOptions = {
         return {
           ...token,
           name: user.name,
+          userId: user.id,
         };
       }
       return token;
@@ -76,6 +77,7 @@ authOptions: NextAuthOptions = {
         user: {
           ...session.user,
           name: token.name,
+          id: token.userId,
         },
       };
     },
