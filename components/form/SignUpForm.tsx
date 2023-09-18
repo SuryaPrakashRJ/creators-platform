@@ -9,19 +9,25 @@ type FormErrors = {
   password?: string[];
   confirm_password?: string[];
 };
-import * as z from 'zod'
+import * as z from "zod";
 
-const userSchema = z.object({
-  email:z.string().min(1,'Email is required').email('Invalid Email'),
-  name:z.string().min(1,'Name is required'),
-  username:z.string().min(1,'Username is required'),
-  password:z.string().min(1,'Password is required').min(8,'Password must be at least 8 characters'),
-  confirm_password:z.string().min(1,'Confirm Password is required').min(8,'Confirm Password must be at least 8 characters'),
-})
-.refine((data) => data.password === data.confirm_password,{
-  message:"Passwords do not match",
-})
-
+const userSchema = z
+  .object({
+    email: z.string().min(1, "Email is required").email("Invalid Email"),
+    name: z.string().min(1, "Name is required"),
+    username: z.string().min(1, "Username is required"),
+    password: z
+      .string()
+      .min(1, "Password is required")
+      .min(8, "Password must be at least 8 characters"),
+    confirm_password: z
+      .string()
+      .min(1, "Confirm Password is required")
+      .min(8, "Confirm Password must be at least 8 characters"),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Passwords do not match",
+  });
 
 export default function SignUpForm() {
   const [name, setName] = useState("");
@@ -29,7 +35,7 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [formErrors, setFormErrors] =  useState<FormErrors>({});
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
@@ -42,17 +48,17 @@ export default function SignUpForm() {
       name,
       username,
       password,
-      confirm_password: confirmPassword
-  });
+      confirm_password: confirmPassword,
+    });
 
-  if (!validationResult.success) {
+    if (!validationResult.success) {
       // Set the form errors
       setFormErrors(validationResult.error.formErrors.fieldErrors);
       setLoading(false);
       return; // Exit early if there are validation errors
-  }
+    }
 
-  const validusername = username.toLowerCase()
+    const validusername = username.toLowerCase();
     const res = await fetch("/api/user/register", {
       method: "POST",
       headers: {
@@ -66,10 +72,10 @@ export default function SignUpForm() {
       }),
     });
     const data = await res.json();
- 
+
     setLoading(false);
     if (data.message === "Success") {
-      localStorage.setItem('userId', data.user.id);
+      localStorage.setItem("userId", data.user.id);
       router.push("/sign-up/describe");
     }
     if (data.message === "User Name already exists") {
@@ -95,15 +101,23 @@ export default function SignUpForm() {
     }
   };
   return (
-    <section className=" bg-gray-900 h-screen flex w-full">
-      <div className="flex flex-col items-center justify-center px-6 py-8 w-full md:h-screen lg:py-0">
+    <>
+     
+    <section className=" bg-gray-900  flex flex-col w-full">
+      <div className="flex flex-col items-center justify-center px-6 py-8 w-full my-5 lg:py-0">
+        
         <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0  border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <a href='/' className="flex items-center text-center w-full">
+            <span className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+              Zello
+            </span>
+          </a>
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
               Create an account
             </h1>
             <form className="space-y-4 md:space-y-6" action="#">
-            <div>
+              <div>
                 <label
                   htmlFor="name"
                   className="block mb-2 text-sm font-medium text-gray-900 "
@@ -114,16 +128,20 @@ export default function SignUpForm() {
                   type="name"
                   name="name"
                   id="name"
-                  className={`bg-gray-50 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+                  className={`bg-gray-50 border ${
+                    formErrors.name ? "border-red-500" : "border-gray-300"
+                  } text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                   placeholder="therahulm"
                   onChange={(e: any) => setUsername(e.target.value)}
                   required
                 />
-                 {formErrors.username && <p className="text-red-500">{formErrors.username[0]}</p>}
+                {formErrors.username && (
+                  <p className="text-red-500">{formErrors.username[0]}</p>
+                )}
                 <p className="text-[14px] text-center">
-                Your chosen username will become your unique link: zello.io/yourusername, you can also modify it later.
+                  Your chosen username will become your unique link:
+                  zello.io/yourusername, you can also modify it later.
                 </p>
-               
               </div>
               <div>
                 <label
@@ -136,12 +154,16 @@ export default function SignUpForm() {
                   type="name"
                   name="name"
                   id="name"
-                  className={`bg-gray-50 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+                  className={`bg-gray-50 border ${
+                    formErrors.name ? "border-red-500" : "border-gray-300"
+                  } text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                   placeholder="Rahul M"
                   onChange={(e: any) => setName(e.target.value)}
                   required
                 />
-                {formErrors.name && <p className="text-red-500">{formErrors.name[0]}</p>}
+                {formErrors.name && (
+                  <p className="text-red-500">{formErrors.name[0]}</p>
+                )}
               </div>
               <div>
                 <label
@@ -154,12 +176,16 @@ export default function SignUpForm() {
                   type="email"
                   name="email"
                   id="email"
-                  className={`bg-gray-50 border ${formErrors.email ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+                  className={`bg-gray-50 border ${
+                    formErrors.email ? "border-red-500" : "border-gray-300"
+                  } text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                   placeholder="name@company.com"
                   onChange={(e: any) => setEmail(e.target.value)}
                   required
                 />
-                 {formErrors.email && <p className="text-red-500">{formErrors.email[0]}</p>}
+                {formErrors.email && (
+                  <p className="text-red-500">{formErrors.email[0]}</p>
+                )}
               </div>
               <div>
                 <label
@@ -173,16 +199,20 @@ export default function SignUpForm() {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className={`bg-gray-50 border ${formErrors.password ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+                  className={`bg-gray-50 border ${
+                    formErrors.password ? "border-red-500" : "border-gray-300"
+                  } text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                   onChange={(e: any) => setPassword(e.target.value)}
                   required
                 />
-                {formErrors.password && <p className="text-red-500">{formErrors.password[0]}</p>}
+                {formErrors.password && (
+                  <p className="text-red-500">{formErrors.password[0]}</p>
+                )}
               </div>
               <div>
                 <label
                   htmlFor="confirm-password"
-                 className="block mb-2 text-sm font-medium text-gray-900 "
+                  className="block mb-2 text-sm font-medium text-gray-900 "
                 >
                   Confirm password
                 </label>
@@ -195,9 +225,13 @@ export default function SignUpForm() {
                   onChange={(e: any) => setConfirmPassword(e.target.value)}
                   required
                 />
-                {formErrors.confirm_password && <p className="text-red-500">{formErrors.confirm_password[0]}</p>}
+                {formErrors.confirm_password && (
+                  <p className="text-red-500">
+                    {formErrors.confirm_password[0]}
+                  </p>
+                )}
               </div>
-              
+
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <input
@@ -240,6 +274,7 @@ export default function SignUpForm() {
           </div>
         </div>
       </div>
-    </section>
+    </section></>
+    
   );
 }
