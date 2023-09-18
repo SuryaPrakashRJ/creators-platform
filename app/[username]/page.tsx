@@ -35,11 +35,11 @@ export default async function Page({ params }: Props) {
         <div className="mt-3">
           <Image
             src={data.image}
-            alt="Profile Image"
-            width={150}
-            height={150}
-            className="rounded-lg"
-          ></Image>
+            alt="profile pic"
+            className="w-36 h-36 rounded-xl object-center object-cover"
+            height={144}
+            width={144}
+          />
           <p className={`text-[#525252] font-light ${nunito_sans.className}`}>
             @{data.username}
           </p>
@@ -49,32 +49,80 @@ export default async function Page({ params }: Props) {
             socialLinks.map((link: any, index: number) => (
               <div key={index}>
                 {link.value === "youtube" && (
-                  <a href={link.url.startsWith('http') ? link.url : 'https://' + link.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={
+                      link.url.startsWith("http")
+                        ? link.url
+                        : "https://" + link.url
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <SlSocialYoutube size={20} className="text-black" />
                   </a>
                 )}
                 {link.value === "twitter" && (
-                  <a href={link.url.startsWith('http') ? link.url : 'https://' + link.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={
+                      link.url.startsWith("http")
+                        ? link.url
+                        : "https://" + link.url
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <SlSocialTwitter size={20} className="text-black" />
                   </a>
                 )}
                 {link.value === "linkedin" && (
-                  <a href={link.url.startsWith('http') ? link.url : 'https://' + link.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={
+                      link.url.startsWith("http")
+                        ? link.url
+                        : "https://" + link.url
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <SlSocialLinkedin size={20} className="text-black" />
                   </a>
                 )}
                 {link.value === "facebook" && (
-                  <a href={link.url.startsWith('http') ? link.url : 'https://' + link.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={
+                      link.url.startsWith("http")
+                        ? link.url
+                        : "https://" + link.url
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <SlSocialFacebook size={20} className="text-black" />
                   </a>
                 )}
                 {link.value === "instagram" && (
-                  <a href={link.url.startsWith('http') ? link.url : 'https://' + link.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={
+                      link.url.startsWith("http")
+                        ? link.url
+                        : "https://" + link.url
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <SlSocialInstagram size={20} className="text-black" />
                   </a>
                 )}
                 {link.value === "website" && (
-                  <a href={link.url.startsWith('http') ? link.url : 'https://' + link.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={
+                      link.url.startsWith("http")
+                        ? link.url
+                        : "https://" + link.url
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <BsGlobe2 size={20} className="text-black" />
                   </a>
                 )}
