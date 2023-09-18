@@ -5,6 +5,7 @@ import { useToast } from "@/components/ui/use-toast";
 type FormErrors = {
   name?: string[];
   email?: string[];
+  username?: string[];
   password?: string[];
   confirm_password?: string[];
 };
@@ -13,6 +14,7 @@ import * as z from 'zod'
 const userSchema = z.object({
   email:z.string().min(1,'Email is required').email('Invalid Email'),
   name:z.string().min(1,'Name is required'),
+  username:z.string().min(1,'Username is required'),
   password:z.string().min(1,'Password is required').min(8,'Password must be at least 8 characters'),
   confirm_password:z.string().min(1,'Confirm Password is required').min(8,'Confirm Password must be at least 8 characters'),
 })
@@ -22,6 +24,7 @@ const userSchema = z.object({
 
 
 export default function SignUpForm() {
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +39,8 @@ export default function SignUpForm() {
     setLoading(true);
     const validationResult = userSchema.safeParse({
       email,
-      name: username,
+      name,
+      username,
       password,
       confirm_password: confirmPassword
   });
@@ -48,20 +52,20 @@ export default function SignUpForm() {
       return; // Exit early if there are validation errors
   }
 
+  const validusername = username.toLowerCase()
     const res = await fetch("/api/user/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: username,
+        name,
+        username: validusername,
         email,
         password,
-        confirm_password: confirmPassword,
       }),
     });
     const data = await res.json();
-    console.log(data);
  
     setLoading(false);
     if (data.message === "Success") {
@@ -99,7 +103,7 @@ export default function SignUpForm() {
               Create an account
             </h1>
             <form className="space-y-4 md:space-y-6" action="#">
-              <div>
+            <div>
                 <label
                   htmlFor="name"
                   className="block mb-2 text-sm font-medium text-gray-900 "
@@ -111,8 +115,30 @@ export default function SignUpForm() {
                   name="name"
                   id="name"
                   className={`bg-gray-50 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-                  placeholder="Rahul M"
+                  placeholder="therahulm"
                   onChange={(e: any) => setUsername(e.target.value)}
+                  required
+                />
+                 {formErrors.username && <p className="text-red-500">{formErrors.username[0]}</p>}
+                <p className="text-[14px] text-center">
+                Your chosen username will become your unique link: zello.io/yourusername, you can also modify it later.
+                </p>
+               
+              </div>
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Your Name
+                </label>
+                <input
+                  type="name"
+                  name="name"
+                  id="name"
+                  className={`bg-gray-50 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+                  placeholder="Rahul M"
+                  onChange={(e: any) => setName(e.target.value)}
                   required
                 />
                 {formErrors.name && <p className="text-red-500">{formErrors.name[0]}</p>}

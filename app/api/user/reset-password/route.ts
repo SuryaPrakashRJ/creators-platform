@@ -45,7 +45,7 @@ export async function POST(req:Request) {
             to: user.email,
             // cc: email, (uncomment this line if you want to send a copy to the sender)
             subject: `Reset Password for ${user.name}`,
-            text: `Click this link to reset your password for your account: ${process.env.DOMAIN}/change-password/${token.token}`,
+            text: `Click this link to reset your password for your account: ${process.env.DOMAIN}/confirm-password/${token.token}`,
           };
         
           const sendMailPromise = () =>
@@ -60,7 +60,6 @@ export async function POST(req:Request) {
           });
           try {
             await sendMailPromise();
-            console.log('Email sent');
             return NextResponse.json({ user:user, message: 'Success' },{status:201});
           } catch (err) {
             return NextResponse.json({ error: err }, { status: 501 });

@@ -15,7 +15,6 @@ export default function SignInForm() {
   const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log(email, password);
     setLoading(true);
     e.preventDefault();
 

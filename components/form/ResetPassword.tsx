@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "../ui/use-toast";
 export default function ResetPassword() {
     const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,10 +20,26 @@ export default function ResetPassword() {
         }),
     })
     const data = await res.json();
-    console.log(data);
     setLoading(false);
     if (data.message === "Success") {
+      toast({
+        title: "Check your email",
+        description: "Check your email to change your password",
+      })
+      setTimeout(() => {
         router.push("/sign-in");
+      }, 3000);
+    } else if (data.message === "Email does not exist") {
+      toast({
+        title: "Email does not exist",
+        description: "Please enter a valid email",
+      })
+    }
+    else {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+      })
     }
     }
   return (

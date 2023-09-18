@@ -23,7 +23,6 @@ export default function ConfirmPassword({
   params: { token: string };
 }) {
   const { token } = params;
-  console.log(token);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [errorPass, setErrorPass] = useState(false);
@@ -43,7 +42,6 @@ export default function ConfirmPassword({
     })
     .then(data => {
         setUser(data);
-        console.log(data);
     })
     .catch(error => {
         console.error("Error fetching the user:", error);
@@ -76,7 +74,10 @@ export default function ConfirmPassword({
   });
   const data = await res.json();
   if (data.message === "Success") {
-    console.log(data);
+    toast({
+      title: "Password Changed",
+      description: "You can now login with your new password",
+    })
     router.push("/sign-in");
   }
   if (data.message === "Error") {

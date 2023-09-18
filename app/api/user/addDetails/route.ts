@@ -4,9 +4,7 @@ import {  NextResponse } from "next/server";
 
 
 export async function PATCH(req:Request) {
-  console.log(req.body)
   const body = await req.json();
-  console.log(body)
   const { bio, picUrl,socialMediaLinks } = body;
   const userId = body.userId;
   const socialMediaLinksJSON = JSON.stringify(socialMediaLinks);

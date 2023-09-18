@@ -71,7 +71,6 @@ authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, user, token }) {
-      console.log(session, token.name);
       return {
         ...session,
         user: {

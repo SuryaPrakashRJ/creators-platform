@@ -4,7 +4,6 @@ import { NextRequest } from "next/server"
 
 export async function GET(req:NextRequest, {params}:{params:{token:string}}) {
 const {token} = params
-console.log(token)
 
 const user = await prisma.user.findFirst({
     where:{

@@ -22,6 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
+import { set } from "zod";
 
 
 const page = () => {
@@ -59,7 +60,13 @@ const page = () => {
       setLoading(false);
       if (data.message === "Success") {
         localStorage.removeItem("userId");
-        router.push("/sign-in");
+        toast({
+          title: "Account Created",
+          description: "Check your email to verify your account",
+        })
+        setTimeout(() => {
+          router.push("/sign-in");
+        }, 3000);
       }
       if (data.message === "Error") {
         toast({
@@ -142,7 +149,6 @@ const page = () => {
     },
   ];
 
-  console.log(socialMediaLinks);
   return (
     <div className=" bg-gray-900 h-screen flex flex-col justify-center">
       <div className="2xl:container">
@@ -181,7 +187,6 @@ const page = () => {
 
                   onClientUploadComplete={(res) => {
                     // Do something with the response
-                    console.log("Files: ", res);
                     const url = res?.[0].url || "";
                     setPicUrl(url);
                   }}

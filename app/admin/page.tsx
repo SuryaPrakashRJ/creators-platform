@@ -5,7 +5,6 @@ import Image from "next/image"
 
 const Page = async () => {
     const session = await getServerSession(authOptions)
-    console.log(session)
     const email = session?.user.email;
 
 if (email === null || email === undefined) {
@@ -32,6 +31,7 @@ if (email === null || email === undefined) {
         <div className="flex flex-col items-center">
         <Image src={data.image} alt="Profile Image" width={150} height={150} className="rounded-lg"></Image>
         <p>{data.name}</p>
+        <p>{data.username}</p>
         <p>{data.email}</p>
         <p>{data.bio}</p>
        <p>{data.emailVerified}</p>

@@ -12,7 +12,6 @@ export default function UploadPicture() {
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           // Do something with the response
-          console.log("Files: ", res);
           return res
         }}
         onUploadError={(error: Error) => {

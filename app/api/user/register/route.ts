@@ -8,10 +8,10 @@ import Mail from 'nodemailer/lib/mailer';
 export async function POST(req:Request) {
 try{
     const body = await req.json()
-    const {email,name,password} = body
+    const {email,name,username,password} = body
     const existingUser = await prisma.user.findFirst({
       where: {
-        OR: [{ email: email }, { name: name }]
+        OR: [{ email: email }, { username:username }]
       }
     });
 
@@ -27,6 +27,7 @@ try{
         data:{
             email:email,
             name:name,
+            username:username,
             hashedPassword:hashedPassword,
         }
     })
