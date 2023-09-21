@@ -1,8 +1,12 @@
 "use client";
 import prisma from "@/lib/db";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 const Page = () => {
+  const { data: session } = useSession();
+  console.log(session);
+
   return (
     <div className="flex flex-col space-y-4  text-center justify-center">
       <h1>Dashboard Page</h1>

@@ -3,7 +3,8 @@ import "../globals.css";
 import "./data-tables-css.css";
 import "./satoshi.css";
 import { useState, useEffect } from "react";
-import { UserProvider } from "@/context/userContext";
+import { useSession } from "next-auth/react";
+import  { useAuth } from "@/hooks/useAuth";
 import Loader from "@/components/dashboard/common/Loader";
 import Sidebar from "@/components/dashboard/common/Sidebar";
 import Header from "@/components/dashboard/common/Header";
@@ -13,6 +14,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const {values} = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   
@@ -21,9 +23,27 @@ export default function RootLayout({
       setLoading(false);
     },1000)
   })
+  const { data: session } = useSession();
+
+ useEffect(() => {
+  async function fetchData() {
+    const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/user/${session?.user.id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+
+    );
+    const data = await res.json();
+    values(data)
+  }
+  fetchData();
+ }, []);
 
   return (
-    <UserProvider>
+    <>
       <div className="dark:bg-boxdark-2 dark:text-bodydark">
         {loading ? (
           <Loader />
@@ -57,6 +77,6 @@ export default function RootLayout({
           </div>
         )}
       </div>
-    </UserProvider>
+    </>
   );
 }
