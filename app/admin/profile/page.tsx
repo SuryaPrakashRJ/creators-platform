@@ -1,3 +1,11 @@
+
+import UpdateProfile from "@/components/dashboard/Profile/UpdateProfile";
 export default function Page() {
-  return <div className="text-center flex items-center">Profile</div>;
+  
+  return(
+    <div>
+      <h1>Profile Page</h1>
+      <UpdateProfile />
+      </div>
+  )
 }

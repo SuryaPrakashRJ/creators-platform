@@ -42,6 +42,7 @@ export default function SignUpForm() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log("submitting");
     setLoading(true);
     const validationResult = userSchema.safeParse({
       email,
@@ -59,6 +60,7 @@ export default function SignUpForm() {
     }
 
     const validusername = username.toLowerCase();
+    console.log(validusername);
     const res = await fetch("/api/user/register", {
       method: "POST",
       headers: {
@@ -71,8 +73,9 @@ export default function SignUpForm() {
         password,
       }),
     });
+    
     const data = await res.json();
-
+    console.log(data);
     setLoading(false);
     if (data.message === "Success") {
       localStorage.setItem("userId", data.user.id);

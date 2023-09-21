@@ -1,14 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {useAuth} from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
+import { signOut } from "next-auth/react";
+import Loader from "../Loader";
 const DropdownUser = () => {
-  const {user} = useAuth();
+  const { user, values } = useAuth();
   const userDetails = user?.data;
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+
+  const handleLogOut = () => {
+    signOut();
+    values(null);
+  };
 
   // close on click outside
   useEffect(() => {
@@ -35,6 +43,9 @@ const DropdownUser = () => {
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="relative">
       <Link
@@ -45,16 +56,18 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {userDetails?.name ? userDetails?.name : "User"}
+            {userDetails?.name ? userDetails?.name : "Loading..."}
           </span>
-          <span className="block text-xs">{userDetails?.username ? `@${userDetails.username}` : 'User'}</span>
+          <span className="block text-xs">
+            {userDetails?.username ? `@${userDetails?.username}` : "User"}
+          </span>
         </span>
 
         <span className="h-10 w-10 rounded-full object-cover object-center ">
           <Image
             width={112}
             height={112}
-            src={userDetails?.image ? userDetails?.image : "/img/user.png"}
+            src={userDetails?.image ? userDetails?.image : "/user.png"}
             alt="User"
             className="rounded-full object-cover object-center "
           />
@@ -86,7 +99,7 @@ const DropdownUser = () => {
           dropdownOpen === true ? "block" : "hidden"
         }`}
       >
-        <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+        {/* <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
             <Link
               href="/profile"
@@ -112,7 +125,7 @@ const DropdownUser = () => {
               My Profile
             </Link>
           </li>
-          {/* <li>
+          <li>
             <Link
               href="#"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -132,7 +145,7 @@ const DropdownUser = () => {
               </svg>
               My Contacts
             </Link>
-          </li> */}
+          </li>
           <li>
             <Link
               href="/pages/settings"
@@ -158,8 +171,11 @@ const DropdownUser = () => {
               Account Settings
             </Link>
           </li>
-        </ul>
-        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        </ul> */}
+        <button
+          className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogOut}
+        >
           <svg
             className="fill-current"
             width="22"

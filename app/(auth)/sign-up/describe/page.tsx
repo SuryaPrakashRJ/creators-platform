@@ -173,7 +173,7 @@ const page = () => {
         <div className="w-[90%] mx-auto grid grid-cols-1">
           <form className="space-y-6">
             <div>
-              {picUrl && (
+              
                 <div className="">
                   <label
                     htmlFor="message"
@@ -183,7 +183,7 @@ const page = () => {
                   </label>
                   <div className="flex flex-col justify-center items-center text-center">
                     <Image
-                      src={picUrl}
+                      src={picUrl || "/default-pfp.png"}
                       alt="profile pic"
                       className="w-36 h-36 rounded-xl object-center object-cover"
                       height={144}
@@ -191,7 +191,7 @@ const page = () => {
                     />
                   </div>
                 </div>
-              )}
+            
               <div className="">
                 <label
                   htmlFor="message"

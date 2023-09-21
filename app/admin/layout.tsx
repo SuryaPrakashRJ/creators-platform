@@ -34,7 +34,9 @@ export default function RootLayout({
     values(data)
   }
   fetchData();
-  setLoading(false);
+  setTimeout(() => {
+    setLoading(false);
+  }, 1500);
  }, []);
 
   return (

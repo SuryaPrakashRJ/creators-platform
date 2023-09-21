@@ -7,7 +7,9 @@ import Mail from 'nodemailer/lib/mailer';
 
 export async function POST(req:Request) {
 try{
+  console.log(req)
     const body = await req.json()
+    console.log(body)
     const {email,name,username,password} = body
     const existingUser = await prisma.user.findFirst({
       where: {

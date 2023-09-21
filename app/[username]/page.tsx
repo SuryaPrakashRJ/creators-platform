@@ -11,7 +11,6 @@ interface Props {
     username: string;
   };
 }
-
 const Products = [
   {
     title: "Psychology of Money",
