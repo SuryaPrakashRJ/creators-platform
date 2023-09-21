@@ -3,8 +3,6 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast"
-import GoogleButton from "react-google-button"
-
 
 
 export default function SignInForm() {
@@ -23,9 +21,6 @@ export default function SignInForm() {
       password: password,
       redirect: false,
     });
-
- 
-
     setLoading(false);
     if (signInData?.error) {
       toast({
@@ -39,14 +34,14 @@ export default function SignInForm() {
     }
   };
   return (
-    <section className="bg-gray-900 flex h-screen w-full">
+    <section className=" flex h-screen justify-center w-full">
       <div className="flex flex-col items-center justify-center px-6 py-8 w-full md:h-screen lg:py-0">
         
         <div className="w-full  rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-white border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <a href='/' className="flex items-center text-center w-full">
             <span className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-              Zello
+              Creators Card
             </span>
           </a>
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xltext-white">

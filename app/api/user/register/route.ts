@@ -50,7 +50,7 @@ const transport = nodemailer.createTransport({
     from: process.env.MY_EMAIL,
     to: newUser.email,
     // cc: email, (uncomment this line if you want to send a copy to the sender)
-    subject: `Authenticate your mail on Zello`,
+    subject: `Authenticate your mail on Creators Card`,
     text: `Click this link to authenticate your account: ${process.env.DOMAIN}/api/user/activate/${token.token}`,
   };
 

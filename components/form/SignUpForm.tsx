@@ -103,14 +103,14 @@ export default function SignUpForm() {
   return (
     <>
      
-    <section className=" bg-gray-900  flex flex-col w-full">
+    <section className="flex flex-col justify-center w-full">
       <div className="flex flex-col items-center justify-center px-6 py-8 w-full my-5 lg:py-0">
         
         <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0  border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <a href='/' className="flex items-center text-center w-full">
             <span className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-              Zello
+              Creators Card
             </span>
           </a>
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
@@ -140,7 +140,7 @@ export default function SignUpForm() {
                 )}
                 <p className="text-[14px] text-center">
                   Your chosen username will become your unique link:
-                  zello.io/yourusername, you can also modify it later.
+                  creatorscard.io/yourusername, you can also modify it later.
                 </p>
               </div>
               <div>

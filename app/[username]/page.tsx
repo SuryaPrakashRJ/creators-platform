@@ -3,8 +3,9 @@ import Image from "next/image";
 import { nunito_sans, bebas_neue } from "@/lib/fonts";
 
 import { BsGlobe2 } from "react-icons/bs";
-import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaBehance, FaDribbble, FaGithub, FaInstagram, FaLinkedin, FaTiktok, FaTwitter } from "react-icons/fa";
 import { FiFacebook, FiYoutube } from "react-icons/fi";
+import { HiOutlineMail } from "react-icons/hi";
 interface Props {
   params: {
     username: string;
@@ -30,7 +31,11 @@ const Products = [
     title: "Atomic Habits",
     description: "A book on how to build good habits and break bad ones.",
   },
-];
+  {
+    title: "The Alchemist",
+    description:"A book on how to find your purpose in life and live it to the fullest."
+  }
+]
 
 export default async function Page({ params }: Props) {
   const username = params.username;
@@ -47,10 +52,10 @@ export default async function Page({ params }: Props) {
   const socialLinks = JSON.parse(data.socialMediaLinks);
 
   return (
-    <div className=" bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 ">
-      <div className="flex flex-col space-y-4  text-center justify-center mx-1">
+    <div className=" bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 text-black ">
+      <div className="flex flex-col space-y-7  text-center justify-center mx-1">
         <div className="flex flex-col md:flex-row md:justify-between">
-          <div className="flex flex-col items-center md:justify-center space-y-3 md:sticky md:top-0 md:w-1/2">
+          <div className="flex flex-col items-center md:justify-center  md:sticky md:top-0 md:w-1/2 space-y-7">
             <div className="mt-3">
               <Image
                 src={data.image}
@@ -147,11 +152,73 @@ export default async function Page({ params }: Props) {
                         <BsGlobe2 size={25} className="text-black" />
                       </a>
                     )}
+                    {link.value === "github" && (
+                      <a
+                        href={
+                          link.url.startsWith("http")
+                            ? link.url
+                            : "https://" + link.url
+                        }
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaGithub size={25} className="text-black" />
+                      </a>
+                    )}
+                    {link.value === "dribbble" && (
+                      <a
+                        href={
+                          link.url.startsWith("http")
+                            ? link.url
+                            : "https://" + link.url
+                        }
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaDribbble size={25} className="text-black" />
+                      </a>
+                    )}
+                    {link.value === "behance" && (
+                      <a
+                        href={
+                          link.url.startsWith("http")
+                            ? link.url
+                            : "https://" + link.url
+                        }
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaBehance size={25} className="text-black" />
+                      </a>
+                    )}
+                    {link.value === "tiktok" && (
+                      <a
+                        href={
+                          link.url.startsWith("http")
+                            ? link.url
+                            : "https://" + link.url
+                        }
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaTiktok size={25} className="text-black" />
+                      </a>
+                    )}
+                    {link.value === "email" && (
+                      <a
+                        href={`mailto:${link.url}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <HiOutlineMail size={25} className="text-black" />
+                      </a>
+                    )}
+                    
                   </div>
                 ))}
             </div>
 
-            <div>
+            <div className="space-y-5">
               <p className={`font-bold text-[26px] md:text-[38px] ${bebas_neue.className}`}>
                 {data.name}
               </p>

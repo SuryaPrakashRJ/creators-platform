@@ -38,7 +38,6 @@ await prisma.$transaction([
         where: { userId: user.id }
     })
 ]);
-
 redirect('/sign-in')
 
 }
