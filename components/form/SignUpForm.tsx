@@ -75,7 +75,6 @@ export default function SignUpForm() {
     });
     
     const data = await res.json();
-    console.log(data);
     setLoading(false);
     if (data.message === "Success") {
       localStorage.setItem("userId", data.user.id);
