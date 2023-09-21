@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {useAuth} from "@/hooks/useAuth";
 const DropdownUser = () => {
+  const {user} = useAuth();
+  const userDetails = user?.data;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -42,17 +45,18 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Surya Prakash
+            {userDetails?.name ? userDetails?.name : "User"}
           </span>
-          <span className="block text-xs">Front-End Developer</span>
+          <span className="block text-xs">{userDetails?.username ? `@${userDetails.username}` : 'User'}</span>
         </span>
 
-        <span className="h-12 w-12 rounded-full object-cover object-center">
+        <span className="h-10 w-10 rounded-full object-cover object-center ">
           <Image
             width={112}
             height={112}
-            src={"/assets/images/avatars/avatar-1.jpg"}
+            src={userDetails?.image ? userDetails?.image : "/img/user.png"}
             alt="User"
+            className="rounded-full object-cover object-center "
           />
         </span>
 

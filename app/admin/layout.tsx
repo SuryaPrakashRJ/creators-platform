@@ -17,12 +17,6 @@ export default function RootLayout({
   const {values} = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
-  
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    },1000)
-  })
   const { data: session } = useSession();
 
  useEffect(() => {
@@ -40,6 +34,7 @@ export default function RootLayout({
     values(data)
   }
   fetchData();
+  setLoading(false);
  }, []);
 
   return (
