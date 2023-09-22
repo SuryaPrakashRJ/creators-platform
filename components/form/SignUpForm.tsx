@@ -112,7 +112,7 @@ export default function SignUpForm() {
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <a href='/' className="flex items-center text-center w-full">
             <span className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-              Creators Card
+              CreatorCard
             </span>
           </a>
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
