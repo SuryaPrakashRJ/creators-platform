@@ -25,6 +25,6 @@ export async function GET(req:Request, {params}:{params:{token:string}}) {
     if (user) {
         return NextResponse.json({user: user, message:"Success"},{status:201})
     } else {
-        NextResponse.json({ error: "User not found" });
+        return NextResponse.json({ error: "User not found" });
     }
 };
