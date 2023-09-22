@@ -1,6 +1,6 @@
 
 import Navbar from "@/components/landing-page/Navbar/Navbar";
-import Hero from "../components/landing-page/Hero/Hero"
+import Hero from "@/components/landing-page/Hero/Hero"
 export default function page() {
   
   return (
