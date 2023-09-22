@@ -1,6 +1,5 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { compare } from "bcrypt";
 import prisma from "@/lib/db"; 
 
@@ -57,7 +56,6 @@ authOptions: NextAuthOptions = {
 
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
   callbacks: {
     
     async jwt({ token, user }) {
