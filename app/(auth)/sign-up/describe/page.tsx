@@ -168,7 +168,7 @@ const page = () => {
   ];
 
   return (
-    <div className=" h-screen flex flex-col justify-center bg-[#111827] ">
+    <div className=" h-screen flex flex-col justify-center bg-[#052E17] ">
       <div className="2xl:container">
         <div className="w-[90%] mx-auto grid grid-cols-1">
           <form className="space-y-6">
@@ -226,7 +226,7 @@ const page = () => {
               </label>
               <textarea
                 id="message"
-                className="block p-2.5 w-full text-sm  rounded-lg border bg-[#111827]   placeholder-gray-400 text-white focus:border-white"
+                className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17]   placeholder-gray-400 text-white focus:border-white"
                 placeholder="Write your thoughts here..."
                 rows={6}
                 onChange={(e) => setBio(e.target.value)}

@@ -2,7 +2,7 @@ import SignUpForm from '@/components/form/SignUpForm';
 
 const page = () => {
   return (
-    <div className='w-full bg-[#111827] h-full text-black '>
+    <div className='w-full bg-[#062F17] h-full text-black '>
       <SignUpForm />
     </div>
   );

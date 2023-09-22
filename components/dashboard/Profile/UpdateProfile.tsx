@@ -192,7 +192,7 @@ export default function UpdateProfile() {
 
   return (
     <div>
-      <div className="py-10 flex flex-col justify-center bg-[#111827] rounded-xl ">
+      <div className="py-10 flex flex-col justify-center bg-[#052E17] rounded-xl ">
         <div className="2xl:container">
           <div className="w-[90%] mx-auto grid grid-cols-1">
             <form className="space-y-6">
@@ -241,7 +241,7 @@ export default function UpdateProfile() {
                   </label>
                   <input
                     id="message"
-                    className="block p-2.5 w-full text-sm  rounded-lg border bg-[#111827] placeholder-gray-400 text-white focus:border-white"
+                    className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
                     placeholder={user?.data.name || "Your Bio"}
                     onChange={(e) => setName(e.target.value)}
                   ></input>
@@ -255,7 +255,7 @@ export default function UpdateProfile() {
                   </label>
                   <input
                     id="message"
-                    className="block p-2.5 w-full text-sm  rounded-lg border bg-[#111827] placeholder-gray-400 text-white focus:border-white"
+                    className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
                     placeholder={user?.data.username || "Your Bio"}
                     onChange={(e) => setUsername(e.target.value)}
                   ></input>
@@ -271,7 +271,7 @@ export default function UpdateProfile() {
                 </label>
                 <textarea
                   id="message"
-                  className="block p-2.5 w-full text-sm  rounded-lg border bg-[#111827] placeholder-gray-400 text-white focus:border-white"
+                  className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
                   placeholder={user?.data.bio || "Your Bio"}
                   rows={6}
                   onChange={(e) => setBio(e.target.value)}
