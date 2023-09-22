@@ -1,7 +1,7 @@
 
-import Navbar from "./../components/landing-page/Navbar/Page";
-import Hero from "./../components/landing-page/Hero/Page"
-export default function Home() {
+import Navbar from "@/components/landing-page/Navbar/Page";
+import Hero from "../components/landing-page/Hero/Page"
+export default function page() {
   
   return (
     <div>

@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -32,6 +33,7 @@ model ActivateToken {
   userId      String
   user        User      @relation(fields: [userId], references: [id])
 }
+
 
 model DigitNotes {
   id      String @id
