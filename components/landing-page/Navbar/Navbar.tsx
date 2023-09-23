@@ -63,7 +63,7 @@ const Navbar = () => {
         id="navbar-collapse-with-animation"
         className={`hs-collapse ${isMenuOpen ? "block" : "hidden"} overflow-hidden transition-all duration-300 basis-full grow md:block`}
       >
-          <div className="flex flex-col space-y-1 gap-y-4 gap-x-0 mt-8 mb-6 md:mb-0  md:flex-row md:items-center md:justify-end md:gap-y-0 md:gap-x-7 md:mt-0 md:pl-7">
+          <div className="flex flex-col  gap-y-4 gap-x-0 mt-8 mb-6 md:mb-0  md:flex-row md:items-center md:justify-end md:gap-y-0 md:gap-x-7 md:mt-0 md:pl-7">
             {/* <a className="font-medium text-blue-600 md:py-6 dark:text-blue-500" href="#" aria-current="page">Landing</a>
         <a className="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="#">Account</a>
         <a className="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="#">Work</a>
@@ -99,7 +99,7 @@ const Navbar = () => {
               Register
             </a>
             <a
-              className="flex items-center  font-semibold text-gray-600 hover:text-green-500  md:border-gray-300 md:my-6 md:pl-2 dark:border-gray-700 dark:text-gray-400 dark:hover:text-green-500"
+              className="flex items-center font-semibold text-gray-600 hover:text-green-500  md:border-gray-300 md:my-6 md:pl-2 dark:border-gray-700 dark:text-gray-400 dark:hover:text-green-500"
               href="/sign-in"
             >
               {/* <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
