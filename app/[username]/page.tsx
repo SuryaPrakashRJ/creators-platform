@@ -74,7 +74,7 @@ export default async function Page({ params }: Props) {
     <div className=" bg-white text-black  ">
       <div className="flex flex-col space-y-7  text-center justify-center mx-1">
         <div className="flex flex-col md:flex-row md:justify-between">
-          <div className="flex flex-col items-center md:justify-center  md:sticky md:top-0 md:w-1/2 space-y-7">
+          <div className="flex flex-col items-center md:justify-center h-screen  md:sticky md:top-0 md:w-1/2 space-y-7">
             <div className="mt-3">
               <Image
                 src={data.image}

@@ -64,14 +64,21 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <Link href="/">
-          <Image
-            width={176}
-            height={32}
-            src={"/images/logo/logo.svg"}
-            alt="Logo"
-          />
-        </Link>
+        
+        <a
+            href="javascript:void(0)"
+            className="inline-flex items-center gap-2 text-xl font-bold text-white md:text-lg"
+            aria-label="logo"
+          >
+            <img
+              src="https://res.cloudinary.com/dsdieyzkw/image/upload/v1695366242/zello/twokac3pyfcy4zl9h7xy.png"
+              width={36}
+              height={36}
+              alt="logo"
+            />
+            CreatorCard
+          </a>
+        
 
         <button
           ref={trigger}
@@ -204,6 +211,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <Link
                   href="/admin/dashboard"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("dashboard") &&
                     "bg-graydark dark:bg-meta-4"
@@ -240,6 +248,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <Link
                   href="/admin/my-store"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("store") &&
                     "bg-graydark dark:bg-meta-4"
@@ -266,6 +275,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <Link
                   href="/admin/profile"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes("profile") && "bg-graydark dark:bg-meta-4"
                   }`}

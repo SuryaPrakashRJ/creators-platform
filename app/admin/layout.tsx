@@ -21,7 +21,7 @@ export default function RootLayout({
 
  useEffect(() => {
   async function fetchData() {
-    const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/user/${session?.user.id}`,
+    const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/${session?.user.id}`,
     {
       method: "GET",
       headers: {

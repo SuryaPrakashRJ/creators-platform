@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 export default function UpdateProfile() {
   
   const { user } = useAuth();
+  console.log(user);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [picUrl, setPicUrl] = useState("");
@@ -41,16 +42,16 @@ export default function UpdateProfile() {
     e.preventDefault();
     setLoading(true);
     if (name === "") {
-      setName(user?.data.name);
+      setName(user.data.name);
     }
     if (username === "") {
-      setUsername(user?.data.username);
+      setUsername(user.data.username);
     }
     if (picUrl === "") {
-      setPicUrl(user?.data.image);
+      setPicUrl(user.data.image);
     }
     if (bio === "") {
-      setBio(user?.data.bio);
+      setBio(user.data.bio);
     }
     const hasEmptyField = socialMediaLinks.some(link => 
       link.url==='' || link.platform==='' || link.value===''
@@ -65,7 +66,7 @@ export default function UpdateProfile() {
       setLoading(false);
       return; // Exit early from the function
     }
-    const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/user/${user.data.id}`, {
+    const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -76,13 +77,13 @@ export default function UpdateProfile() {
         username,
         image:picUrl,
         bio,
-        socialMediaLinks,
+        socialMediaLinks:JSON.stringify(socialMediaLinks),
       }),
     });
     const data = await res.json();
     console.log(data);
     setLoading(false);
-    if (data.message === "Sucess") {
+    if (data.message === "Success") {
       toast({
         title: "Profile Updated",
         description: "Your profile has been updated",
@@ -206,7 +207,7 @@ export default function UpdateProfile() {
                   </label>
                   <div className="flex flex-col justify-center items-center text-center">
                     <Image
-                      src={picUrl || user?.data.image || "/images/user.png"}
+                      src={picUrl || user?.data.image || "/default-pfp.png"}
                       alt="profile pic"
                       className="w-36 h-36 rounded-xl object-center object-cover"
                       height={144}
@@ -242,7 +243,7 @@ export default function UpdateProfile() {
                   <input
                     id="message"
                     className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
-                    placeholder={user?.data.name || "Your Bio"}
+                    placeholder={user?.data.name || "Your Name"}
                     onChange={(e) => setName(e.target.value)}
                   ></input>
                 </div>
@@ -256,7 +257,7 @@ export default function UpdateProfile() {
                   <input
                     id="message"
                     className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
-                    placeholder={user?.data.username || "Your Bio"}
+                    placeholder={user?.data.username || "Your Username"}
                     onChange={(e) => setUsername(e.target.value)}
                   ></input>
                 </div>
