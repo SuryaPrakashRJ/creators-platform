@@ -193,21 +193,21 @@ export default function UpdateProfile() {
 
   return (
     <div>
-      <div className="py-10 flex flex-col justify-center bg-[#052E17] rounded-xl ">
+      <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl ">
         <div className="2xl:container">
           <div className="w-[90%] mx-auto grid grid-cols-1">
             <form className="space-y-6">
               <div className="flex sm:flex-row flex-col">
-                <div className="">
+                <div className="px-3">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-white"
+                    className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
                     Update Your Display Picture
                   </label>
-                  <div className="flex flex-col justify-center items-center text-center">
+                  <div className="flex flex-col  justify-center items-center text-center">
                     <Image
-                      src={picUrl || user?.data.image || "/default-pfp.png"}
+                      src={picUrl || user?.data.image || "/images/user.png"}
                       alt="profile pic"
                       className="w-36 h-36 rounded-xl object-center object-cover"
                       height={144}
@@ -216,8 +216,10 @@ export default function UpdateProfile() {
                   </div>
                 </div>
 
-                <div className="">
+                <div className=" px-3  text-[#0f280a] rounded-lg">
+                
                   <UploadButton
+                  className="bg-green-600 py-3 px-3  text-[#ffffff] rounded-lg"
                     endpoint="imageUploader"
                     onClientUploadComplete={(res) => {
                       // Do something with the response
@@ -233,16 +235,17 @@ export default function UpdateProfile() {
               </div>
 
               <div className="flex sm:flex-row flex-col justify-between sm:space-x-5 space-y-5 sm:space-y-0">
-                <div className="w-full">
+              
+                <div className="w-full ">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-white "
+                    className="block mb-2 text-sm font-medium text-[#0f280a] "
                   >
                     Update Your Name
                   </label>
                   <input
                     id="message"
-                    className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
+                    className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                     placeholder={user?.data.name || "Your Name"}
                     onChange={(e) => setName(e.target.value)}
                   ></input>
@@ -250,14 +253,14 @@ export default function UpdateProfile() {
                 <div className="w-full">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-white"
+                    className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
                     Update Your Username
                   </label>
                   <input
                     id="message"
-                    className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
-                    placeholder={user?.data.username || "Your Username"}
+                    className="bg-[#f1f5f9]  hover:border-green-500 text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 dark:text-white"
+                    placeholder={user?.data.username || "Your username"}
                     onChange={(e) => setUsername(e.target.value)}
                   ></input>
                 </div>
@@ -266,23 +269,23 @@ export default function UpdateProfile() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block mb-2 text-sm font-medium text-white"
+                  className="block mb-2 text-sm font-medium text-[#0f280a]"
                 >
                   Update Your Bio
                 </label>
                 <textarea
                   id="message"
-                  className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
+                  className="bg-[#f1f5f9]  hover:border-green-500 text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 dark:text-white "
                   placeholder={user?.data.bio || "Your Bio"}
                   rows={6}
                   onChange={(e) => setBio(e.target.value)}
                 ></textarea>
               </div>
 
-              <div>
+              <div >
                 <label
                   htmlFor="message"
-                  className="block mb-2 text-sm font-medium text-white"
+                  className="block mb-2 text-sm font-medium  text-[#0f280a]"
                 >
                   Add Social Links
                 </label>
@@ -290,9 +293,9 @@ export default function UpdateProfile() {
                 {socialMediaLinks.map((link:any, index:number) => (
                     <div
                       key={index}
-                      className="grid grid-flow-col lg:grid-cols-10 xl:grid-cols-12 mt-2 lg:space-x-10 xl:space-x-5"
+                      className="grid grid-flow-col  lg:grid-cols-10 xl:grid-cols-12 mt-2 lg:space-x-10 xl:space-x-5"
                     >
-                      <div className="col-span-1">
+                      <div className="col-span-1 ">
                         <Popover
                           open={link.open}
                           onOpenChange={(isOpen) =>
@@ -304,7 +307,7 @@ export default function UpdateProfile() {
                               variant="outline"
                               role="outline"
                               // aria-expanded={open}
-                              className="w-[6rem]"
+                              className="w-[6rem] border-[#22C55E] text-[#22C55E] hover:text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600"
                             >
                               {link.value
                                 ? frameworks.find(
@@ -314,11 +317,11 @@ export default function UpdateProfile() {
                                 : "Select"}
                             </Button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-[200px] p-0">
+                          <PopoverContent className="w-[200px] p-0 ">
                             <Command>
                               <CommandInput
                                 placeholder="Search"
-                                className="h-9"
+                                className="h-9 "
                               />
                               <CommandEmpty>Not found</CommandEmpty>
                               <CommandGroup>
@@ -348,16 +351,17 @@ export default function UpdateProfile() {
                         </Popover>
                       </div>
                       <div className="col-span-11 flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0">
-                        <Input
-                          type="url"
-                          placeholder="Your Social Media link"
-                          className="bg-transparent text-white"
-                          value={link.url}
+                      <input
+                    type="url"
+                    placeholder="Your Social Media link"
+                    className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:text-white"
+                    value={link.url}
                           onChange={(e) => handleUrlChange(e, index)}
-                        />
+                  ></input>
+                       
                          <button
                   type="submit"
-                  className=" text-black bg-white  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800"
+                  className="  border-[#c52232] border  text-[#c52232] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-[#c52232] hover:text-[#ffffff] font-medium "
                   onClick={()=>handleDelete(index)}
                 >
                   Delete
@@ -371,7 +375,7 @@ export default function UpdateProfile() {
                  <div className="mt-4 flex justify-center">
                   <Button
                     variant="ghost"
-                    className="border bottom-2 border-white text-white w-full sm:w-96 md:w-60 "
+                    className="bg-[#505050]   text-[#ffffff] rounded-lg text-sm text-center hover:bg-[#303030] hover:text-[#ffffff] font-medium  w-full sm:w-96 md:w-60 "
                     onClick={addNewLink}
                   >
                     Add Links
@@ -381,7 +385,7 @@ export default function UpdateProfile() {
               <div className="mt-5">
                 <button
                   type="submit"
-                  className=" text-black bg-white  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800"
+                  className=" bg-[#22C55E]   text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600 font-medium  "
                   onClick={handleSubmit}
                 >
                   {loading ? "Submitting..." : "Submit"}
