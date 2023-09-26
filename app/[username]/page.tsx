@@ -255,7 +255,7 @@ export default async function Page({ params }: Props) {
             </div>
           </div>
           
-          <div className="grid grid-cols-2 items-center space-y-6 overflow-y-auto md:max-h-screen md:w-1/2 md:mt-5">
+          <div className="grid sm:grid-cols-2 items-center justify-center sm:justify-normal  space-y-6 overflow-y-auto md:max-h-screen md:w-1/2 md:mt-5">
           <h2 className="text-2xl font-bold">Products</h2>
             {Products.map((product, index) => (
 

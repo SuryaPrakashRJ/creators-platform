@@ -4,7 +4,6 @@ import { UploadButton } from "@/src/types/uploadthing";
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
 export default function AddProduct() {
@@ -38,23 +37,26 @@ export default function AddProduct() {
 
         body: JSON.stringify({
           email: user.data.email,
-          title,
-          subTitle,
-          productImgUrl,
+          heading:title,
+          subheading:subTitle,
+          productImgLink:productImgUrl,
           description,
-          price,
-          buttonText,
+          pricing:Number(price),
+          buttonTitle:buttonText,
+          downloadable:true,
+          fileUrl,
         }),
       }
     );
     const data = await res.json();
     console.log(data);
     setLoading(false);
-    if (data.message === "Success") {
+    if (data.message === "Post Data Successfully") {
       toast({
-        title: "Profile Updated",
-        description: "Your profile has been updated",
+        title: "Product Added",
+        description: "Product has been added successfully",
       });
+      
     } else {
       toast({
         title: "Error",
@@ -73,10 +75,12 @@ export default function AddProduct() {
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+        // console.log(info.file, info.fileList);
+        console.log(info.file.response.message.location);
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
+        setFileUrl(info.file.response.message[0].Location);
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -87,15 +91,15 @@ export default function AddProduct() {
   };
   return (
     <div>
-      <div className="py-10 flex flex-col justify-center bg-[#052E17] rounded-xl ">
+      <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
         <div className="2xl:container">
           <div className="w-[90%] mx-auto grid grid-cols-1">
             <form className="space-y-6">
               <div className="flex sm:flex-row flex-col">
-                <div className="">
+                <div className="px-3">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-white"
+                    className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
                     Product Image
                   </label>
@@ -112,6 +116,7 @@ export default function AddProduct() {
 
                 <div className="">
                   <UploadButton
+                  className="bg-green-600 py-3 px-3  text-[#ffffff] rounded-lg"
                     endpoint="imageUploader"
                     onClientUploadComplete={(res) => {
                       // Do something with the response
@@ -130,13 +135,13 @@ export default function AddProduct() {
                 <div className="w-full">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-white "
+                    className="block mb-2 text-sm font-medium text-[#0f280a]  "
                   >
                     Product Title
                   </label>
                   <input
                     id="message"
-                    className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
+                    className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                     placeholder={"Enter the product title"}
                     onChange={(e) => setTitle(e.target.value)}
                   ></input>
@@ -144,13 +149,13 @@ export default function AddProduct() {
                 <div className="w-full">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-white"
+                    className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
                     Product Sub-title
                   </label>
                   <input
                     id="message"
-                    className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
+                    className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                     placeholder={"Enter the product sub-title"}
                     onChange={(e) => setSubTitle(e.target.value)}
                   ></input>
@@ -160,13 +165,13 @@ export default function AddProduct() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block mb-2 text-sm font-medium text-white"
+                  className="block mb-2 text-sm font-medium text-[#0f280a]"
                 >
                   Product Description
                 </label>
                 <textarea
                   id="message"
-                  className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
+                  className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                   placeholder={"Enter the product description"}
                   rows={6}
                   onChange={(e) => setDescription(e.target.value)}
@@ -175,13 +180,13 @@ export default function AddProduct() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block mb-2 text-sm font-medium text-white"
+                  className="block mb-2 text-sm font-medium text-[#0f280a]"
                 >
                   Upload File
                 </label>
                 <Upload
                   {...props}
-                  className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-white"
+                  className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-[#0f280a] bg-[#F1F5F9]"
                 >
                   
                   <p className="ant-upload-text text-center">
@@ -197,13 +202,13 @@ export default function AddProduct() {
               <div className="w-full">
                 <label
                   htmlFor="message"
-                  className="block mb-2 text-sm font-medium text-white"
+                  className="block mb-2 text-sm font-medium text-[#0f280a]"
                 >
                   Product Price
                 </label>
                 <input
                   id="number"
-                  className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
+                  className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
                   placeholder={"Enter the product price"}
                   onChange={(e) => setPrice(e.target.value)}
                 ></input>
@@ -212,13 +217,13 @@ export default function AddProduct() {
               <div className="w-full">
                 <label
                   htmlFor="message"
-                  className="block mb-2 text-sm font-medium text-white"
+                  className="block mb-2 text-sm font-medium text-[#0f280a]"
                 >
                   Checkout Button Text
                 </label>
                 <input
                   id="number"
-                  className="block p-2.5 w-full text-sm  rounded-lg border bg-[#052E17] placeholder-gray-400 text-white focus:border-white"
+                  className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
                   placeholder={"Enter the checkout button text"}
                   onChange={(e) => setButtonText(e.target.value)}
                 ></input>
@@ -227,10 +232,10 @@ export default function AddProduct() {
               <div className="mt-5">
                 <button
                   type="submit"
-                  className=" text-black bg-white  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800"
+                  className=" bg-[#22C55E]   text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600 font-medium  "
                   onClick={handleSubmit}
                 >
-                  {loading ? "Submitting..." : "Submit"}
+                  {loading ? "Adding..." : "Add"}
                 </button>
               </div>
             </form>
