@@ -388,6 +388,7 @@ export default function UpdateProfile() {
                   className=" bg-[#22C55E]   text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600 font-medium  "
                   onClick={handleSubmit}
                 >
+                  
                   {loading ? "Submitting..." : "Submit"}
                 </button>
               </div>

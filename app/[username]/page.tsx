@@ -24,33 +24,38 @@ const Products = [
     heading: "Psychology of Money",
     subheading:
       "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
-      description:"A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
+    description:
+      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
     pricing: "45",
   },
   {
     heading: "The Subtle Art of Not Giving a F*ck",
     subheading:
       "A book on changing your mindset and how you view the world around you.",
-      description:"A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
+    description:
+      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
     pricing: "45",
   },
   {
     heading: "The 4-Hour Workweek",
     subheading: "A book on how to work less and live more.",
-    description:"A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
+    description:
+      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
     pricing: "45",
   },
   {
     heading: "Atomic Habits",
     subheading: "A book on how to build good habits and break bad ones.",
-    description:"A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
+    description:
+      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
     pricing: "45",
   },
   {
     heading: "The Alchemist",
     subheading:
       "A book on how to find your purpose in life and live it to the fullest.",
-      description:"A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
+    description:
+      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
     pricing: "45",
   },
 ];
@@ -73,7 +78,7 @@ export default async function Page({ params }: Props) {
     // <div className=" bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 text-black ">
     <div className=" bg-white text-black  ">
       <div className="flex flex-col space-y-7  text-center justify-center mx-1">
-        <div className="flex flex-col md:flex-row md:justify-between">
+        <div className="flex flex-col md:flex-row md:justify-between h-screen">
           <div className="flex flex-col items-center md:justify-center h-screen  md:sticky md:top-0 md:w-1/2 space-y-7">
             <div className="mt-3">
               <Image
@@ -249,82 +254,88 @@ export default async function Page({ params }: Props) {
               </p>
             </div>
           </div>
-          <div className="flex flex-col items-center space-y-3 overflow-y-auto md:max-h-screen md:w-1/2 md:mt-5">
-            <div className="">
-              <p
-                className={`font-bold text-[24px] mt-2 ${nunito_sans.className}`}
-              >
-                Products
-              </p>
-            </div>
+          
+          <div className="grid grid-cols-2 items-center space-y-6 overflow-y-auto md:max-h-screen md:w-1/2 md:mt-5">
+          <h2 className="text-2xl font-bold">Products</h2>
             {Products.map((product, index) => (
-              //   <div className="max-w-md md:max-w-lg  my-8 mx-4 px-5 py-2 w-full bg-transparent rounded-2xl border-2 border-transparent hover:border-gray-900 border-gray-500">
-              //     <div className="flex flex-row space-x-3">
+
+
+              <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border-2 border border-[#d1d5db] hover:border-green-600">
+                <div className='grid-cols-2'>
+                <div className="flex items-center  justify-center p-4">
+                  <Image
+                    src="./book.svg"
+                    alt="book"
+                    height={400}
+                    width={400}
+                    className="h-24 w-24 "
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="mb-3 flex items-center justify-between">
+                    <h6 className="block font-sans text-lg font-medium leading-snug tracking-normal text-blue-gray-900 antialiased">
+                      {product.heading}
+                    </h6>
+                  </div>
+                  <p className="block font-sans text-base font-light leading-relaxed text-gray-700 antialiased text-left">
+                    {product.subheading}
+                  </p>
+                </div>
+                <div className="p-6 pt-3">
+                  <Link
+                    className="block w-full select-none rounded-lg bg-green-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white   transition-all hover:bg-green-600  focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    href={{
+                      pathname: "/checkout",
+                      query: {
+                        heading: product.heading,
+                        subheading: product.subheading,
+                        description: product.description,
+                        pricing: product.pricing,
+                      }, // the data
+                    }}
+                  >
+                    View
+                  </Link>
+                </div>
+                </div>
+              </div>
+
+              // <div className="max-w-md  scroll-bar-hide md:scrollbar-default items-start md:max-w-lg  my-4 mx-4 px-5  w-full bg-transparent rounded-2xl border-2 border-transparent hover:border-gray-900 border-gray-100">
+              //   <ul className="border rounded-lg  border-[#d4d4d8]">
+              //     <div className="flex items-start  justify-between p-4">
               //       <Image
               //         src="./book.svg"
               //         alt="book"
               //         height={200}
               //         width={150}
-              //         className="h-32 w-28 "
+              //         className="h-16 w-16 "
               //       />
-              //       <div>
-              //         <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 ">
+              //       <div className="space-y-0">
+              //         <h4 className="text-[#052e16] text-center justify-center font-semibold">
               //           {product.heading}
-              //         </h5>
-              //         <p
-              //           className="mb-3 font-normal
-
-              // text-gray-700 "
-              //         >
+              //         </h4>
+              //         <p className="text-[#525252]text-sm text-center ">
               //           {product.subheading}
               //         </p>
               //       </div>
-              //     </div>
-              //     <a
-              //       href="#"
-              //       className="inline-flex items-center w-full px-3 py-2 text-sm font-medium text-center justify-center text-white bg-black rounded-lg mt-2"
-              //     >
-              //       View
-              //     </a>
-              //   </div>
-              <div className="max-w-md  scroll-bar-hide md:scrollbar-default items-start md:max-w-lg  my-4 mx-4 px-5  w-full bg-transparent rounded-2xl border-2 border-transparent hover:border-gray-900 border-gray-100">
-                <ul className="border rounded-lg  border-[#d4d4d8]">
-                  <div className="flex items-start  justify-between p-4">
-                    <Image
-                      src="./book.svg"
-                      alt="book"
-                      height={200}
-                      width={150}
-                      className="h-16 w-16 "
-                    />
-                    <div className="space-y-0">
-                      <h4 className="text-[#052e16] text-center justify-center font-semibold">
-                        {product.heading}
-                      </h4>
-                      <p className="text-[#525252]text-sm text-center ">
-                        {product.subheading}
-                      </p>
-                    </div>
-                    {/* <button className="text-white text-sm border bg-green-500  rounded-lg px-3 py-2 duration-150 hover:bg-green-600">
-                      Connect
-                    </button> */}
-                  </div>
-                  <div className="py-2 px-4 border-t border-[#d4d4d8] text-center">
-                    <Link                         className="text-green-500 hover:text-green-600 text-sm font-medium"
 
-                      href={{
-                        pathname: "/checkout",
-                        query: {heading:product.heading,subheading:product.subheading,description:product.description,pricing:product.pricing}, // the data
-                      }}
-                    >
-                      
-                        View
-                      
-                      </Link>
-                    
-                  </div>
-                </ul>
-              </div>
+              //     </div>
+              //     <div className="py-2 px-4 border-t border-[#d4d4d8] text-center">
+              // <Link                         className="text-green-500 hover:text-green-600 text-sm font-medium"
+
+              //   href={{
+              //     pathname: "/checkout",
+              //     query: {heading:product.heading,subheading:product.subheading,description:product.description,pricing:product.pricing}, // the data
+              //   }}
+              // >
+
+              //     View
+
+              //   </Link>
+
+              //     </div>
+              //   </ul>
+              // </div>
             ))}
           </div>
         </div>
