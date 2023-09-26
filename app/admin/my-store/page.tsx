@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Card } from "antd";
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
-import { Divide } from "lucide-react";
+import Loader from "@/components/dashboard/common/Loader";
 
 type DigitProduct = {
   id: number;
@@ -26,21 +26,25 @@ type DataType = {
 export default function Page() {
   const { user } = useAuth();
   const [data, setData] = useState<DataType | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const Products = async () => {
       const res = await fetch(
-        `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user.data.id}/products`
+        `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}/products`
       );
       const jsonData = await res.json();
       console.log(jsonData);
       setData(jsonData.data);
+      setLoading(false);
+   
     };
     Products();
+    
   }, [user]);
 
   async function handleProductDelete(e:any){
-    const productId = e.currentTarget.getAttribute('data-product-id');
+    const productId = Number(e.currentTarget.getAttribute('data-product-id'))
     await fetch(
       `https://creators-platform-backend-production.up.railway.app/api/v1/digital_download/${productId}`,
       {
@@ -50,6 +54,10 @@ export default function Page() {
         },
       }
     );
+  }
+
+  if (loading) {
+    return <Loader />;
   }
 
   return (
@@ -64,7 +72,7 @@ export default function Page() {
                   type="inner"
                   title={product.heading}
                   extra={<div className="space-x-4">
-                    <a href="/edit-product/{product.id}" className="bg-green-400 px-4 py-2 rounded-lg  ">Edit</a><button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-red-500 px-4 py-2 rounded-lg " >Delete</button>
+                    <a href="/edit-product/" className="bg-green-400 px-4 py-2 rounded-lg  ">Edit</a><button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-red-500 px-4 py-2 rounded-lg " >Delete</button>
                   </div>}
                 >
                   <div className="flex items-start sm:gap-8">
@@ -82,9 +90,7 @@ export default function Page() {
 
                     <div>
                       <h3 className="mt-4 text-lg font-medium sm:text-xl">
-                        
-                          {product.heading}
-                        
+                        {product.heading}
                       </h3>
 
                       <p className="mt-1 text-sm text-gray-700">
