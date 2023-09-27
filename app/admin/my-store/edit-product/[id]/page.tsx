@@ -6,6 +6,7 @@ import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
+import Loader from "@/components/dashboard/common/Loader";
 
 interface Props {
   params: {
@@ -22,6 +23,7 @@ export default function Page({ params }: Props) {
   const [buttonText, setButtonText] = useState("Buy Now");
   const [fileUrl, setFileUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [preLoading, setPreLoading] = useState(true);
   const [data, setData] = useState<any>(null);
   useEffect(() => {
     const fetchProduct = async () => {
@@ -36,10 +38,10 @@ export default function Page({ params }: Props) {
       );
       const jsonData = await res.json();
       setData(jsonData.data);
+      setPreLoading(false);
     };
     fetchProduct();
   }, [id]);
-  console.log(data);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -112,6 +114,8 @@ export default function Page({ params }: Props) {
     },
   };
 
+  if(preLoading) return <div><Loader/></div>
+
   return (
     <div>
       <div>
@@ -168,7 +172,6 @@ export default function Page({ params }: Props) {
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                     placeholder={data.heading ||"Enter the product title"}
                     onChange={(e) => setTitle(e.target.value)}
-                    
                   ></input>
                 </div>
                 <div className="w-full">
@@ -197,7 +200,7 @@ export default function Page({ params }: Props) {
                 <textarea
                   id="message"
                   className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
-                  placeholder={data.description || "Enter the product description"}
+                  placeholder={data.description||"Enter the product description"}
                   rows={6}
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>

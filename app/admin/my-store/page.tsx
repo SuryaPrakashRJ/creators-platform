@@ -5,6 +5,8 @@ import { Card } from "antd";
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import Loader from "@/components/dashboard/common/Loader";
+import Link from "next/link";
+import { set } from "zod";
 
 type DigitProduct = {
   id: number;
@@ -37,13 +39,13 @@ export default function Page() {
       console.log(jsonData);
       setData(jsonData.data);
       setLoading(false);
-   
     };
     Products();
-    
+   
   }, [user]);
 
   async function handleProductDelete(e:any){
+    setLoading(true)
     const productId = e.currentTarget.getAttribute('data-product-id')
     await fetch(
       `https://creators-platform-backend-production.up.railway.app/api/v1/digital_download/${productId}`,
@@ -54,6 +56,14 @@ export default function Page() {
         },
       }
     );
+
+    const res = await fetch(
+      `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}/products`
+    );
+    const jsonData = await res.json();
+    setData(jsonData.data);
+  
+    setLoading(false);
   }
 
   if (loading) {
@@ -64,7 +74,7 @@ export default function Page() {
     <div className="text-center flex flex-col items-center">
       <div className="w-full">
         <Card title="Products">
-          {data &&
+          {data && 
             data.DigitProducts.map((product: DigitProduct) => (
               <div key={product.id}>
                 <Card
@@ -72,7 +82,7 @@ export default function Page() {
                   type="inner"
                   title={product.heading}
                   extra={<div className="space-x-4">
-                    <a href={`my-store/edit-product/${product.id}`} className="bg-green-400 px-4 py-2 rounded-lg  ">Edit</a><button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-red-500 px-4 py-2 rounded-lg " >Delete</button>
+                    <Link href={`my-store/edit-product/${product.id}`} className="bg-green-400 px-4 py-2 rounded-lg  ">Edit</Link><button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-red-500 px-4 py-2 rounded-lg " >Delete</button>
                   </div>}
                 >
                   <div className="flex items-start sm:gap-8">
