@@ -94,6 +94,7 @@ export default function AddProduct() {
       console.log("Dropped files", e.dataTransfer.files);
     },
   };
+  console.log(fileUrl[1]);
   return (
     <div>
       <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
