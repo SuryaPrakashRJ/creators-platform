@@ -127,6 +127,7 @@ export default function Page({ params }: Props) {
   return (
     <div>
       <div>
+        
         <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
           <div className="2xl:container">
             <div className="w-[90%] mx-auto grid grid-cols-1">

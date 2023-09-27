@@ -71,7 +71,9 @@ export default function Page() {
 
   return (
     <div className="text-center flex flex-col items-center">
+      
       <div className="w-full">
+      <div className="text-center flex items-center text-xl font-medium">My store</div>
         <Card title="Products">
           {data && 
             data.DigitProducts.map((product: DigitProduct) => (
