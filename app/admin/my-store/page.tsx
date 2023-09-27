@@ -44,7 +44,7 @@ export default function Page() {
   }, [user]);
 
   async function handleProductDelete(e:any){
-    const productId = Number(e.currentTarget.getAttribute('data-product-id'))
+    const productId = e.currentTarget.getAttribute('data-product-id')
     await fetch(
       `https://creators-platform-backend-production.up.railway.app/api/v1/digital_download/${productId}`,
       {
@@ -72,7 +72,7 @@ export default function Page() {
                   type="inner"
                   title={product.heading}
                   extra={<div className="space-x-4">
-                    <a href="/edit-product/" className="bg-green-400 px-4 py-2 rounded-lg  ">Edit</a><button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-red-500 px-4 py-2 rounded-lg " >Delete</button>
+                    <a href={`my-store/edit-product/${product.id}`} className="bg-green-400 px-4 py-2 rounded-lg  ">Edit</a><button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-red-500 px-4 py-2 rounded-lg " >Delete</button>
                   </div>}
                 >
                   <div className="flex items-start sm:gap-8">
