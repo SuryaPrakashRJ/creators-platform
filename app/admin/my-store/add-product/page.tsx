@@ -6,6 +6,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
+import { useRouter } from "next/navigation";
 export default function AddProduct() {
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
@@ -13,9 +14,10 @@ export default function AddProduct() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [buttonText, setButtonText] = useState("Buy Now");
-  const [fileUrl, setFileUrl] = useState("");
+  const [fileUrl, setFileUrl] = useState<any>([]);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+  const router = useRouter();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -44,7 +46,7 @@ export default function AddProduct() {
           pricing:Number(price),
           buttonTitle:buttonText,
           downloadable:true,
-          fileUrl,
+          fileUrl:JSON.stringify(fileUrl),
         }),
       }
     );
@@ -56,6 +58,7 @@ export default function AddProduct() {
         title: "Product Added",
         description: "Product has been added successfully",
       });
+      router.push("/admin/my-store");
       
     } else {
       toast({
@@ -70,17 +73,19 @@ export default function AddProduct() {
 
   const props: UploadProps = {
     name: "file",
+    multiple: true,
     action:
       "https://creators-platform-backend-production.up.railway.app/api/v1/file/upload",
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
-        // console.log(info.file, info.fileList);
-        console.log(info.file.response.message.location);
+        console.log(info.fileList);
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
-        setFileUrl(info.file.response.message[0].Location);
+        if(info.fileList.length > 0){
+          setFileUrl(info.fileList.map((file) => file.response.message[0].Location));
+        }
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -118,6 +123,7 @@ export default function AddProduct() {
                   <UploadButton
                   className="bg-green-600 py-3 px-3  text-[#ffffff] rounded-lg"
                     endpoint="imageUploader"
+                    
                     onClientUploadComplete={(res) => {
                       // Do something with the response
                       const url = res?.[0].url || "";
@@ -193,7 +199,7 @@ export default function AddProduct() {
                     Click or drag file to this area to upload
                   </p>
                   <p className="ant-upload-hint text-center">
-                    Support for a single or bulk upload. Strictly prohibited
+                    Support for a single or bulk (multiple) upload. <br/> Strictly prohibited
                     from uploading company data or other banned files.
                   </p>
                 </Upload>

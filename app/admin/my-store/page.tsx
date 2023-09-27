@@ -6,7 +6,6 @@ import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import Loader from "@/components/dashboard/common/Loader";
 import Link from "next/link";
-import { set } from "zod";
 
 type DigitProduct = {
   id: number;
