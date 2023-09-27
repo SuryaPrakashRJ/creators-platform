@@ -76,9 +76,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               height={36}
               alt="logo"
             />
-            CreatorCard
+            <div className="flex flex-col -space-y-3 space-x-0.5">
+            <span className="justify-center text-[20px]">CreatorCard</span>
+            <span className="text-white text-[12px]">Beta</span>
+            </div>
           </a>
-        
 
         <button
           ref={trigger}

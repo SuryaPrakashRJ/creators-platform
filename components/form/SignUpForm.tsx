@@ -111,8 +111,9 @@ export default function SignUpForm() {
         <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0  border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <a href='/' className="flex items-center text-center w-full">
-            <span className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-              CreatorCard
+          <span className="text-xl font-bold  tracking-tight text-gray-900 md:text-2xl flex flex-col text-left -space-y-3 space-x-0.5">
+            <span className="justify-center text-[24px]">CreatorCard</span>
+            <span className=  " text-[12px]">Beta</span>
             </span>
           </a>
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
@@ -133,7 +134,7 @@ export default function SignUpForm() {
                   className={`bg-gray-50 border ${
                     formErrors.name ? "border-red-500" : "border-gray-300"
                   } text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-                  placeholder="therahulm"
+                  placeholder="your username"
                   onChange={(e: any) => setUsername(e.target.value)}
                   required
                 />
@@ -141,8 +142,7 @@ export default function SignUpForm() {
                   <p className="text-red-500">{formErrors.username[0]}</p>
                 )}
                 <p className="text-[14px] text-center">
-                  Your chosen username will become your unique link:
-                  creatorscard.io/yourusername, you can also modify it later.
+                  This will be used as creatorcard.io/username, you can also modify it later.
                 </p>
               </div>
               <div>
@@ -159,7 +159,7 @@ export default function SignUpForm() {
                   className={`bg-gray-50 border ${
                     formErrors.name ? "border-red-500" : "border-gray-300"
                   } text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-                  placeholder="Rahul M"
+                  placeholder="Name"
                   onChange={(e: any) => setName(e.target.value)}
                   required
                 />
@@ -181,7 +181,7 @@ export default function SignUpForm() {
                   className={`bg-gray-50 border ${
                     formErrors.email ? "border-red-500" : "border-gray-300"
                   } text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-                  placeholder="name@company.com"
+                  placeholder="name@email.com"
                   onChange={(e: any) => setEmail(e.target.value)}
                   required
                 />

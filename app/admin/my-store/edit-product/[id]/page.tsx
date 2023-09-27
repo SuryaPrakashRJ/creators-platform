@@ -138,12 +138,11 @@ export default function Page({ params }: Props) {
   return (
     <div>
       <div>
-        
         <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
           <div className="2xl:container">
             <div className="w-[90%] mx-auto grid grid-cols-1">
               <form className="space-y-6">
-                <div className="flex sm:flex-row flex-col">
+                <div className="flex sm:flex-row flex-col space-y-3 sm:space-y-0 ">
                   <div className="px-3">
                     <label
                       htmlFor="message"
@@ -155,8 +154,7 @@ export default function Page({ params }: Props) {
                       <Image
                         src={
                           data.product.productImgLink ||
-                          productImgUrl ||
-                          "/default-book.jpg"
+                          productImgUrl
                         }
                         alt="profile pic"
                         className="h-52 w-36 rounded-xl object-center object-cover"
@@ -168,7 +166,7 @@ export default function Page({ params }: Props) {
 
                   <div className="">
                     <UploadButton
-                      className="bg-green-600 py-3 px-3  text-[#ffffff] rounded-lg"
+                      className="bg-green-600 py-1 sm:py-3 sm:px-3  text-[#ffffff] rounded-lg"
                       endpoint="imageUploader"
                       onClientUploadComplete={(res) => {
                         // Do something with the response
@@ -247,12 +245,11 @@ export default function Page({ params }: Props) {
                     {...props}
                     className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-[#0f280a] bg-[#F1F5F9]"
                   >
-                    <p className="ant-upload-text text-center">
+                    <p className="ant-upload-text text-center font-medium">
                       Click or drag file to this area to upload
                     </p>
-                    <p className="ant-upload-hint text-center">
-                      Support for a single or bulk upload. Strictly prohibited
-                      from uploading company data or other banned files.
+                    <p className="ant-upload-hint text-center font-medium">
+                    Supports single or bulk uploads of digital assets (ZIP, RAR, PDF).
                     </p>
                   </Upload>
                 </div>

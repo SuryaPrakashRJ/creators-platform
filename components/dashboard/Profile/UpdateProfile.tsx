@@ -19,67 +19,61 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
+import { Breadcrumb } from "antd";
 
 export default function UpdateProfile() {
-  
   const { user } = useAuth();
   console.log(user);
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [picUrl, setPicUrl] = useState("");
-  const [bio, setBio] = useState("");
+  const [name, setName] = useState(user?.data.name);
+  const [username, setUsername] = useState(user?.data.username);
+  const [picUrl, setPicUrl] = useState(user?.data.image);
+  const [bio, setBio] = useState(user?.data.bio);
   const [loading, setLoading] = useState(false);
-  const [socialMediaLinks, setSocialMediaLinks] = useState([{ url: "", platform: "", open: false, value: "" }]);
+  const [socialMediaLinks, setSocialMediaLinks] = useState([
+    { url: "", platform: "", open: false, value: "" },
+  ]);
 
   useEffect(() => {
-    if (user && typeof user.data.socialMediaLinks === 'string') {
+    if (user && typeof user.data.socialMediaLinks === "string") {
       setSocialMediaLinks(JSON.parse(user.data.socialMediaLinks));
-  }
-}, [user]);
+    }
+  }, [user]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    if (name === "") {
-      setName(user.data.name);
-    }
-    if (username === "") {
-      setUsername(user.data.username);
-    }
-    if (picUrl === "") {
-      setPicUrl(user.data.image);
-    }
-    if (bio === "") {
-      setBio(user.data.bio);
-    }
-    const hasEmptyField = socialMediaLinks.some(link => 
-      link.url==='' || link.platform==='' || link.value===''
+    const hasEmptyField = socialMediaLinks.some(
+      (link) => link.url === "" || link.platform === "" || link.value === ""
     );
-  
+
     if (hasEmptyField) {
       console.log("has empty field");
       toast({
         title: "Incomplete Links",
-        description: "Please fill in all fields for your social media links before submitting.",
+        description:
+          "Please fill in all fields for your social media links before submitting.",
       });
       setLoading(false);
       return; // Exit early from the function
     }
-    const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const validusername = username.toLowerCase();
+    const res = await fetch(
+      `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({
-        name,
-        username,
-        image:picUrl,
-        bio,
-        socialMediaLinks:JSON.stringify(socialMediaLinks),
-      }),
-    });
+        body: JSON.stringify({
+          name: name,
+          username: validusername,
+          image: picUrl,
+          bio: bio,
+          socialMediaLinks: JSON.stringify(socialMediaLinks),
+        }),
+      }
+    );
     const data = await res.json();
     console.log(data);
     setLoading(false);
@@ -88,6 +82,7 @@ export default function UpdateProfile() {
         title: "Profile Updated",
         description: "Your profile has been updated",
       });
+      window.location.reload();
     } else {
       toast({
         title: "Error",
@@ -95,9 +90,7 @@ export default function UpdateProfile() {
       });
     }
   };
-  console.log(user)
-  // const socialLinks = user.data.socialMediaLinks;
-  
+  console.log(user);
 
   const frameworks = [
     {
@@ -121,24 +114,24 @@ export default function UpdateProfile() {
       label: "LinkedIn",
     },
     {
-      value:"github",
-      label:"Github"
+      value: "github",
+      label: "Github",
     },
     {
-      value:"dribble",
-      label:"Dribble"
+      value: "dribble",
+      label: "Dribble",
     },
     {
-      value:"behance",
-      label:"Behance"
+      value: "behance",
+      label: "Behance",
     },
     {
-      value:"tiktok",
-      label:"Tiktok"
+      value: "tiktok",
+      label: "Tiktok",
     },
     {
-      value:"email",
-      label:"Email"
+      value: "email",
+      label: "Email",
     },
     {
       value: "website",
@@ -149,7 +142,10 @@ export default function UpdateProfile() {
     e.preventDefault();
     const lastLink = socialMediaLinks[socialMediaLinks.length - 1];
     if (lastLink.url !== "") {
-      setSocialMediaLinks([...socialMediaLinks, { platform: "", url: "", open: false, value: "" }]);
+      setSocialMediaLinks([
+        ...socialMediaLinks,
+        { platform: "", url: "", open: false, value: "" },
+      ]);
     } else {
       toast({
         title: "Add Link",
@@ -181,7 +177,6 @@ export default function UpdateProfile() {
     updatedLinks.splice(index, 1);
     setSocialMediaLinks(updatedLinks);
   };
-  
 
   const setPlatform = (value: any, index: number) => {
     const updatedLinks = [...socialMediaLinks];
@@ -192,7 +187,21 @@ export default function UpdateProfile() {
   console.log(socialMediaLinks);
 
   return (
-    <div>
+    <div className="space-y-3">
+      <Breadcrumb
+        className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold "
+        separator=">"
+        items={[
+          {
+            title: "Admin",
+            href: "/admin/dashboard",
+          },
+
+          {
+            title: "Profile Settings",
+          },
+        ]}
+      />
       <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl ">
         <div className="2xl:container">
           <div className="w-[90%] mx-auto grid grid-cols-1">
@@ -207,7 +216,7 @@ export default function UpdateProfile() {
                   </label>
                   <div className="flex flex-col  justify-center items-center text-center">
                     <Image
-                      src={picUrl || user?.data.image || "/images/user.png"}
+                      src={picUrl || user?.data.image}
                       alt="profile pic"
                       className="w-36 h-36 rounded-xl object-center object-cover"
                       height={144}
@@ -217,9 +226,8 @@ export default function UpdateProfile() {
                 </div>
 
                 <div className=" px-3  text-[#0f280a] rounded-lg">
-                
                   <UploadButton
-                  className="bg-green-600 py-3 px-3  text-[#ffffff] rounded-lg"
+                    className="bg-green-600 py-3 px-3  text-[#ffffff] rounded-lg"
                     endpoint="imageUploader"
                     onClientUploadComplete={(res) => {
                       // Do something with the response
@@ -235,7 +243,6 @@ export default function UpdateProfile() {
               </div>
 
               <div className="flex sm:flex-row flex-col justify-between sm:space-x-5 space-y-5 sm:space-y-0">
-              
                 <div className="w-full ">
                   <label
                     htmlFor="message"
@@ -282,7 +289,7 @@ export default function UpdateProfile() {
                 ></textarea>
               </div>
 
-              <div >
+              <div>
                 <label
                   htmlFor="message"
                   className="block mb-2 text-sm font-medium  text-[#0f280a]"
@@ -290,7 +297,7 @@ export default function UpdateProfile() {
                   Add Social Links
                 </label>
                 <div>
-                {socialMediaLinks.map((link:any, index:number) => (
+                  {socialMediaLinks.map((link: any, index: number) => (
                     <div
                       key={index}
                       className="grid grid-flow-col  lg:grid-cols-10 xl:grid-cols-12 mt-2 lg:space-x-10 xl:space-x-5"
@@ -351,28 +358,27 @@ export default function UpdateProfile() {
                         </Popover>
                       </div>
                       <div className="col-span-11 flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0">
-                      <input
-                    type="url"
-                    placeholder="Your Social Media link"
-                    className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:text-white"
-                    value={link.url}
+                        <input
+                          type="url"
+                          placeholder="Your Social Media link"
+                          className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:text-white"
+                          value={link.url}
                           onChange={(e) => handleUrlChange(e, index)}
-                  ></input>
-                       
-                         <button
-                  type="submit"
-                  className="  border-[#c52232] border  text-[#c52232] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-[#c52232] hover:text-[#ffffff] font-medium "
-                  onClick={()=>handleDelete(index)}
-                >
-                  Delete
-                </button>
+                        ></input>
+
+                        <button
+                          type="submit"
+                          className="  border-[#c52232] border  text-[#c52232] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-[#c52232] hover:text-[#ffffff] font-medium "
+                          onClick={() => handleDelete(index)}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
-                    
                   ))}
-                </div> 
+                </div>
 
-                 <div className="mt-4 flex justify-center">
+                <div className="mt-4 flex justify-center">
                   <Button
                     variant="ghost"
                     className="bg-[#505050]   text-[#ffffff] rounded-lg text-sm text-center hover:bg-[#303030] hover:text-[#ffffff] font-medium  w-full sm:w-96 md:w-60 "
@@ -388,7 +394,6 @@ export default function UpdateProfile() {
                   className=" bg-[#22C55E]   text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600 font-medium  "
                   onClick={handleSubmit}
                 >
-                  
                   {loading ? "Submitting..." : "Submit"}
                 </button>
               </div>

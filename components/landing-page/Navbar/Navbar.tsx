@@ -27,6 +27,7 @@ const Navbar = () => {
             />
             CreatorCard
           </a>
+          
           <div className="md:hidden">
         <button
           type="button"

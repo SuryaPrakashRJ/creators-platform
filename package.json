@@ -11,6 +11,8 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@next-auth/prisma-adapter": "^1.0.7",
+    "@nextui-org/button": "^2.0.21",
+    "@nextui-org/dropdown": "^2.1.10",
     "@prisma/client": "^5.2.0",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",

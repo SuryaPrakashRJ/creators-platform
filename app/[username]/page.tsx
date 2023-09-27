@@ -1,4 +1,5 @@
-import prisma from "@/lib/db";
+'use client'
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { nunito_sans, bebas_neue } from "@/lib/fonts";
 import Link from "next/link";
@@ -19,6 +20,7 @@ interface Props {
     username: string;
   };
 }
+import Loader from "@/components/dashboard/common/Loader";
 const Products = [
   {
     heading: "Psychology of Money",
@@ -60,19 +62,28 @@ const Products = [
   },
 ];
 
-export default async function Page({ params }: Props) {
+export default function Page({ params }: Props) {
   const username = params.username;
+  const [loading, setLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<any>(null);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/username/${username}`);
+      const data = await res.json();
+      console.log(data);
+      setUser(data.data);
+      setLoading(false);
+    }
+    fetchData();
+   }, [username]);
 
-  const user = await prisma.user.findUnique({
-    where: {
-      username: username,
-    },
-  });
-  const data = user as any;
-  if (data.image === null || data.image === undefined) {
-    data.image = "/default-pfp.png";
+   if (loading) {
+    return <Loader />;
   }
-  const socialLinks = JSON.parse(data.socialMediaLinks);
+  let socialLinks = null;
+  if(user.socialMediaLinks){
+   socialLinks = JSON.parse(user.socialMediaLinks);
+  }
 
   return (
     // <div className=" bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 text-black ">
@@ -82,7 +93,7 @@ export default async function Page({ params }: Props) {
           <div className="flex flex-col items-center md:justify-center h-screen  md:sticky md:top-0 md:w-1/2 space-y-7">
             <div className="mt-3">
               <Image
-                src={data.image}
+                src={user.image}
                 alt="profile pic"
                 className="w-32 md:w-60 md:h-60 h-32 rounded-3xl object-center object-cover"
                 height={124}
@@ -91,10 +102,11 @@ export default async function Page({ params }: Props) {
               <p
                 className={`text-[#525252] font-light md:text-[17px] ${nunito_sans.className}`}
               >
-                @{data.username}
+                @{user.username}
               </p>
             </div>
-            <div className="flex flex-row space-x-3">
+            {(socialLinks) &&(
+              <div className="flex flex-row space-x-3">
               {Array.isArray(socialLinks) &&
                 socialLinks.map((link: any, index: number) => (
                   <div key={index}>
@@ -241,16 +253,19 @@ export default async function Page({ params }: Props) {
                 ))}
             </div>
 
+            )
+            
+            }
             <div className="space-y-5">
               <p
                 className={`font-bold text-[26px] md:text-[38px] ${bebas_neue.className}`}
               >
-                {data.name}
+                {user.name}
               </p>
               <p
                 className={`text-[18px] text-[#3D3D3D] md:text-[20px] px-5 md:w-[500px] ${nunito_sans.className}`}
               >
-                {data.bio}
+                {user.bio}
               </p>
             </div>
           </div>
@@ -291,7 +306,7 @@ export default async function Page({ params }: Props) {
                         subheading: product.subheading,
                         description: product.description,
                         pricing: product.pricing,
-                      }, // the data
+                      }, // the user
                     }}
                   >
                     View
@@ -325,7 +340,7 @@ export default async function Page({ params }: Props) {
 
               //   href={{
               //     pathname: "/checkout",
-              //     query: {heading:product.heading,subheading:product.subheading,description:product.description,pricing:product.pricing}, // the data
+              //     query: {heading:product.heading,subheading:product.subheading,description:product.description,pricing:product.pricing}, // the user
               //   }}
               // >
 

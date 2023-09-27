@@ -24,7 +24,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 const page = () => {
-  const [picUrl, setPicUrl] = useState("");
+  const [picUrl, setPicUrl] = useState("https://res.cloudinary.com/dpscigyio/image/upload/f_auto,q_auto/h3f8ivmjtjlclrjzcs9i");
   const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(false);
   
@@ -183,7 +183,7 @@ const page = () => {
                   </label>
                   <div className="flex flex-col justify-center items-center text-center">
                     <Image
-                      src={picUrl || "/default-pfp.png"}
+                      src={picUrl}
                       alt="profile pic"
                       className="w-36 h-36 rounded-xl object-center object-cover"
                       height={144}
