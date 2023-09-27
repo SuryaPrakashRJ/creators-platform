@@ -71,22 +71,27 @@ export default function Page() {
 
   return (
     <div className="text-center flex flex-col items-center">
+      
       <div className="w-full">
+      <div className="text-center flex items-center text-xl font-medium">My store</div>
         <Card title="Products">
           {data && 
             data.DigitProducts.map((product: DigitProduct) => (
-              <div key={product.id}>
-                <Card
+              <div key={product.id} className="">
+                <Card 
                   style={{ marginTop: 8 }}
-                  type="inner"
-                  title={product.heading}
-                  extra={<div className="space-x-4">
-                    <Link href={`my-store/edit-product/${product.id}`} className="bg-green-400 px-4 py-2 rounded-lg">Edit</Link><button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-red-500 px-4 py-2 rounded-lg " >Delete</button>
-                  </div>}
+                  // type="inner"
+                  // title={product.heading}
+                  // extra={<div className="space-x-4">
+                  //   <Link href={`my-store/edit-product/${product.id}`} className="bg-green-400 px-4 py-2 rounded-lg  ">Edit</Link><button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-red-500 px-4 py-2 rounded-lg " >Delete</button>
+                  // </div>}
                 >
-                  <div className="flex items-start sm:gap-8">
+
+
+
+                  {/* <div className="flex items-start sm:gap-8">
                     <div
-                      className="hidden sm:h-52 sm:w-36 sm:grid  sm:shrink-0 sm:place-content-center sm:border sm:border-gray-200 sm:rounded-lg"
+                      className="hidden sm:h-52 sm:w-36 sm:grid  sm:shrink-0 sm:place-content-center sm:border sm:border-[#087789] sm:rounded-lg"
                       aria-hidden="true"
                     >
                       <Image
@@ -98,21 +103,21 @@ export default function Page() {
                     </div>
 
                     <div>
-                      <h3 className="mt-4 text-lg font-medium sm:text-xl">
+                      <h3 className="mt-4 text-xl text-start font-medium sm:text-xl">
                         {product.heading}
                       </h3>
 
-                      <p className="mt-1 text-sm text-gray-700">
+                      <p className="mt-1 text-lg text-start text-gray-700">
                         {product.subheading}
                       </p>
 
-                      <p className="mt-1 text-sm text-gray-700">
+                      <p className="mt-1 text-lg text-gray-700">
                         {product.description}
                       </p>
 
                       <div className="mt-4 sm:flex sm:items-center sm:gap-2">
-                        <div className="flex items-center gap-1 text-gray-500">
-                          <p className="text-xs font-medium">
+                        <div className="flex items-start gap-1 text-gray-500">
+                          <p className="text-lg font-medium">
                             Price: {product.pricing}
                           </p>
                         </div>
@@ -121,18 +126,46 @@ export default function Page() {
                           &middot;
                         </span>
 
-                        <p className="mt-2 text-xs font-medium text-gray-500 sm:mt-0">
-                          File Link:
-                          <a
-                            href={product.fileUrl}
-                            className="underline hover:text-gray-700"
-                          >
-                            {product.fileUrl}
-                          </a>
-                        </p>
+                        
                       </div>
                     </div>
-                  </div>
+                  </div> */}
+
+
+        <div className="md:flex items-start -mx-10">
+            <div className="w-full md:w-1/3 px-10  ">
+                <div className="relative">
+                    <img src={`${product.productImgLink}`} className="w-full relative z-10" alt=""/>
+                    <div className="border-4 border-yellow-200 absolute top-2 left-10 right-10 z-0"></div>
+                </div>
+            </div>
+            <div className="w-full md:w-1/2 px-10 ">
+                <div className="mb-10">
+                    <h1 className="font-bold text-start uppercase text-2xl mb-5">{`${product.heading}`}</h1>
+                    <h1 className="font-bold text-start text-xl">{`${product.subheading}`}</h1>
+                    <p className="text-sm text-start">{`${product.description}`} </p>
+                    <h1 className="font-bold text-start uppercase text-xl mt-2">{`${product.pricing}`}</h1>
+                </div>
+                <div className="flex flex-col item-start space-y-2 justify-start sm:flex-row sm:space-x-2 sm:space-y-0 sm:item-start sm:justify-start">
+                    <div className=" flex px-1">
+                    <Link href={`my-store/edit-product/${product.id}`} className="bg-white opacity-75 border border-green-600 hover:bg-green-600 text-green-600 hover:text-white rounded-lg px-10 py-2 font-semibold ">Edit</Link>
+                    </div>
+                    <div className="flex px-1 ">
+                        <button data-product-id={product.id} onClick={(e) =>handleProductDelete(e)} className="bg-white hover:bg-red-600 text-red-500 hover:text-white border border-red-600 rounded-lg font-semibold px-10 py-2" >Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+
+
+
+  
+
+
+
                 </Card>
               </div>
             ))}

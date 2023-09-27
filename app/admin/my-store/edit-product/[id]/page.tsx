@@ -8,7 +8,6 @@ import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
 import Loader from "@/components/dashboard/common/Loader";
 import Link from "next/link";
-import { Key } from "lucide-react";
 
 interface Props {
   params: {
@@ -139,6 +138,7 @@ export default function Page({ params }: Props) {
   return (
     <div>
       <div>
+        
         <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
           <div className="2xl:container">
             <div className="w-[90%] mx-auto grid grid-cols-1">
@@ -154,7 +154,7 @@ export default function Page({ params }: Props) {
                     <div className="flex flex-col justify-center items-center text-center">
                       <Image
                         src={
-                          data.productImgLink ||
+                          data.product.productImgLink ||
                           productImgUrl ||
                           "/default-book.jpg"
                         }

@@ -260,7 +260,7 @@ export default async function Page({ params }: Props) {
             {Products.map((product, index) => (
 
 
-              <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border-2 border border-[#d1d5db] hover:border-green-600">
+              <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
                 <div className='grid-cols-2'>
                 <div className="flex items-center  justify-center p-4">
                   <Image
