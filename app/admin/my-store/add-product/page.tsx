@@ -88,7 +88,7 @@ export default function AddProduct() {
       });
     }
   };
-  const handleButtonClick = (event) => {
+  const handleButtonClick = (event:any) => {
     event.preventDefault();
   };
 
