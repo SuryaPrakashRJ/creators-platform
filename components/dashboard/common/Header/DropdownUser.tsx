@@ -4,20 +4,30 @@ import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { signOut } from "next-auth/react";
 import Loader from "../Loader";
+import { set } from "zod";
 const DropdownUser = () => {
   const { user, values } = useAuth();
-  const userDetails = user?.data;
+  const [userDetails, setUserDetails] = useState<any>("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
   const handleLogOut = () => {
+    setLoading(true);
     signOut();
     values(null);
+    setLoading(false);
   };
+  useEffect(() => {
+    if (user?.data) {
+      setUserDetails(user?.data);
+      setLoading(false);
+    }
+  }, [user]);
 
+  
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -43,9 +53,11 @@ const DropdownUser = () => {
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+
   if (loading) {
     return <Loader />;
   }
+ 
   return (
     <div className="relative">
       <Link
