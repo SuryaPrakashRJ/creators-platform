@@ -56,7 +56,8 @@ export default function AddProduct() {
           description,
           pricing: Number(price),
           buttonTitle: buttonText,
-          downloadable: true,
+
+          
           fileUrl: JSON.stringify(fileUrl),
         }),
       }
@@ -97,7 +98,8 @@ export default function AddProduct() {
           setFileUrl(
             info.fileList.map((file) => ({
               url: file.response.message[0].Location,
-              key: file.response.message[0].Key
+              key: file.response.message[0].Key,
+              name: file.response.message[0].originalname,
             }))
           );
         }

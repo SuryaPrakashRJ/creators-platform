@@ -5,7 +5,8 @@ import { UploadButton } from "@/src/types/uploadthing";
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import type { UploadProps } from "antd";
-import { message, Upload } from "antd";
+import { Breadcrumb, message, Upload } from "antd";
+import { useRouter } from "next/navigation";
 import Loader from "@/components/dashboard/common/Loader";
 import Link from "next/link";
 
@@ -18,6 +19,15 @@ export default function Page({ params }: Props) {
   const { id } = params;
   const [data, setData] = useState<any>(null);
   const [urls, setUrls] = useState<any>();
+  const [title, setTitle] = useState('');
+  const [subTitle, setSubTitle] = useState('');
+  const [productImgUrl, setProductImgUrl] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [buttonText, setButtonText] = useState('');
+  const [fileUrl, setFileUrl] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [preLoading, setPreLoading] = useState(true);
   useEffect(() => {
     const fetchProduct = async () => {
       const res = await fetch(
@@ -30,45 +40,33 @@ export default function Page({ params }: Props) {
         }
       );
       const jsonData = await res.json();
-      console.log(jsonData);
       setData(jsonData.data);
-      setUrls(
-          jsonData.data?.attachment
-          );
+      setUrls(JSON.parse(jsonData.data?.attachment.attachments[0].fileUrl));
+      setTitle(jsonData.data.product.heading);
+      setSubTitle(jsonData.data.product.subheading);
+      setProductImgUrl(jsonData.data.product.productImgLink);
+      setDescription(jsonData.data.product.description);
+      setPrice(jsonData.data.product.pricing);
+      setButtonText(jsonData.data.product.buttonTitle);
+      setFileUrl(JSON.parse(jsonData.data?.attachment.attachments[0].fileUrl));
       setPreLoading(false);
     };
-    fetchProduct();
+    fetchProduct();   
   }, [id]);
+  console.log(data);
 
-  const [title, setTitle] = useState("");
-  const [subTitle, setSubTitle] = useState("");
-  const [productImgUrl, setProductImgUrl] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [buttonText, setButtonText] = useState("Buy Now");
-  const [fileUrl, setFileUrl] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [preLoading, setPreLoading] = useState(true);
 
+  const router = useRouter();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    if (!title || !subTitle || !productImgUrl || !description) {
-      toast({
-        title: "Error",
-        description: "Please fill all the fields",
-      });
-      setLoading(false);
-      return;
-    }
     const res = await fetch(
-      `https://creators-platform-backend-production.up.railway.app/api/v1/digital_download/add`,
+      `https://creators-platform-backend-production.up.railway.app/api/v1/digital_download/${data.product.id}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
           heading: title,
           subheading: subTitle,
@@ -76,15 +74,15 @@ export default function Page({ params }: Props) {
           description,
           pricing: Number(price),
           buttonTitle: buttonText,
-          downloadable: true,
-          fileUrl,
+          // downloadable: true,
+          fileUrl: JSON.stringify(fileUrl),
         }),
       }
     );
-    const data = await res.json();
-    console.log(data);
+    const post = await res.json();
+    console.log(post);
     setLoading(false);
-    if (data.message === "Post Data Successfully") {
+    if (post.message === "Post Data Successfully") {
       toast({
         title: "Product Added",
         description: "Product has been added successfully",
@@ -110,7 +108,15 @@ export default function Page({ params }: Props) {
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
-        setFileUrl(info.file.response.message[0].Location);
+        setFileUrl(prevFileUrls => [
+          ...prevFileUrls,
+          ...info.fileList.map((file) => ({
+              url: file.response.message[0].Location,
+              key: file.response.message[0].Key,
+              name: file.response.message[0].originalname,
+          }))
+      ]);
+      
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -120,24 +126,58 @@ export default function Page({ params }: Props) {
     },
   };
 
-  const handleDelete = (e:any) => {
-    e.preventDefault()
-    const urlId = e.currentTarget.getAttribute('data-product-id')
-    console.log(urlId);
-  }
-
-  console.log(urls)
-
-  if (preLoading)
-    return (
-      <div>
-        <Loader />
-      </div>
+  const handleDelete = async (e: any) => {
+    e.preventDefault();
+    const urlKey = e.currentTarget.getAttribute("data-product-key");
+    const res = await fetch(
+      `https://creators-platform-backend-production.up.railway.app/api/v1/file/delete`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          filekey: urlKey,
+        },
+      }
     );
+    const data = await res.json();
+    console.log(data);
+    if (data.message === "Object Deleted Successfully") {
+      toast({
+        title: "File Deleted",
+        description: "File has been deleted successfully",
+      });
+      router.refresh();
+    } else {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+      });
+    }
+  };
 
+  console.log(urls);
+ 
+if(preLoading) return <Loader />
   return (
     <div>
-      <div>
+      <div className="space-y-3">
+        <Breadcrumb
+          className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold "
+          separator=">"
+          items={[
+            {
+              title: "Admin",
+              href: "/admin/dashboard",
+            },
+            {
+              title: "My Store",
+              href: "/admin/my-store",
+            },
+            {
+              title: "Edit Product",
+            },
+          ]}
+        />
         <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
           <div className="2xl:container">
             <div className="w-[90%] mx-auto grid grid-cols-1">
@@ -152,10 +192,7 @@ export default function Page({ params }: Props) {
                     </label>
                     <div className="flex flex-col justify-center items-center text-center">
                       <Image
-                        src={
-                          data.product.productImgLink ||
-                          productImgUrl
-                        }
+                        src={ productImgUrl}
                         alt="profile pic"
                         className="h-52 w-36 rounded-xl object-center object-cover"
                         height={144}
@@ -164,10 +201,22 @@ export default function Page({ params }: Props) {
                     </div>
                   </div>
 
-                  <div className="">
+                  <div className="flex items-end">
                     <UploadButton
-                      className="bg-green-600 py-1 sm:py-3 sm:px-3  text-[#ffffff] rounded-lg"
+                      className="bg-green-600 py-1 sm:py-3 sm:px-3  text-black rounded-lg"
                       endpoint="imageUploader"
+                      appearance={{
+                        button: {
+                          background: "#22C55E",
+                          padding: "2rem",
+                          color: "#000",
+                          width: "100%",
+                        },
+                        container: {
+                          display: "flex",
+                          background: "transparent",
+                        },
+                      }}
                       onClientUploadComplete={(res) => {
                         // Do something with the response
                         const url = res?.[0].url || "";
@@ -193,7 +242,7 @@ export default function Page({ params }: Props) {
                       id="message"
                       className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                       placeholder={
-                        data.product.heading || "Enter the product title"
+                        title || "Enter the product title"
                       }
                       onChange={(e) => setTitle(e.target.value)}
                     ></input>
@@ -209,7 +258,7 @@ export default function Page({ params }: Props) {
                       id="message"
                       className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                       placeholder={
-                        data.product.subheading || "Enter the product sub-title"
+                        subTitle || "Enter the product sub-title"
                       }
                       onChange={(e) => setSubTitle(e.target.value)}
                     ></input>
@@ -227,7 +276,7 @@ export default function Page({ params }: Props) {
                     id="message"
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                     placeholder={
-                      data.product.description ||
+                      description ||
                       "Enter the product description"
                     }
                     rows={6}
@@ -249,7 +298,8 @@ export default function Page({ params }: Props) {
                       Click or drag file to this area to upload
                     </p>
                     <p className="ant-upload-hint text-center font-medium">
-                    Supports single or bulk uploads of digital assets (ZIP, RAR, PDF).
+                      Supports single or bulk uploads of digital assets (ZIP,
+                      RAR, PDF).
                     </p>
                   </Upload>
                 </div>
@@ -261,16 +311,20 @@ export default function Page({ params }: Props) {
                   >
                     Uploaded URLS
                   </label>
-                  {/* {urls.map((url: any, index:number) => (
-                    <div className="flex space-x-5">
-                      <Link href={url}>
-                        <div className="mt-3">
-                          <div className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5">
-                            {url}
+                  {urls.map((url: any) => (
+                    <div className="grid grid-flow-col grid-cols-12 space-x-5 w-full justify-between">
+                      <Link href={url.url} className=" col-span-11">
+                        <div className="mt-3 w-full">
+                          <div className="bg-[#f1f5f9] w-full text-gray-900 text-sm rounded-lg  focus:border-green-500 block  p-2.5">
+                            {url.name}
                           </div>
                         </div>
                       </Link>
-                      <button data-product-id={index+1} onClick={(e)=>handleDelete(e)}>
+                      <button
+                        data-product-key={url.key}
+                        onClick={(e) => handleDelete(e)}
+                        className="col-span-1 items-center flex"
+                      >
                         <svg
                           fill="#000000"
                           version="1.1"
@@ -311,7 +365,7 @@ export default function Page({ params }: Props) {
                         </svg>
                       </button>
                     </div>
-                  ))} */}
+                  ))}
                 </div>
 
                 <div className="w-full">
@@ -341,7 +395,8 @@ export default function Page({ params }: Props) {
                     id="number"
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
                     placeholder={
-                      data.buttonTitle || "Enter the checkout button text"
+                      buttonText ||
+                      "Enter the checkout button text"
                     }
                     onChange={(e) => setButtonText(e.target.value)}
                   ></input>
@@ -351,7 +406,7 @@ export default function Page({ params }: Props) {
                   <button
                     type="submit"
                     className=" bg-[#22C55E]   text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600 font-medium  "
-                    onClick={handleSubmit}
+                    onClick={(e)=>handleSubmit(e)}
                   >
                     {loading ? "Updating..." : "Update"}
                   </button>
