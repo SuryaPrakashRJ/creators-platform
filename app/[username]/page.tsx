@@ -21,7 +21,6 @@ interface Props {
   };
 }
 import Loader from "@/components/dashboard/common/Loader";
-import { set } from "zod";
 
 export default function Page({ params }: Props) {
   const username = params.username;

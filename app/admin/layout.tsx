@@ -8,6 +8,7 @@ import  { useAuth } from "@/hooks/useAuth";
 import Loader from "@/components/dashboard/common/Loader";
 import Sidebar from "@/components/dashboard/common/Sidebar";
 import Header from "@/components/dashboard/common/Header";
+import { useRouter } from "next/navigation";
 
 export default function RootLayout({
   children,
@@ -18,7 +19,7 @@ export default function RootLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const { data: session } = useSession();
-
+const router = useRouter();
  useEffect(() => {
   async function fetchData() {
     const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/${session?.user.id}`,
@@ -28,10 +29,15 @@ export default function RootLayout({
         "Content-Type": "application/json",
       },
     }
-
     );
+
     const data = await res.json();
+    if(data.data.emailVerified === false){
+      router.push("/verify-email");
+    }
+    else{
     values(data)
+    }
   }
   fetchData();
   setTimeout(() => {

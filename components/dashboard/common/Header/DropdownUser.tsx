@@ -4,13 +4,13 @@ import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { signOut } from "next-auth/react";
 import Loader from "../Loader";
-import { set } from "zod";
+import { useRouter } from "next/navigation";
 const DropdownUser = () => {
   const { user, values } = useAuth();
   const [userDetails, setUserDetails] = useState<any>("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
-
+const router = useRouter();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
