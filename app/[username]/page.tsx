@@ -21,6 +21,7 @@ interface Props {
   };
 }
 import Loader from "@/components/dashboard/common/Loader";
+import { set } from "zod";
 const Products = [
   {
     heading: "Psychology of Money",
@@ -64,22 +65,46 @@ const Products = [
 
 export default function Page({ params }: Props) {
   const username = params.username;
-  const [loading, setLoading] = useState<boolean>(true);
+  const [userLoading, setUserLoading] = useState<boolean>(true);
+  const [productsLoading, setProductsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
+  const [userProducts, setUserProducts] = useState<any[]>([]);
+
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/username/${username}`);
-      const data = await res.json();
-      console.log(data);
-      setUser(data.data);
-      setLoading(false);
-    }
-    fetchData();
-   }, [username]);
+        try {
+            // Fetch user details
+            let res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/username/${username}`);
+            if (!res.ok) throw new Error('Failed to fetch user details');
+            
+            const userData = await res.json();
+            setUser(userData.data);
+            setUserLoading(false);
 
-   if (loading) {
+            // Using the user ID to fetch products
+            res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/${userData.data.id}/products`);
+            if (!res.ok) throw new Error('Failed to fetch products');
+
+            const productsData = await res.json();
+            setUserProducts(productsData.data.DigitProducts);
+            setProductsLoading(false);
+            
+        } catch (err:any) {
+            setError(err.message);
+            setUserLoading(false);
+            setProductsLoading(false);
+        }
+    }
+
+    fetchData();
+}, [username]);
+console.log(user)
+   
+   if (userLoading || productsLoading) {
     return <Loader />;
   }
+  if (error) return <div>Error: {error}</div>;
   let socialLinks = null;
   if(user.socialMediaLinks){
    socialLinks = JSON.parse(user.socialMediaLinks);
@@ -272,7 +297,7 @@ export default function Page({ params }: Props) {
           
           <div className="grid sm:grid-cols-2 items-center justify-center sm:justify-normal  space-y-6 overflow-y-auto md:max-h-screen md:w-1/2 md:mt-5">
           <h2 className="text-2xl font-bold">Products</h2>
-            {Products.map((product, index) => (
+          {userProducts && userProducts.map((product:any, index:number) => (
 
 
               <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">

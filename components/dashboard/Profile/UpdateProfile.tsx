@@ -49,7 +49,7 @@ export default function UpdateProfile() {
     if (hasEmptyField) {
       console.log("has empty field");
       toast({
-        title: "Incomplete Links",
+        title:"Incomplete Links",
         description:
           "Please fill in all fields for your social media links before submitting.",
       });
@@ -225,10 +225,21 @@ export default function UpdateProfile() {
                   </div>
                 </div>
 
-                <div className=" px-3  text-[#0f280a] rounded-lg">
+                <div className=" px-3  text-[#0f280a] flex items-end  rounded-lg">
                   <UploadButton
-                    className="bg-green-600 py-3 px-3  text-[#ffffff] rounded-lg"
+                    className="bg-green-600 py-3 px-3  text-black rounded-lg"
                     endpoint="imageUploader"
+                    appearance={{
+                      button: {
+                        background: "#22C55E",
+                        padding: "2rem",
+                        color: "#000",
+                        width: "100%",
+                      },
+                      container: {
+                        display: "flex",
+                        background: "transparent",
+                      }}}
                     onClientUploadComplete={(res) => {
                       // Do something with the response
                       const url = res?.[0].url || "";

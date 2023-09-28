@@ -55,8 +55,6 @@ export default function Page({ params }: Props) {
   }, [id]);
   console.log(data);
 
-
-  const router = useRouter();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -82,7 +80,7 @@ export default function Page({ params }: Props) {
     const post = await res.json();
     console.log(post);
     setLoading(false);
-    if (post.message === "Post Data Successfully") {
+    if (post.message === "Product updated successfully") {
       toast({
         title: "Product Added",
         description: "Product has been added successfully",
@@ -141,12 +139,11 @@ export default function Page({ params }: Props) {
     );
     const data = await res.json();
     console.log(data);
-    if (data.message === "Object Deleted Successfully") {
+    if (data.message === "File deleted successfully") {
       toast({
         title: "File Deleted",
         description: "File has been deleted successfully",
       });
-      router.refresh();
     } else {
       toast({
         title: "Error",

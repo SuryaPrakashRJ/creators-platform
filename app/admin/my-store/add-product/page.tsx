@@ -56,8 +56,6 @@ export default function AddProduct() {
           description,
           pricing: Number(price),
           buttonTitle: buttonText,
-
-          
           fileUrl: JSON.stringify(fileUrl),
         }),
       }
@@ -78,9 +76,6 @@ export default function AddProduct() {
       });
     }
   };
-  // const socialLinks = user.data.socialMediaLinks;
-
-  const { Dragger } = Upload;
 
   const props: UploadProps = {
     name: "file",
@@ -97,8 +92,8 @@ export default function AddProduct() {
         if (info.fileList.length > 0) {
           setFileUrl(
             info.fileList.map((file) => ({
-              url: file.response.message[0].Location,
-              key: file.response.message[0].Key,
+              url: file.response.message[0].url,
+              key: file.response.message[0].key,
               name: file.response.message[0].originalname,
             }))
           );

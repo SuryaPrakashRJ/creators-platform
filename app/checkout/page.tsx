@@ -41,7 +41,9 @@ export default function page(
 
 
         <div className="flex py-6">
-          <span className="title-font font-medium text-2xl text-gray-900">${searchParams.pricing}</span>
+          <span className="title-font font-medium text-2xl text-gray-900">{
+            (searchParams.pricing === "0") ? "Free" : `Price: ${searchParams.pricing}`
+          }</span>
           <button className="flex ml-auto text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded">{`Get Now`}</button>
             
         </div>

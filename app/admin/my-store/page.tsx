@@ -141,24 +141,25 @@ export default function Page() {
                   </div> */}
 
                   <div className="md:flex items-start -mx-10">
-                    <div className="w-full md:w-1/3 px-10  ">
+                    <div className="w-full md:w-1/6 px-10  ">
                       <div className="relative">
                         <img
                           src={`${product.productImgLink}`}
                           className="w-full relative z-10 rounded-md shadow-2"
                           alt=""
                         />
-                        <div className="border-4 border-yellow-200 absolute top-2 left-10 right-10 z-0"></div>
                       </div>
                     </div>
-                    <div className="w-full md:w-1/2 px-10 ">
+                    <div className="w-full md:w-1/3 px-10 ">
                       <div className="mb-10">
                         <h1 className="font-bold text-start uppercase text-2xl mb-5">{`${product.heading}`}</h1>
                         <h1 className="font-bold text-start text-xl">{`${product.subheading}`}</h1>
                         <p className="text-sm text-start">
-                          {`${product.description}`}{" "}
+                          {`${product.description}`}
                         </p>
-                        <h1 className="font-bold text-start uppercase text-xl mt-2">{`${product.pricing}`}</h1>
+                        <h1 className="font-bold text-start  text-xl mt-2">{
+                        (product.pricing === 0) ? "Free" : `Price: ${product.pricing}`
+                        }</h1>
                       </div>
                       <div className="flex flex-col item-start space-y-2 justify-start sm:flex-row sm:space-x-2 sm:space-y-0 sm:item-start sm:justify-start">
                         <div className=" flex px-1">
