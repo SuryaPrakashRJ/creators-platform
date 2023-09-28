@@ -26,6 +26,7 @@ export default function Page({ params }: Props) {
   const [price, setPrice] = useState('');
   const [buttonText, setButtonText] = useState('');
   const [fileUrl, setFileUrl] = useState<any[]>([]);
+  const [attachmentId, setAttachmentId] = useState('');
   const [loading, setLoading] = useState(false);
   const [preLoading, setPreLoading] = useState(true);
   useEffect(() => {
@@ -49,6 +50,7 @@ export default function Page({ params }: Props) {
       setPrice(jsonData.data.product.pricing);
       setButtonText(jsonData.data.product.buttonTitle);
       setFileUrl(JSON.parse(jsonData.data?.attachment.attachments[0].fileUrl));
+      setAttachmentId(jsonData.data?.attachment.attachments[0].id);
       setPreLoading(false);
     };
     fetchProduct();   
@@ -134,6 +136,7 @@ export default function Page({ params }: Props) {
         headers: {
           "Content-Type": "application/json",
           filekey: urlKey,
+          id:attachmentId,
         },
       }
     );
@@ -152,7 +155,7 @@ export default function Page({ params }: Props) {
     }
   };
 
-  console.log(urls);
+  console.log(attachmentId);
  
 if(preLoading) return <Loader />
   return (

@@ -21,7 +21,6 @@ interface Props {
   };
 }
 import Loader from "@/components/dashboard/common/Loader";
-import { set } from "zod";
 const Products = [
   {
     heading: "Psychology of Money",

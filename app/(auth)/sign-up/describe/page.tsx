@@ -60,10 +60,10 @@ const page = () => {
         localStorage.removeItem("userId");
         toast({
           title: "Account Created",
-          description: "Check your email to verify your account",
+          description: "Your account has been created successfully",
         })
         setTimeout(() => {
-          router.push("/sign-in");
+          router.push("/verify-email");
         }, 3000);
       }
       if (data.message === "Error") {
