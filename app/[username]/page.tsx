@@ -21,46 +21,6 @@ interface Props {
   };
 }
 import Loader from "@/components/dashboard/common/Loader";
-const Products = [
-  {
-    heading: "Psychology of Money",
-    subheading:
-      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
-    description:
-      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
-    pricing: "45",
-  },
-  {
-    heading: "The Subtle Art of Not Giving a F*ck",
-    subheading:
-      "A book on changing your mindset and how you view the world around you.",
-    description:
-      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
-    pricing: "45",
-  },
-  {
-    heading: "The 4-Hour Workweek",
-    subheading: "A book on how to work less and live more.",
-    description:
-      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
-    pricing: "45",
-  },
-  {
-    heading: "Atomic Habits",
-    subheading: "A book on how to build good habits and break bad ones.",
-    description:
-      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
-    pricing: "45",
-  },
-  {
-    heading: "The Alchemist",
-    subheading:
-      "A book on how to find your purpose in life and live it to the fullest.",
-    description:
-      "A book on understanding the psychology of money and how our views towards it can affect our financial lives.",
-    pricing: "45",
-  },
-];
 
 export default function Page({ params }: Props) {
   const username = params.username;

@@ -15,20 +15,32 @@ import {
   DropdownItem,
 } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
+import Link from "next/link";
+
 export default function AddProduct() {
-  const [title, setTitle] = useState("");
-  const [subTitle, setSubTitle] = useState("");
+  const [title, setTitle] = useState("Get My [Template/eBook/Course] Now!");
+  const [subTitle, setSubTitle] = useState("Short Description");
   const [productImgUrl, setProductImgUrl] = useState(
     "https://res.cloudinary.com/dpscigyio/image/upload/f_auto,q_auto/bwz0zfstfaxgjwslcmho"
   );
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState(
+    "This [Template/eBook/Course] will teach you everything you need to achieve your goals."
+  );
+  const [price, setPrice] = useState(0);
   const [buttonText, setButtonText] = useState("Buy Now");
   const [fileUrl, setFileUrl] = useState<any>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedKeys, setSelectedKeys] = useState<any>('');
+  const [selectedKeys, setSelectedKeys] = useState<any>("");
   const { user } = useAuth();
   const router = useRouter();
+
+  const [isInputEmpty, setIsInputEmpty] = useState(false);
+
+  const handleBlur = () => {
+    // Check if the input is empty when it loses focus
+    setIsInputEmpty(title.trim() === "");
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -75,6 +87,9 @@ export default function AddProduct() {
         description: "Something went wrong",
       });
     }
+  };
+  const handleButtonClick = (event) => {
+    event.preventDefault();
   };
 
   const props: UploadProps = {
@@ -138,9 +153,8 @@ export default function AddProduct() {
           <DropdownTrigger>
             <Button
               variant="bordered"
-              className="capitalize px-5 py-3 rounded-lg shadow-lg w-full flex text-left bg-[#ffffff] text-lg font-semibold "
-            >
-              Select Product  {selectedValue}
+              className="capitalize px-5 py-3 rounded-lg shadow-lg w-full flex text-left bg-[#ffffff] text-lg font-semibold ">
+              Select Product {selectedValue}
             </Button>
           </DropdownTrigger>
           <DropdownMenu
@@ -158,8 +172,7 @@ export default function AddProduct() {
               "Book-a-Time-on-Your-Calendar",
               "External-Link",
               "Creator Card Affliate Program",
-            ]}
-          >
+            ]}>
             <DropdownItem key="> Digital Product">Digital Product</DropdownItem>
             <DropdownItem key="External-Link" className="text-[#808080]">
               External Link (Affliate Links)
@@ -169,8 +182,7 @@ export default function AddProduct() {
             </DropdownItem>
             <DropdownItem
               key="Book-a-Time-on-Your-Calendar"
-              className="text-[#808080]"
-            >
+              className="text-[#808080]">
               Book a Time on Your Calendar
             </DropdownItem>
             <DropdownItem key="eCourse" className="text-[#808080]">
@@ -181,192 +193,231 @@ export default function AddProduct() {
             </DropdownItem>
             <DropdownItem
               key="Creator Card Affliate Program"
-              className="text-[#808080]"
-            >
+              className="text-[#808080]">
               Creator Card Affliate Program
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </div>
 
-{
-  (selectedValue === "> Digital Product") && (
-    
-    <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
-    <div className="2xl:container">
-      <div className="w-[90%] mx-auto grid grid-cols-1">
-        <form className="space-y-6">
-          <div className="flex sm:flex-row flex-col space-y-3 sm:space-y-0">
-            <div className="px-3">
-              <label
-                htmlFor="message"
-                className="block mb-2 text-sm font-medium text-[#0f280a]"
-              >
-                Product Image
-              </label>
-              <div className="flex flex-col justify-center items-center text-center">
-                <Image
-                  src={productImgUrl}
-                  alt="profile pic"
-                  className="h-52 w-44 rounded-xl  object-cover "
-                  height={164}
-                  width={164}
-                />
+      {selectedValue === "> Digital Product" && (
+        <>
+          <div className="2xl:container mx-auto">
+            <div className="w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
+                <div className="2xl:container">
+                  <div className="w-[90%] mx-auto grid grid-cols-1">
+                    <form className="space-y-6">
+                      <div className="flex sm:flex-row flex-col space-y-3 sm:space-y-0">
+                        <div className="px-3">
+                          <label
+                            htmlFor="message"
+                            className="block mb-2 text-sm font-medium text-[#0f280a]">
+                            Product Image
+                          </label>
+                          <div className="flex flex-col justify-center items-center text-center">
+                            <Image
+                              src={productImgUrl}
+                              alt="profile pic"
+                              className="h-52 w-44 rounded-xl  object-cover "
+                              height={164}
+                              width={164}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex items-end">
+                          <UploadButton
+                            className="bg-green-600 py-1 sm:py-3 sm:px-3  text-black rounded-lg "
+                            appearance={{
+                              button: {
+                                background: "#22C55E",
+                                padding: "2rem",
+                                color: "#000",
+                                width: "100%",
+                              },
+                              container: {
+                                display: "flex",
+                                background: "transparent",
+                              },
+                            }}
+                            endpoint="imageUploader"
+                            onClientUploadComplete={(res) => {
+                              // Do something with the response
+                              const url = res?.[0].url || "";
+                              setProductImgUrl(url);
+                            }}
+                            onUploadError={(error: Error) => {
+                              // Do something with the error.
+                              alert(`ERROR! ${error.message}`);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex sm:flex-row flex-col justify-between sm:space-x-5 space-y-5 sm:space-y-0">
+                        <div className="w-full">
+                          <label
+                            htmlFor="message"
+                            className="block mb-2 text-sm font-medium text-[#0f280a]">
+                            Product Title &#42;
+                          </label>
+                          <input
+                            id="message"
+                            className={`bg-[#f1f5f9] text-gray-900 text-sm rounded-lg p-2.5 ${
+                              isInputEmpty
+                                ? "border-red-900 border-solid"
+                                : "focus:border-green-500"
+                            }`}
+                            placeholder={"Enter the product title"}
+                            onChange={(e) => setTitle(e.target.value)}
+                            onBlur={handleBlur}
+                            value={title}></input>
+                        </div>
+                        <div className="w-full">
+                          <label
+                            htmlFor="message"
+                            className="block mb-2 text-sm font-medium text-[#0f280a]">
+                            Product Sub-title &#42;
+                          </label>
+                          <input
+                            id="message"
+                            className={`bg-[#f1f5f9] text-gray-900 text-sm rounded-lg p-2.5 ${
+                              isInputEmpty
+                                ? "border-red-900 border-solid"
+                                : "focus:border-green-500"
+                            }`}
+                            placeholder={"Enter the product sub-title"}
+                            onChange={(e) => setSubTitle(e.target.value)}
+                            value={subTitle}></input>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="message"
+                          className="block mb-2 text-sm font-medium text-[#0f280a]">
+                          Product Description &#42;
+                        </label>
+                        <textarea
+                          id="message"
+                          className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
+                          placeholder={"Enter the product description"}
+                          rows={6}
+                          onChange={(e) => setDescription(e.target.value)}
+                          value={description}></textarea>
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="message"
+                          className="block mb-2 text-sm font-medium text-[#0f280a]">
+                          Upload File &#42;
+                        </label>
+
+                        <Upload
+                          {...props}
+                          className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-[#0f280a] bg-[#F1F5F9] hover:bg-[#E5EAEF] focus:bg-[#E5EAEF] transition-colors duration-300 ease-in-out">
+                          <p className="text-center text-sm font-medium mb-4">
+                            Click or drag a file to this area to upload
+                          </p>
+                          <p className="text-center text-sm font-medium mb-2">
+                            Supports single or bulk uploads of digital assets
+                            (ZIP, RAR, PDF)
+                          </p>
+                          <button onClick={handleButtonClick} className="bg-green-500 hover:bg-green-600 focus:bg-green-700 text-white font-satoshi font-medium py-2 px-4 rounded-full transition-colors duration-300 ease-in-out">Upload File</button>
+                        </Upload>
+                      </div>
+
+                      <div className="w-full">
+                        <label
+                          htmlFor="message"
+                          className="block mb-2 text-sm font-medium text-[#0f280a]">
+                          Product Price 
+                        </label>
+                        <input
+                          id="number"
+                          disabled
+                          className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
+                          placeholder={"Free"}
+                          onChange={(e) => setPrice(e.target.value)}></input>
+                        <label
+                          htmlFor="message"
+                          className="block mb-2 text-sm font-normal text-[#0f280a]">
+                          Payments feature will be added very soon!
+                        </label>
+                      </div>
+
+                      <div className="w-full">
+                        <label
+                          htmlFor="message"
+                          className="block mb-2 text-sm font-medium text-[#0f280a]">
+                          Checkout Button Text
+                        </label>
+                        <input
+                          id="number"
+                          className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
+                          placeholder={"Enter the checkout button text"}
+                          onChange={(e) => setButtonText(e.target.value)}
+                          value={buttonText}></input>
+                      </div>
+
+                      <div className="mt-5">
+                        <button
+                          type="submit"
+                          className=" bg-[#22C55E]   text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600 font-medium  "
+                          onClick={handleSubmit}>
+                          {loading ? "Adding..." : "Add"}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden lg:block">
+                <div className="flex flex-col items-center">
+                  <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
+                    <div className="grid-cols-2">
+                      <div className="flex items-center  justify-center p-4">
+                        <Image
+                          src="https://res.cloudinary.com/dpscigyio/image/upload/f_auto,q_auto/bwz0zfstfaxgjwslcmho"
+                          alt="book"
+                          height={400}
+                          width={400}
+                          className="h-24 w-24 "
+                        />
+                      </div>
+                      <div className="p-6">
+                        <div className="mb-3 flex items-center justify-between">
+                          <h6 className="block font-sans text-lg font-medium leading-snug tracking-normal text-blue-gray-900 antialiased">
+                            {title}
+                          </h6>
+                        </div>
+                        <p className="block font-sans text-base font-light leading-relaxed text-gray-700 antialiased text-left">
+                          {subTitle}
+                        </p>
+                      </div>
+                      <div className="p-6 pt-3">
+                        <Link
+                          className="block w-full select-none rounded-lg bg-green-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white   transition-all hover:bg-green-600  focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                          href={{
+                            pathname: "/checkout",
+                            query: {
+                              heading: subTitle,
+                              subheading: subTitle,
+                              description: subTitle,
+                              pricing: subTitle,
+                            }, // the user
+                          }}>
+                          {buttonText}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className="flex items-end">
-              <UploadButton
-                className="bg-green-600 py-1 sm:py-3 sm:px-3  text-black rounded-lg "
-                appearance={{
-                  button: {
-                    background: "#22C55E",
-                    padding: "2rem",
-                    color: "#000",
-                    width: "100%",
-                  },
-                  container: {
-                    display: "flex",
-                    background: "transparent",
-                  }}}
-                endpoint="imageUploader"
-                
-                onClientUploadComplete={(res) => {
-                  // Do something with the response
-                  const url = res?.[0].url || "";
-                  setProductImgUrl(url);
-                }}
-                onUploadError={(error: Error) => {
-                  // Do something with the error.
-                  alert(`ERROR! ${error.message}`);
-                }}
-              />
-            </div>
           </div>
-          <div className="flex sm:flex-row flex-col justify-between sm:space-x-5 space-y-5 sm:space-y-0">
-            <div className="w-full">
-              <label
-                htmlFor="message"
-                className="block mb-2 text-sm font-medium text-[#0f280a]  "
-              >
-                Product Title
-              </label>
-              <input
-                id="message"
-                className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
-                placeholder={"Enter the product title"}
-                onChange={(e) => setTitle(e.target.value)}
-              ></input>
-            </div>
-            <div className="w-full">
-              <label
-                htmlFor="message"
-                className="block mb-2 text-sm font-medium text-[#0f280a]"
-              >
-                Product Sub-title
-              </label>
-              <input
-                id="message"
-                className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
-                placeholder={"Enter the product sub-title"}
-                onChange={(e) => setSubTitle(e.target.value)}
-              ></input>
-            </div>
-          </div>
-
-          <div>
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-medium text-[#0f280a]"
-            >
-              Product Description
-            </label>
-            <textarea
-              id="message"
-              className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
-              placeholder={"Enter the product description"}
-              rows={6}
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
-          </div>
-          <div>
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-medium text-[#0f280a]"
-            >
-              Upload File
-            </label>
-            <Upload
-              {...props}
-              className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-[#0f280a] bg-[#F1F5F9]"
-            >
-              <p className=" text-center font-medium">
-                Click or drag file to this area to upload
-              </p>
-              <p className=" text-center font-medium">
-              Supports single or bulk uploads of digital assets (ZIP, RAR, PDF).
-              </p>
-            </Upload>
-          </div>
-
-          <div className="w-full">
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-medium text-[#0f280a]"
-            >
-              Product Price
-            </label>
-            <input
-              id="number"
-              disabled
-              className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
-              placeholder={"Free"}
-              onChange={(e) => setPrice(e.target.value)}
-            ></input>
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-normal text-[#0f280a]"
-            >
-              Payments feature will be added very soon!
-            </label>
-          </div>
-
-          <div className="w-full">
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-medium text-[#0f280a]"
-            >
-              Checkout Button Text
-            </label>
-            <input
-              id="number"
-              className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
-              placeholder={"Enter the checkout button text"}
-              onChange={(e) => setButtonText(e.target.value)}
-            ></input>
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-normal text-[#0f280a]"
-            >
-              Default text is "Buy Now" which is used for checkout button.
-            </label>
-          </div>
-
-          <div className="mt-5">
-            <button
-              type="submit"
-              className=" bg-[#22C55E]   text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600 font-medium  "
-              onClick={handleSubmit}
-            >
-              {loading ? "Adding..." : "Add"}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  )
-}
+        </>
+      )}
     </div>
   );
 }
