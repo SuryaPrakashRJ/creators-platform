@@ -350,7 +350,7 @@ export default function AddProduct() {
                         <label
                           htmlFor="message"
                           className="block mb-2 text-sm font-medium text-[#0f280a]">
-                          Checkout Button Text
+                          Checkout Button Text &#42;
                         </label>
                         <input
                           id="number"

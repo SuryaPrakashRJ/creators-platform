@@ -188,7 +188,7 @@ if(preLoading) return <Loader />
                       htmlFor="message"
                       className="block mb-2 text-sm font-medium text-[#0f280a]"
                     >
-                      Product Image
+                      Product Image &#42;
                     </label>
                     <div className="flex flex-col justify-center items-center text-center">
                       <Image
@@ -236,14 +236,15 @@ if(preLoading) return <Loader />
                       htmlFor="message"
                       className="block mb-2 text-sm font-medium text-[#0f280a]  "
                     >
-                      Product Title
+                      Product Title &#42;
                     </label>
                     <input
                       id="message"
                       className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                       placeholder={
-                        title || "Enter the product title"
+                        "Enter the product title"
                       }
+                      value={title}
                       onChange={(e) => setTitle(e.target.value)}
                     ></input>
                   </div>
@@ -252,14 +253,15 @@ if(preLoading) return <Loader />
                       htmlFor="message"
                       className="block mb-2 text-sm font-medium text-[#0f280a]"
                     >
-                      Product Sub-title
+                      Product Sub-title &#42;
                     </label>
                     <input
                       id="message"
                       className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                       placeholder={
-                        subTitle || "Enter the product sub-title"
+                         "Enter the product sub-title"
                       }
+                      value={subTitle}
                       onChange={(e) => setSubTitle(e.target.value)}
                     ></input>
                   </div>
@@ -270,17 +272,18 @@ if(preLoading) return <Loader />
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
-                    Product Description
+                    Product Description &#42;
                   </label>
                   <textarea
                     id="message"
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                     placeholder={
-                      description ||
+                      
                       "Enter the product description"
                     }
                     rows={6}
                     onChange={(e) => setDescription(e.target.value)}
+                    value={description}
                   ></textarea>
                 </div>
                 <div>
@@ -288,7 +291,7 @@ if(preLoading) return <Loader />
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
-                    Upload File
+                    Upload File &#42;
                   </label>
                   <Upload
                     {...props}
@@ -309,7 +312,7 @@ if(preLoading) return <Loader />
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
-                    Uploaded URLS
+                    Uploaded URLS &#42;
                   </label>
                   {urls.map((url: any) => (
                     <div className="grid grid-flow-col grid-cols-12 space-x-5 w-full justify-between">
@@ -373,7 +376,7 @@ if(preLoading) return <Loader />
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
-                    Product Price
+                    Product Price 
                   </label>
                   <input
                     id="number"
@@ -382,6 +385,11 @@ if(preLoading) return <Loader />
                     placeholder={"Free"}
                     onChange={(e) => setPrice(e.target.value)}
                   ></input>
+                  <label
+                          htmlFor="message"
+                          className="block mb-2 text-sm font-normal text-[#0f280a]">
+                          Payments feature will be added very soon!
+                        </label>
                 </div>
 
                 <div className="w-full">
@@ -389,15 +397,16 @@ if(preLoading) return <Loader />
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
-                    Checkout Button Text
+                    Checkout Button Text &#42;
                   </label>
                   <input
                     id="number"
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
                     placeholder={
-                      buttonText ||
+                      
                       "Enter the checkout button text"
                     }
+                    value={buttonText}
                     onChange={(e) => setButtonText(e.target.value)}
                   ></input>
                 </div>

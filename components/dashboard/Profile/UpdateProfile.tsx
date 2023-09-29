@@ -212,7 +212,7 @@ export default function UpdateProfile() {
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
-                    Update Your Display Picture
+                    Update Your Display Picture &#42;
                   </label>
                   <div className="flex flex-col  justify-center items-center text-center">
                     <Image
@@ -259,12 +259,13 @@ export default function UpdateProfile() {
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-[#0f280a] "
                   >
-                    Update Your Name
+                    Update Your Name &#42;
                   </label>
                   <input
                     id="message"
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
-                    placeholder={user?.data.name || "Your Name"}
+                    placeholder={"Your Name"}
+                    value={user?.data.name}
                     onChange={(e) => setName(e.target.value)}
                   ></input>
                 </div>
@@ -273,12 +274,13 @@ export default function UpdateProfile() {
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-[#0f280a]"
                   >
-                    Update Your Username
+                    Update Your Username &#42;
                   </label>
                   <input
                     id="message"
                     className="bg-[#f1f5f9]  hover:border-green-500 text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 dark:text-white"
-                    placeholder={user?.data.username || "Your username"}
+                    placeholder={ "Your username"}
+                    value={user?.data.username}
                     onChange={(e) => setUsername(e.target.value)}
                   ></input>
                 </div>
@@ -288,13 +290,14 @@ export default function UpdateProfile() {
                 <label
                   htmlFor="message"
                   className="block mb-2 text-sm font-medium text-[#0f280a]"
-                >
-                  Update Your Bio
+                > 
+                  Update Your Bio &#42;
                 </label>
                 <textarea
                   id="message"
                   className="bg-[#f1f5f9]  hover:border-green-500 text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 dark:text-white "
-                  placeholder={user?.data.bio || "Your Bio"}
+                  placeholder={"Your Bio"}
+                  value={user?.data.bio}
                   rows={6}
                   onChange={(e) => setBio(e.target.value)}
                 ></textarea>
@@ -305,7 +308,7 @@ export default function UpdateProfile() {
                   htmlFor="message"
                   className="block mb-2 text-sm font-medium  text-[#0f280a]"
                 >
-                  Add Social Links
+                  Add Social Links &#42;
                 </label>
                 <div>
                   {socialMediaLinks.map((link: any, index: number) => (
@@ -395,7 +398,7 @@ export default function UpdateProfile() {
                     className="bg-[#505050]   text-[#ffffff] rounded-lg text-sm text-center hover:bg-[#303030] hover:text-[#ffffff] font-medium  w-full sm:w-96 md:w-60 "
                     onClick={addNewLink}
                   >
-                    Add Links
+                    Add Links 
                   </Button>
                 </div>
               </div>

@@ -3,7 +3,6 @@ import AddProductButton from "@/components/dashboard/Store/AddProductButton";
 import { useEffect, useState } from "react";
 import { Breadcrumb, Card } from "antd";
 import { useAuth } from "@/hooks/useAuth";
-import Image from "next/image";
 import Loader from "@/components/dashboard/common/Loader";
 import Link from "next/link";
 
@@ -60,7 +59,6 @@ export default function Page() {
     );
     const jsonData = await res.json();
     setData(jsonData.data);
-
     setLoading(false);
   }
 

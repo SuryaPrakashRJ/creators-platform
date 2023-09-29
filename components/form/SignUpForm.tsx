@@ -73,12 +73,11 @@ export default function SignUpForm() {
         password,
       }),
     });
-    
     const data = await res.json();
     setLoading(false);
     if (data.message === "Success") {
       localStorage.setItem("userId", data.user.id);
-      router.push("/sign-up/describe");
+      router.push("/sign-in");
     }
     if (data.message === "User Name already exists") {
       toast({
