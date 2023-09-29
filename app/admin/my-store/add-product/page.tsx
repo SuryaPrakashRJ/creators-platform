@@ -130,9 +130,9 @@ export default function AddProduct() {
   console.log(fileUrl);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 ">
       <Breadcrumb
-        className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold "
+        className="px-5 py-3 text-lg font-semibold "
         separator=">"
         items={[
           {
@@ -148,14 +148,36 @@ export default function AddProduct() {
           },
         ]}
       />
-      <div>
-        <Dropdown>
+      <div className=" bg-[#ffffff] ">
+        <Dropdown >
           <DropdownTrigger>
+        
             <Button
               variant="bordered"
-              className="capitalize px-5 py-3 rounded-lg shadow-lg w-full flex text-left bg-[#ffffff] text-lg font-semibold ">
-              Select Product {selectedValue}
+              className="capitalize px-5 py-3 rounded-lg text-center  justify-start flex text-lg font-semibold ">
+              {
+                selectedValue === ""
+                  ? "Select Product "
+                  : selectedValue 
+              }
+              <svg
+          className="hidden ml-3 fill-current sm:block"
+          width="12"
+          height="8"
+          viewBox="0 0 12 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M0.410765 0.910734C0.736202 0.585297 1.26384 0.585297 1.58928 0.910734L6.00002 5.32148L10.4108 0.910734C10.7362 0.585297 11.2638 0.585297 11.5893 0.910734C11.9147 1.23617 11.9147 1.76381 11.5893 2.08924L6.58928 7.08924C6.26384 7.41468 5.7362 7.41468 5.41077 7.08924L0.410765 2.08924C0.0853277 1.76381 0.0853277 1.23617 0.410765 0.910734Z"
+            fill=""
+          />
+        </svg>
             </Button>
+            
+            
           </DropdownTrigger>
           <DropdownMenu
             aria-label="Single selection example"
@@ -164,7 +186,7 @@ export default function AddProduct() {
             selectionMode="single"
             selectedKeys={selectedKeys}
             onSelectionChange={setSelectedKeys}
-            className="bg-white font-semibold text-[#0f280a]"
+            className="bg-white font-semibold text-[#0f280a] w-fit"
             disabledKeys={[
               "Custom-Product",
               "Webinar",
@@ -173,7 +195,7 @@ export default function AddProduct() {
               "External-Link",
               "Creator Card Affliate Program",
             ]}>
-            <DropdownItem key="> Digital Product">Digital Product</DropdownItem>
+            <DropdownItem key="Digital Product" className="hover:bg-slate-100">Digital Product</DropdownItem>
             <DropdownItem key="External-Link" className="text-[#808080]">
               External Link (Affliate Links)
             </DropdownItem>
@@ -200,11 +222,11 @@ export default function AddProduct() {
         </Dropdown>
       </div>
 
-      {selectedValue === "> Digital Product" && (
+      {selectedValue === "Digital Product" && (
         <>
           <div className="2xl:container mx-auto">
-            <div className="w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-3">
-              <div className="py-10 flex flex-col col-span-2 justify-center bg-[#ffffff] rounded-xl">
+            <div className="w-[100%] mx-auto grid grid-cols-1 lg:grid-cols-7">
+              <div className="py-10 flex flex-col col-span-5 justify-center bg-[#ffffff] rounded-xl">
                 <div className="2xl:container">
                   <div className="w-[90%] mx-auto grid grid-cols-1">
                     <form className="space-y-6">
@@ -372,13 +394,13 @@ export default function AddProduct() {
                   </div>
                 </div>
               </div>
-              <div className="hidden lg:block">
-                <div className="flex flex-col items-center">
+              <div className="hidden lg:block col-span-2">
+                <div className="flex flex-col items-end">
                   <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
                     <div className="grid-cols-2">
                       <div className="flex items-center  justify-center p-4">
                         <Image
-                          src="https://res.cloudinary.com/dpscigyio/image/upload/f_auto,q_auto/bwz0zfstfaxgjwslcmho"
+                          src={productImgUrl}
                           alt="book"
                           height={400}
                           width={400}

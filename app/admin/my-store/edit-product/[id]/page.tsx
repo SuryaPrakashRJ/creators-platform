@@ -159,8 +159,12 @@ export default function Page({ params }: Props) {
   return (
     <div>
       <div className="space-y-3">
-        <Breadcrumb
-          className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold "
+        
+        <div className="2xl:container mx-auto">
+          <div className="w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-7">
+            <div className="col-span-5 mr-5 mb-5">
+            <Breadcrumb
+          className="px-5 py-3   text-lg font-semibold "
           separator=">"
           items={[
             {
@@ -176,9 +180,7 @@ export default function Page({ params }: Props) {
             },
           ]}
         />
-        <div className="2xl:container mx-auto">
-          <div className="w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-3">
-            <div className="py-10 flex flex-col col-span-2 justify-center bg-[#ffffff] rounded-xl">
+         <div className="py-10 flex flex-col  justify-center bg-[#ffffff] rounded-xl">
               <div className="2xl:container">
                 <div className="w-[90%] mx-auto grid grid-cols-1">
                   <form className="space-y-6">
@@ -415,13 +417,15 @@ export default function Page({ params }: Props) {
                 </div>
               </div>
             </div>
-            <div className="hidden lg:block">
+            </div>
+           
+            <div className="hidden lg:block col-span-2 ">
             <div className=" flex justify-center text-center items-center ">
-                 <h1 className="mx-4 text-black font-semibold">
-                Preview of your Card
+                 <h1 className="mx-4 text-black font-semibold mt-3">
+                Preview 
               </h1>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center mt-4">
                 <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
                   <div className="grid-cols-2">
                     <div className="flex items-center  justify-center p-4">

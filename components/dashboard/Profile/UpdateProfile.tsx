@@ -118,8 +118,8 @@ export default function UpdateProfile() {
       label: "Github",
     },
     {
-      value: "dribble",
-      label: "Dribble",
+      value: "dribbble",
+      label: "Dribbble",
     },
     {
       value: "behance",
@@ -189,7 +189,7 @@ export default function UpdateProfile() {
   return (
     <div className="space-y-3">
       <Breadcrumb
-        className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold "
+        className="px-5 py-1  text-lg font-semibold "
         separator=">"
         items={[
           {

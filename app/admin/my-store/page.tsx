@@ -11,7 +11,6 @@ import { nunito_sans, bebas_neue } from "@/lib/fonts";
 import { BsGlobe2 } from "react-icons/bs";
 import {
   FaBehance,
-  FaDribbble,
   FaGithub,
   FaInstagram,
   FaLinkedin,
@@ -20,6 +19,7 @@ import {
 } from "react-icons/fa";
 import { FiFacebook, FiYoutube } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
+import {FaXTwitter, FaDribbble} from "react-icons/fa6";
 interface Props {
   params: {
     username: string;
@@ -67,10 +67,10 @@ export default function Page() {
   }
 
   let socialLinks = null;
-  if (user.socialMediaLinks) {
-    socialLinks = JSON.parse(user.socialMediaLinks);
+  if (user.data.socialMediaLinks) {
+    socialLinks = JSON.parse(user.data.socialMediaLinks);
   }
- 
+
 
   async function handleProductDelete(e: any) {
     setLoading(true);
@@ -99,8 +99,14 @@ export default function Page() {
   return (
     <div className="text-center flex flex-col items-center">
       <div className="w-full space-y-3">
-        <Breadcrumb
-          className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold "
+       
+        <div className="2xl:container mx-auto">
+        
+          <div className="w-[100%] mx-auto grid grid-col-1 lg:grid-cols-3 gap-2">
+          
+            <div className="col-span-2 mr-5 mb-5">
+            <Breadcrumb
+          className="px-5 py-3 text-lg font-semibold "
           separator=">"
           items={[
             {
@@ -113,9 +119,8 @@ export default function Page() {
             },
           ]}
         />
-        <div className="2xl:container mx-auto">
-          <div className="w-[98%] mx-auto grid grid-col-1 lg:grid-cols-3 gap-2">
-            <Card title="Products " className="col-span-2 mr-5">
+            <Card title="Products" >
+              
               {data &&
                 data.DigitProducts.map((product: DigitProduct) => (
                   <div key={product.id} className="">
@@ -167,20 +172,20 @@ export default function Page() {
                     </div>
                   </div> */}
 
-                      <div className="md:flex items-start mx-10">
-                        <div className="w-full md:w-1/6 px-10  ">
+                      <div className="md:flex items-start">
+                        <div className="w-full md:w-2/6 px-10  ">
                           <div className="relative">
                             <img
                               src={`${product.productImgLink}`}
-                              className="w-full relative z-10 rounded-md shadow-2"
+                              className="  w-full  relative z-10 rounded-md shadow-2"
                               alt=""
                             />
                           </div>
                         </div>
-                        <div className="w-full md:w-1/3 px-10">
+                        <div className="w-full md:w-5/6 px-10">
                           <div className="mb-10">
-                            <h1 className="font-bold text-start uppercase text-2xl mb-5">{`${product.heading}`}</h1>
-                            <h1 className="font-bold text-start text-xl">{`${product.subheading}`}</h1>
+                            <h1 className="font-bold text-start text-2xl mb-5">{`${product.heading}`}</h1>
+                            <h1 className="font-semibold text-start text-xl">{`${product.subheading}`}</h1>
                             <p className="text-sm text-start">
                               {`${product.description}`}
                             </p>
@@ -213,17 +218,18 @@ export default function Page() {
                   </div>
                 ))}
             </Card>
+            </div>
             <div className="hidden lg:block">
-              <div className=" flex justify-center text-center items-center  ">
-                 <h1 className="mx-4 text-black font-semibold">
-                Preview of your Store
+              <div className="my-4 flex justify-center text-center items-center  ">
+                 <h1 className=" text-black font-semibold">
+                Preview
               </h1>
               </div>
               <div className=" bg-white text-black rounded-md">
               <div className="flex flex-col space-y-7 text-center justify-center mx-1">
                   <div className="flex flex-col h-screen ">
                     <div className="flex flex-col items-center  h-screen space-y-7">
-                      <div className="mt-3">
+                      <div className="mt-10 space-y-6">
                         <Image
                           src={user.data.image}
                           alt="profile pic"
@@ -231,9 +237,9 @@ export default function Page() {
                           height={124}
                           width={124}
                         />
-                        <p
-                          className={`text-[#525252] font-light  ${nunito_sans.className}`}>
-                          @{user.data.username}
+                         <p
+                          className={`font-bold text-[26px]`}>
+                          {user.data.name}
                         </p>
                       </div>
                       {socialLinks && (
@@ -256,7 +262,7 @@ export default function Page() {
                                     />
                                   </a>
                                 )}
-                                {link.value === "twitter" && (
+                                {link.value === "x" && (
                                   <a
                                     href={
                                       link.url.startsWith("http")
@@ -265,7 +271,7 @@ export default function Page() {
                                     }
                                     target="_blank"
                                     rel="noreferrer">
-                                    <FaTwitter
+                                    <FaXTwitter
                                       size={25}
                                       className="text-black"
                                     />
@@ -408,10 +414,6 @@ export default function Page() {
                       )}
                       <div className="space-y-5">
                         <p
-                          className={`font-bold text-[26px]  ${bebas_neue.className}`}>
-                          {user.data.name}
-                        </p>
-                        <p
                           className={`text-[18px] text-[#3D3D3D]  px-5  ${nunito_sans.className}`}>
                           {user.data.bio}
                         </p>
@@ -426,7 +428,7 @@ export default function Page() {
                             <div className="grid-cols-2">
                               <div className="flex items-center  justify-center p-4">
                                 <Image
-                                  src="./book.svg"
+                                  src={product.productImgLink}
                                   alt="book"
                                   height={400}
                                   width={400}
