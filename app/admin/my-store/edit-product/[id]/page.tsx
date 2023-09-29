@@ -19,14 +19,14 @@ export default function Page({ params }: Props) {
   const { id } = params;
   const [data, setData] = useState<any>(null);
   const [urls, setUrls] = useState<any>();
-  const [title, setTitle] = useState('');
-  const [subTitle, setSubTitle] = useState('');
-  const [productImgUrl, setProductImgUrl] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [buttonText, setButtonText] = useState('');
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
+  const [productImgUrl, setProductImgUrl] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [buttonText, setButtonText] = useState("");
   const [fileUrl, setFileUrl] = useState<any[]>([]);
-  const [attachmentId, setAttachmentId] = useState('');
+  const [attachmentId, setAttachmentId] = useState("");
   const [loading, setLoading] = useState(false);
   const [preLoading, setPreLoading] = useState(true);
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function Page({ params }: Props) {
       setAttachmentId(jsonData.data?.attachment.attachments[0].id);
       setPreLoading(false);
     };
-    fetchProduct();   
+    fetchProduct();
   }, [id]);
   console.log(data);
 
@@ -108,15 +108,14 @@ export default function Page({ params }: Props) {
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
-        setFileUrl(prevFileUrls => [
+        setFileUrl((prevFileUrls) => [
           ...prevFileUrls,
           ...info.fileList.map((file) => ({
-              url: file.response.message[0].Location,
-              key: file.response.message[0].Key,
-              name: file.response.message[0].originalname,
-          }))
-      ]);
-      
+            url: file.response.message[0].Location,
+            key: file.response.message[0].Key,
+            name: file.response.message[0].originalname,
+          })),
+        ]);
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -136,7 +135,7 @@ export default function Page({ params }: Props) {
         headers: {
           "Content-Type": "application/json",
           filekey: urlKey,
-          id:attachmentId,
+          id: attachmentId,
         },
       }
     );
@@ -156,8 +155,8 @@ export default function Page({ params }: Props) {
   };
 
   console.log(attachmentId);
- 
-if(preLoading) return <Loader />
+
+  if (preLoading) return <Loader />;
   return (
     <div>
       <div className="space-y-3">
@@ -180,19 +179,18 @@ if(preLoading) return <Loader />
         />
         <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
           <div className="2xl:container">
-            <div className="w-[90%] mx-auto grid grid-cols-1">
+            <div className="w-[90%] mx-auto grid grid-cols-1 lg:grid-cols-2">
               <form className="space-y-6">
                 <div className="flex sm:flex-row flex-col space-y-3 sm:space-y-0 ">
                   <div className="px-3">
                     <label
                       htmlFor="message"
-                      className="block mb-2 text-sm font-medium text-[#0f280a]"
-                    >
+                      className="block mb-2 text-sm font-medium text-[#0f280a]">
                       Product Image
                     </label>
                     <div className="flex flex-col justify-center items-center text-center">
                       <Image
-                        src={ productImgUrl}
+                        src={productImgUrl}
                         alt="profile pic"
                         className="h-52 w-36 rounded-xl object-center object-cover"
                         height={144}
@@ -234,66 +232,51 @@ if(preLoading) return <Loader />
                   <div className="w-full">
                     <label
                       htmlFor="message"
-                      className="block mb-2 text-sm font-medium text-[#0f280a]  "
-                    >
+                      className="block mb-2 text-sm font-medium text-[#0f280a]  ">
                       Product Title
                     </label>
                     <input
                       id="message"
                       className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
-                      placeholder={
-                        title || "Enter the product title"
-                      }
-                      onChange={(e) => setTitle(e.target.value)}
-                    ></input>
+                      placeholder={title || "Enter the product title"}
+                      onChange={(e) => setTitle(e.target.value)}></input>
                   </div>
                   <div className="w-full">
                     <label
                       htmlFor="message"
-                      className="block mb-2 text-sm font-medium text-[#0f280a]"
-                    >
+                      className="block mb-2 text-sm font-medium text-[#0f280a]">
                       Product Sub-title
                     </label>
                     <input
                       id="message"
                       className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
-                      placeholder={
-                        subTitle || "Enter the product sub-title"
-                      }
-                      onChange={(e) => setSubTitle(e.target.value)}
-                    ></input>
+                      placeholder={subTitle || "Enter the product sub-title"}
+                      onChange={(e) => setSubTitle(e.target.value)}></input>
                   </div>
                 </div>
 
                 <div>
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-[#0f280a]"
-                  >
+                    className="block mb-2 text-sm font-medium text-[#0f280a]">
                     Product Description
                   </label>
                   <textarea
                     id="message"
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
-                    placeholder={
-                      description ||
-                      "Enter the product description"
-                    }
+                    placeholder={description || "Enter the product description"}
                     rows={6}
-                    onChange={(e) => setDescription(e.target.value)}
-                  ></textarea>
+                    onChange={(e) => setDescription(e.target.value)}></textarea>
                 </div>
                 <div>
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-[#0f280a]"
-                  >
+                    className="block mb-2 text-sm font-medium text-[#0f280a]">
                     Upload File
                   </label>
                   <Upload
                     {...props}
-                    className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-[#0f280a] bg-[#F1F5F9]"
-                  >
+                    className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-[#0f280a] bg-[#F1F5F9]">
                     <p className="ant-upload-text text-center font-medium">
                       Click or drag file to this area to upload
                     </p>
@@ -307,8 +290,7 @@ if(preLoading) return <Loader />
                 <div>
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-[#0f280a]"
-                  >
+                    className="block mb-2 text-sm font-medium text-[#0f280a]">
                     Uploaded URLS
                   </label>
                   {urls.map((url: any) => (
@@ -323,8 +305,7 @@ if(preLoading) return <Loader />
                       <button
                         data-product-key={url.key}
                         onClick={(e) => handleDelete(e)}
-                        className="col-span-1 items-center flex"
-                      >
+                        className="col-span-1 items-center flex">
                         <svg
                           fill="#000000"
                           version="1.1"
@@ -334,8 +315,7 @@ if(preLoading) return <Loader />
                           width="20"
                           height="20"
                           viewBox="0 0 482.428 482.429"
-                          xmlSpace="preserve"
-                        >
+                          xmlSpace="preserve">
                           <g>
                             <g>
                               <path
@@ -371,8 +351,7 @@ if(preLoading) return <Loader />
                 <div className="w-full">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-[#0f280a]"
-                  >
+                    className="block mb-2 text-sm font-medium text-[#0f280a]">
                     Product Price
                   </label>
                   <input
@@ -380,38 +359,74 @@ if(preLoading) return <Loader />
                     disabled
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
                     placeholder={"Free"}
-                    onChange={(e) => setPrice(e.target.value)}
-                  ></input>
+                    onChange={(e) => setPrice(e.target.value)}></input>
                 </div>
 
                 <div className="w-full">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-[#0f280a]"
-                  >
+                    className="block mb-2 text-sm font-medium text-[#0f280a]">
                     Checkout Button Text
                   </label>
                   <input
                     id="number"
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
-                    placeholder={
-                      buttonText ||
-                      "Enter the checkout button text"
-                    }
-                    onChange={(e) => setButtonText(e.target.value)}
-                  ></input>
+                    placeholder={buttonText || "Enter the checkout button text"}
+                    onChange={(e) => setButtonText(e.target.value)}></input>
                 </div>
 
                 <div className="mt-5">
                   <button
                     type="submit"
                     className=" bg-[#22C55E]   text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600 font-medium  "
-                    onClick={(e)=>handleSubmit(e)}
-                  >
+                    onClick={(e) => handleSubmit(e)}>
                     {loading ? "Updating..." : "Update"}
                   </button>
                 </div>
               </form>
+
+              <div className="hidden lg:block">
+                <div className="flex flex-col items-center">
+                  <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
+                    <div className="grid-cols-2">
+                      <div className="flex items-center  justify-center p-4">
+                        <Image
+                          src="https://res.cloudinary.com/dpscigyio/image/upload/f_auto,q_auto/bwz0zfstfaxgjwslcmho"
+                          alt="book"
+                          height={400}
+                          width={400}
+                          className="h-24 w-24 "
+                        />
+                      </div>
+                      <div className="p-6">
+                        <div className="mb-3 flex items-center justify-between">
+                          <h6 className="block font-sans text-lg font-medium leading-snug tracking-normal text-blue-gray-900 antialiased">
+                            {title}
+                          </h6>
+                        </div>
+                        <p className="block font-sans text-base font-light leading-relaxed text-gray-700 antialiased text-left">
+                          {subTitle}
+                        </p>
+                      </div>
+                      <div className="p-6 pt-3">
+                        <Link
+                          className="block w-full select-none rounded-lg bg-green-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white   transition-all hover:bg-green-600  focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                          href={{
+                            pathname: "/checkout",
+                            query: {
+                              heading: subTitle,
+                              subheading: subTitle,
+                              description: subTitle,
+                              pricing: subTitle,
+                            }, // the user
+                          }}>
+                          {buttonText}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

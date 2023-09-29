@@ -88,7 +88,7 @@ export default function AddProduct() {
       });
     }
   };
-  const handleButtonClick = (event) => {
+  const handleButtonClick = (event:any) => {
     event.preventDefault();
   };
 
@@ -338,7 +338,7 @@ export default function AddProduct() {
                           disabled
                           className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
                           placeholder={"Free"}
-                          onChange={(e) => setPrice(e.target.value)}></input>
+                          ></input>
                         <label
                           htmlFor="message"
                           className="block mb-2 text-sm font-normal text-[#0f280a]">

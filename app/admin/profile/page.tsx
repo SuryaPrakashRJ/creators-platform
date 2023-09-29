@@ -5,7 +5,6 @@ export default function Page() {
   return(
     <div>
       <UpdateProfile />
-      
-      </div>
+    </div>
   )
 }
