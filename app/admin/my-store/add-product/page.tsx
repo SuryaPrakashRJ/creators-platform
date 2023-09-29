@@ -203,8 +203,8 @@ export default function AddProduct() {
       {selectedValue === "> Digital Product" && (
         <>
           <div className="2xl:container mx-auto">
-            <div className="w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl">
+            <div className="w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-3">
+              <div className="py-10 flex flex-col col-span-2 justify-center bg-[#ffffff] rounded-xl">
                 <div className="2xl:container">
                   <div className="w-[90%] mx-auto grid grid-cols-1">
                     <form className="space-y-6">

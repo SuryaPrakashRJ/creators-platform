@@ -265,7 +265,7 @@ export default function UpdateProfile() {
                     id="message"
                     className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                     placeholder={"Your Name"}
-                    value={user?.data.name}
+                    value={name}
                     onChange={(e) => setName(e.target.value)}
                   ></input>
                 </div>
@@ -280,7 +280,7 @@ export default function UpdateProfile() {
                     id="message"
                     className="bg-[#f1f5f9]  hover:border-green-500 text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 dark:text-white"
                     placeholder={ "Your username"}
-                    value={user?.data.username}
+                    value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   ></input>
                 </div>
@@ -297,7 +297,7 @@ export default function UpdateProfile() {
                   id="message"
                   className="bg-[#f1f5f9]  hover:border-green-500 text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 dark:text-white "
                   placeholder={"Your Bio"}
-                  value={user?.data.bio}
+                  value={bio}
                   rows={6}
                   onChange={(e) => setBio(e.target.value)}
                 ></textarea>
