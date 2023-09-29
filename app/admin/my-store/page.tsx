@@ -61,56 +61,16 @@ export default function Page() {
     Products();
   }, [user]);
 
-  const username = user.data.name;
-  const userData = user.data.name
-  console.log(";",user.data.name)
-  const [userLoading, setUserLoading] = useState<boolean>(true);
-  const [productsLoading, setProductsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [userProducts, setUserProducts] = useState<any[]>([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // Fetch user details
-        let res = await fetch(
-          `https://creators-platform-backend-production.up.railway.app/api/v1/users/username/${username}`
-        );
-        if (!res.ok) throw new Error("Failed to fetch user details");
-
-        const userData = await res.json();
-        setUserLoading(false);
-
-        // Using the user ID to fetch products
-        res = await fetch(
-          `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user.data.id}/products`
-        );
-        if (!res.ok) throw new Error("Failed to fetch products");
-
-        const productsData = await res.json();
-        setUserProducts(productsData.data.DigitProducts);
-        setProductsLoading(false);
-      } catch (err: any) {
-        setError(err.message);
-        setUserLoading(false);
-        setProductsLoading(false);
-      }
-    }
-
-    fetchData();
-  }, [username]);
-  console.log(user);
-
-  if (userLoading || productsLoading) {
+   
+  if (loading) {
     return <Loader />;
   }
 
-  if (error) return <div>Error: {error}</div>;
   let socialLinks = null;
   if (user.socialMediaLinks) {
     socialLinks = JSON.parse(user.socialMediaLinks);
   }
-
+ 
 
   async function handleProductDelete(e: any) {
     setLoading(true);
@@ -134,9 +94,8 @@ export default function Page() {
     setLoading(false);
   }
 
-  if (loading) {
-    return <Loader />;
-  }
+  console.log(user);
+ 
 
   return (
     <div className="text-center flex flex-col items-center">
@@ -156,8 +115,8 @@ export default function Page() {
           ]}
         />
         <div className="2xl:container mx-auto">
-          <div className="w-[98%] mx-auto grid grid-col-1 lg:grid-cols-2 gap-2">
-            <Card title="Products">
+          <div className="w-[98%] mx-auto grid grid-col-1 lg:grid-cols-3 gap-2">
+            <Card title="Products " className="col-span-2 mr-5">
               {data &&
                 data.DigitProducts.map((product: DigitProduct) => (
                   <div key={product.id} className="">
@@ -255,23 +214,28 @@ export default function Page() {
                   </div>
                 ))}
             </Card>
-
             <div className="">
-              <div className=" bg-white text-black">
-           
-                  <div className="flex flex-row md:flex-row md:justify-between h-screen">
-                    <div className="flex flex-col items-center md:justify-center h-screen md:sticky md:top-0 md:w-1/2 space-y-7">
+              <div className=" flex justify-center text-center items-center ">
+                 <h1 className="mx-4 text-black font-semibold">
+                Preview of your Store
+              </h1>
+              </div>
+             
+              <div className=" bg-white text-black rounded-md">
+              <div className="flex flex-col space-y-7 text-center justify-center mx-1">
+                  <div className="flex flex-col h-screen ">
+                    <div className="flex flex-col items-center  h-screen space-y-7">
                       <div className="mt-3">
                         <Image
-                          src={user.image}
+                          src={user.data.image}
                           alt="profile pic"
-                          className="w-32 md:w-60 md:h-60 h-32 rounded-3xl object-center object-cover"
+                          className="w-32 h-32 rounded-3xl object-center object-cover"
                           height={124}
                           width={124}
                         />
                         <p
-                          className={`text-[#525252] font-light md:text-[17px] ${nunito_sans.className}`}>
-                          @{user.username}
+                          className={`text-[#525252] font-light  ${nunito_sans.className}`}>
+                          @{user.data.username}
                         </p>
                       </div>
                       {socialLinks && (
@@ -446,20 +410,20 @@ export default function Page() {
                       )}
                       <div className="space-y-5">
                         <p
-                          className={`font-bold text-[26px] md:text-[38px] ${bebas_neue.className}`}>
-                          {user.name}
+                          className={`font-bold text-[26px]  ${bebas_neue.className}`}>
+                          {user.data.name}
                         </p>
                         <p
-                          className={`text-[18px] text-[#3D3D3D] md:text-[20px] px-5 md:w-[500px] ${nunito_sans.className}`}>
-                          {user.bio}
+                          className={`text-[18px] text-[#3D3D3D]  px-5  ${nunito_sans.className}`}>
+                          {user.data.bio}
                         </p>
                       </div>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 items-center justify-center sm:justify-normal  space-y-6 overflow-y-auto md:max-h-screen md:w-1/2 md:mt-5">
+                    <div className="grid  items-center justify-center   space-y-6 overflow-y-auto ">
                       <h2 className="text-2xl font-bold">Products</h2>
-                      {userProducts &&
-                        userProducts.map((product: any, index: number) => (
+                      {data &&
+                        data.DigitProducts.map((product: any, index: number) => (
                           <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
                             <div className="grid-cols-2">
                               <div className="flex items-center  justify-center p-4">
@@ -491,7 +455,7 @@ export default function Page() {
                                       subheading: product.subheading,
                                       description: product.description,
                                       pricing: product.pricing,
-                                    }, // the user
+                                    }, // the user.data
                                   }}>
                                   View
                                 </Link>
@@ -524,7 +488,7 @@ export default function Page() {
 
                           //   href={{
                           //     pathname: "/checkout",
-                          //     query: {heading:product.heading,subheading:product.subheading,description:product.description,pricing:product.pricing}, // the user
+                          //     query: {heading:product.heading,subheading:product.subheading,description:product.description,pricing:product.pricing}, // the user.data
                           //   }}
                           // >
 
@@ -540,6 +504,7 @@ export default function Page() {
                   </div>
                 
               </div>
+            </div>
             </div>
           </div>
         </div>
