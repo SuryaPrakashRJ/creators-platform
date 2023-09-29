@@ -6,7 +6,6 @@ import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import type { UploadProps } from "antd";
 import { Breadcrumb, message, Upload } from "antd";
-import { useRouter } from "next/navigation";
 import Loader from "@/components/dashboard/common/Loader";
 import Link from "next/link";
 
@@ -417,6 +416,11 @@ export default function Page({ params }: Props) {
               </div>
             </div>
             <div className="hidden lg:block">
+            <div className=" flex justify-center text-center items-center ">
+                 <h1 className="mx-4 text-black font-semibold">
+                Preview of your Card
+              </h1>
+              </div>
               <div className="flex flex-col items-center">
                 <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
                   <div className="grid-cols-2">
