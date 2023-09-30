@@ -98,19 +98,19 @@ export default function Page({ params }: Props) {
 
   return (
     // <div className=" bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 text-black ">
-    <div className=" bg-white text-black  ">
+    <div className=" bg-[#F8FAFC] text-black  ">
       <div className="flex flex-col space-y-7  text-center justify-center mx-1 ">
         <div className="flex flex-col md:flex-row md:justify-between md:h-screen ">
-          <div className="flex flex-col mt-6 sm:mt-14  items-center md:justify-start md:overflow-y-auto md:sticky md:top-0 md:w-1/2 space-y-3 ">
+          <div className="flex flex-col mt-6 sm:mt-14  items-center md:justify-start md:overflow-y-auto md:sticky md:top-0 md:w-1/2.5 space-y-3 ">
             <div className=" space-y-4 items-center flex flex-col">
               <Image
                 src={user.image}
                 alt="profile pic"
-                className="w-32 md:w-44 md:h-44  h-32 rounded-3xl object-center object-cover"
+                className="w-32 md:w-44 md:h-44  h-32 rounded-3xl object-center object-cover "
                 height={84}
                 width={84}
               />
-              <p className={`font-bold text-[26px] md:text-[30px]`}>
+              <p className={`font-bold text-[18px] md:text-[20px]`}>
                 {user.name}
               </p>
             </div>
@@ -279,11 +279,11 @@ export default function Page({ params }: Props) {
               </div>
             </div>
             <div className="space-y-2">
-              <p className={`font-semibold text-[20px] sm:text-[22px] `}>
+              <p className={`font-bold text-[20px]  `}>
                 About
               </p>
               <p
-                className={`text-[18px] text-[#3D3D3D] md:text-[20px] px-5 max-w-[45rem]  ${nunito_sans.className}`}
+                className={`text-[16px] text-[#606060] md:text-[16px] px-5 max-w-[45rem]  ${nunito_sans.className}`}
               >
                 {user.bio}
               </p>
@@ -291,33 +291,33 @@ export default function Page({ params }: Props) {
           </div>
 
           {userProducts.length > 0 && (
-            <div className="sm:bg-[#F1F5F9] mx-5 sm:mx-0 text-center grid grid-cols-1 sm:grid-cols-2 items-center justify-center space-y-2 overflow-y-auto md:w-[45rem]">
+            <div className="sm:bg-[#F8FAFC] mx-5 sm:mx-0 text-center grid grid-cols-1 sm:grid-cols-2 items-center justify-center space-y-4 overflow-y-auto md:w-[45rem]">
               <h2 className="text-2xl font-bold mt-6">Products</h2>
               {userProducts &&
                 userProducts.map((product: any, index: number) => (
-                  <div className=" relative flex w-full sm:max-w-[20rem] flex-col rounded-xl sm:mx-auto bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
-                    <div className="flex items-center  justify-center p-4">
+                  <div className=" relative flex w-full sm:max-w-[20rem] flex-col rounded-xl sm:mx-auto bg-white bg-clip-border text-gray-700 shadow-xl  bg-transparent ">
+                    <div className="flex items-center  justify-center p-3">
                       <Image
                         src={product.productImgLink}
                         alt="book"
                         height={400}
                         width={400}
-                        className="h-24 w-24 rounded-sm border border-[#F1F5F9]"
+                        className="h-24 w-24 rounded-lg border border-[#F1F5F9]"
                       />
                     </div>
-                    <div className="px-6 py-2">
-                      <div className="mb-3 flex items-center justify-between">
+                    <div className="px-6 py-2 ">
+                      <div className="mb-1 flex items-center justify-center">
                         <h6 className="block font-sans text-lg font-medium leading-snug tracking-normal text-blue-gray-900 antialiased">
                           {product.heading}
                         </h6>
                       </div>
-                      <p className="block font-sans text-base font-light leading-relaxed text-gray-700 antialiased text-left">
+                      <p className="block  text-sm font-normal leading-relaxed text-gray-700 antialiased text-center ">
                         {product.subheading}
                       </p>
                     </div>
-                    <div className="p-6 pt-3">
+                    <div className="p-6 pt-2">
                       <Link
-                        className="block w-full select-none rounded-lg bg-green-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white   transition-all hover:bg-green-600  focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        className="block w-full select-none rounded-lg bg-green-500 py-3 px-7 text-center align-middle font-sans text-base font-medium text-white   transition-all hover:bg-green-600  focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         href={{
                           pathname: "/checkout",
                           query: {

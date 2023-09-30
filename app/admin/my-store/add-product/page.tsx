@@ -148,7 +148,7 @@ export default function AddProduct() {
           },
         ]}
       />
-      <div className=" bg-[#ffffff] ">
+      <div className=" bg-[#ffffff] rounded-lg ">
         <Dropdown >
           <DropdownTrigger>
         

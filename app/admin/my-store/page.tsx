@@ -16,6 +16,8 @@ import {
   FaLinkedin,
   FaTiktok,
   FaTwitter,
+  FaEdit,
+  FaTrash
 } from "react-icons/fa";
 import { FiFacebook, FiYoutube } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
@@ -120,6 +122,7 @@ export default function Page() {
           ]}
         />
             <Card title="Products" >
+            <AddProductButton />
               
               {data &&
                 data.DigitProducts.map((product: DigitProduct) => (
@@ -172,20 +175,21 @@ export default function Page() {
                     </div>
                   </div> */}
 
-                      <div className="md:flex items-start">
-                        <div className="w-full md:w-2/6 px-10  ">
+                      <div className="md:flex items-start ">
+                        <div className="w-full md:w-2/6 px-10 ">
                           <div className="relative">
                             <img
                               src={`${product.productImgLink}`}
-                              className="  w-full  relative z-10 rounded-md shadow-2"
+                              className="  w-full  relative z-10 rounded-md shadow-2 "
                               alt=""
+                              
                             />
                           </div>
                         </div>
                         <div className="w-full md:w-5/6 px-10">
-                          <div className="mb-10">
+                          <div className="mb-4">
                             <h1 className="font-bold text-start text-2xl mb-5">{`${product.heading}`}</h1>
-                            <h1 className="font-semibold text-start text-xl">{`${product.subheading}`}</h1>
+                            <h1 className="font-semibold text-start text-lg">{`${product.subheading}`}</h1>
                             <p className="text-sm text-start">
                               {`${product.description}`}
                             </p>
@@ -196,19 +200,19 @@ export default function Page() {
                             </h1>
                           </div>
                           <div className="flex flex-col item-start space-y-2 justify-start sm:flex-row sm:space-x-2 sm:space-y-0 sm:item-start sm:justify-start">
-                            <div className=" flex px-1">
+                            <div className=" flex ">
                               <Link
                                 href={`my-store/edit-product/${product.id}`}
-                                className="bg-white opacity-75 border border-green-600 hover:bg-green-600 text-green-600 hover:text-white rounded-lg px-10 py-2 font-semibold w-full">
+                                className="bg-green-500   hover:bg-green-600 text-white hover:text-white rounded-lg px-6 mt-1 py-2 font-semibold w-full">
                                 Edit
                               </Link>
                             </div>
-                            <div className="flex px-1 ">
+                            <div className="flex  items-center justify-center ">
                               <button
                                 data-product-id={product.id}
                                 onClick={(e) => handleProductDelete(e)}
-                                className="bg-white hover:bg-red-600 text-red-500 hover:text-white border border-red-600 rounded-lg font-semibold px-10 py-2 w-full">
-                                Delete
+                                className="bg-red-500   hover:bg-red-600 text-white hover:text-white rounded-lg px-6 mt-1 py-2 font-semibold w-full">
+                               Delete
                               </button>
                             </div>
                           </div>
@@ -422,6 +426,7 @@ export default function Page() {
 
                     <div className="grid  items-center justify-center   space-y-6 overflow-y-auto ">
                       <h2 className="text-2xl font-bold">Products</h2>
+                      
                       {data &&
                         data.DigitProducts.map((product: any, index: number) => (
                           <div className="relative flex w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 hover:shadow-lg bg-transparent hover:border border border-[#d1d5db] hover:border-green-600">
@@ -509,7 +514,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <AddProductButton />
     </div>
   );
 }

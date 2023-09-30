@@ -185,28 +185,29 @@ export default function Page({ params }: Props) {
                 <div className="w-[90%] mx-auto grid grid-cols-1">
                   <form className="space-y-6">
                     <div className="flex sm:flex-row flex-col space-y-3 sm:space-y-0 ">
-                      <div className="px-3">
+                      <div className="px-3 items-center justify-center">
                         <label
                           htmlFor="message"
-                          className="block mb-2 text-sm font-medium text-[#0f280a]"
+                          className="block mb-2 text-sm font-medium text-[#0f280a] text-center justify-center"
                         >
                           Product Image &#42;
                         </label>
-                        <div className="flex flex-col justify-center items-center text-center">
+                        <div className="flex flex-col items-center justify-center sm:justify-center sm:items-center text-center">
                           <Image
                             src={productImgUrl}
                             alt="profile pic"
-                            className="h-52 w-36 rounded-xl object-center object-cover"
+                            className="flex rounded-xl  object-center object-cover border  border-[#cecece]"
                             height={144}
                             width={144}
                           />
                         </div>
                       </div>
 
-                      <div className="flex items-end">
+                      <div className="flex items-center justify-center">
                         <UploadButton
                           className="bg-green-600 py-1 sm:py-3 sm:px-3  text-black rounded-lg"
                           endpoint="imageUploader"
+                        
                           appearance={{
                             button: {
                               background: "#22C55E",
