@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { nunito_sans } from "@/lib/fonts";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { BsGlobe2 } from "react-icons/bs";
 import {
   FaBehance,
@@ -30,7 +31,7 @@ export default function Page({ params }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const [userProducts, setUserProducts] = useState<any[]>([]);
-
+const router = useRouter()
   useEffect(() => {
     async function fetchData() {
       try {
@@ -43,6 +44,10 @@ export default function Page({ params }: Props) {
         const userData = await res.json();
         setUser(userData.data);
         setUserLoading(false);
+
+        if (!userData.data) {
+          router.push("/not-taken")
+        }
 
         // Using the user ID to fetch products
         res = await fetch(
@@ -68,9 +73,9 @@ export default function Page({ params }: Props) {
     return <Loader />;
   }
 
-  // if (error) {
-  //   router.push("/available")
-  // }
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
   let socialLinks = null;
   if (user.socialMediaLinks) {
     socialLinks = JSON.parse(user.socialMediaLinks);
