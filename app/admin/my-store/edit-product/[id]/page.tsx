@@ -24,7 +24,7 @@ export default function Page({ params }: Props) {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [buttonText, setButtonText] = useState("");
-  const [fileUrl, setFileUrl] = useState<any[]>([]);
+  const [fileUrl, setFileUrl] = useState<any>([]);
   const [attachmentId, setAttachmentId] = useState("");
   const [loading, setLoading] = useState(false);
   const [preLoading, setPreLoading] = useState(true);
@@ -40,16 +40,28 @@ export default function Page({ params }: Props) {
         }
       );
       const jsonData = await res.json();
-      setData(jsonData.data);
-      setUrls(JSON.parse(jsonData.data?.attachment.attachments[0].fileUrl));
-      setTitle(jsonData.data.product.heading);
-      setSubTitle(jsonData.data.product.subheading);
-      setProductImgUrl(jsonData.data.product.productImgLink);
-      setDescription(jsonData.data.product.description);
-      setPrice(jsonData.data.product.pricing);
-      setButtonText(jsonData.data.product.buttonTitle);
-      setFileUrl(JSON.parse(jsonData.data?.attachment.attachments[0].fileUrl));
-      setAttachmentId(jsonData.data?.attachment.attachments[0].id);
+      if (jsonData && jsonData.data) {
+        setData(jsonData.data);
+      
+        const product = jsonData.data.product;
+        if (product) {
+          setTitle(product.heading || "");
+          setSubTitle(product.subheading || "");
+          setProductImgUrl(product.productImgLink || "");
+          setDescription(product.description || "");
+          setPrice(product.pricing || "");
+          setButtonText(product.buttonTitle || "");
+        }
+      
+        const attachments = jsonData.data.attachment?.attachments;
+        if (attachments && attachments[0]) {
+          if (attachments[0].fileUrl) {
+            setFileUrl(JSON.parse(attachments[0].fileUrl));
+            setUrls(JSON.parse(attachments[0].fileUrl));
+          }
+          setAttachmentId(attachments[0].id || "");
+        }
+      }      
       setPreLoading(false);
     };
     fetchProduct();
@@ -103,18 +115,19 @@ export default function Page({ params }: Props) {
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+        console.log(info.fileList);
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
-        setFileUrl((prevFileUrls) => [
-          ...prevFileUrls,
-          ...info.fileList.map((file) => ({
-            url: file.response.message[0].Location,
-            key: file.response.message[0].Key,
-            name: file.response.message[0].originalname,
-          })),
-        ]);
+        if (info.fileList.length > 0) {
+          setFileUrl(
+            info.fileList.map((file) => ({
+              url: file.response.message[0].url,
+              key: file.response.message[0].key,
+              name: file.response.message[0].originalname,
+            }))
+          );
+        }
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -169,7 +182,7 @@ export default function Page({ params }: Props) {
           items={[
             {
               title: "Admin",
-              href: "/admin/overview",
+              href: "/admin/profile",
             },
             {
               title: "My Store",
@@ -285,28 +298,31 @@ export default function Page({ params }: Props) {
                         maxLength={300}
                       ></textarea>
                     </div>
-                    <div>
-                      <label
-                        htmlFor="message"
-                        className="block mb-2 text-sm font-medium text-[#0f280a]"
-                      >
-                        Upload File &#42;
-                      </label>
-                      <Upload
-                        {...props}
-                        className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-[#0f280a] bg-[#F1F5F9]"
-                      >
-                        <p className="ant-upload-text text-center font-medium">
-                          Click or drag file to this area to upload
-                        </p>
-                        <p className="ant-upload-hint text-center font-medium">
-                          Supports single or bulk uploads of digital assets
-                          (ZIP, RAR, PDF).
-                        </p>
-                      </Upload>
-                    </div>
-
-                    <div>
+                    {
+                      urls?.length === undefined && (<div>
+                        <label
+                          htmlFor="message"
+                          className="block mb-2 text-sm font-medium text-[#0f280a]"
+                        >
+                          Upload File &#42;
+                        </label>
+                        <Upload
+                          {...props}
+                          className="flex flex-col py-6 border rounded-lg items-center justify-center text-center text-[#0f280a] bg-[#F1F5F9]"
+                        >
+                          <p className="ant-upload-text text-center font-medium">
+                            Click or drag file to this area to upload
+                          </p>
+                          <p className="ant-upload-hint text-center font-medium">
+                            Supports single or bulk uploads of digital assets
+                            (ZIP, RAR, PDF).
+                          </p>
+                        </Upload>
+                      </div>
+  )
+                    }
+                    {urls && urls.length > 0 && (
+                      <div>
                       <label
                         htmlFor="message"
                         className="block mb-2 text-sm font-medium text-[#0f280a]"
@@ -369,6 +385,7 @@ export default function Page({ params }: Props) {
                         </div>
                       ))}
                     </div>
+                    )}
 
                     <div className="w-full">
                       <label
