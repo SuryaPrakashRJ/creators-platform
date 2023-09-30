@@ -169,7 +169,7 @@ export default function Page({ params }: Props) {
           items={[
             {
               title: "Admin",
-              href: "/admin/profile",
+              href: "/admin/overview",
             },
             {
               title: "My Store",

@@ -34,7 +34,7 @@ try{
             socialMediaLinks:""
         }
     })
-    
+
     const {hashedPassword:pass, ...user} = newUser
     const token = await prisma.activateToken.create({
         data:{

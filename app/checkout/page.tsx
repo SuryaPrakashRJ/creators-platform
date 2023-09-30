@@ -1,30 +1,53 @@
-import { useSearchParams } from "next/navigation";
-
+'use client'
+import { useState } from "react";
+import Image from "next/image";
 export default function page({
   searchParams,
 }: {
   searchParams: {
+    id: string;
     heading: string;
     subheading: string;
     description: string;
     pricing: string;
+    image: string
+    buttonText: string;
   };
 }) {
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  function handleSubmit (e:any){
+    e.preventDefault()
+    console.log(name, email)
+    const res = fetch('https://creators-platform-backend-production.up.railway.app/api/v1/checkout/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        name,
+        email,
+        productid: searchParams.id
+      },
+    })
+
+  }
   return (
     <section className="text-gray-700 body-font overflow-hidden bg-white">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <img
+          <Image
             alt="ecommerce"
             className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-            src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"
+            src={searchParams.image}
+            width={720}
+            height={600}
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">
-              {searchParams.heading}
+              {searchParams.subheading}
             </h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-              {searchParams.subheading}
+              {searchParams.heading}
             </h1>
 
             <p className="py-3 leading-relaxed">{searchParams.description}</p>
@@ -36,7 +59,10 @@ export default function page({
                 </label>
                 <input
                   required
-                  name="company"
+                  name="name"
+                  onChange={
+                    (e) => setName(e.target.value)
+                  }
                   className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
                 />
               </div>
@@ -48,6 +74,7 @@ export default function page({
                 <input
                   required
                   name="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring "
                 />
               </div>
@@ -59,7 +86,7 @@ export default function page({
                   ? "Free"
                   : `Price: ${searchParams.pricing}`}
               </span>
-              <button className="flex ml-auto text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded">{`Get Now`}</button>
+              <button onClick={handleSubmit} className="flex ml-auto text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded">{searchParams.buttonText}</button>
             </div>
           </div>
         </div>

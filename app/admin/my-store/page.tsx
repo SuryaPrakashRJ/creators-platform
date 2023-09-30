@@ -126,7 +126,7 @@ export default function Page() {
                 items={[
                   {
                     title: "Admin",
-                    href: "/admin/profile",
+                    href: "/admin/overview",
                   },
 
                   {

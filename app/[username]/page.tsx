@@ -321,10 +321,13 @@ export default function Page({ params }: Props) {
                         href={{
                           pathname: "/checkout",
                           query: {
+                            id: product.id,
                             heading: product.heading,
                             subheading: product.subheading,
                             description: product.description,
                             pricing: product.pricing,
+                            image: product.productImgLink,
+                            buttonText: product.buttonTitle,
                           }, // the user
                         }}
                       >

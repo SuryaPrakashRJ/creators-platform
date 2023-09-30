@@ -103,7 +103,7 @@ export default function ConfirmPassword({
           id="helper-text"
           aria-describedby="helper-text-explanation"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-          placeholder="name@email.com"
+          placeholder="••••••••"
           onChange={(e: any) => setPassword(e.target.value)}
         />
         <label
@@ -117,7 +117,7 @@ export default function ConfirmPassword({
           id="helper-text"
           aria-describedby="helper-text-explanation"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-          placeholder="name@email.com"
+          placeholder="••••••••"
           onChange={(e: any) => setConfirmPassword(e.target.value)}
         />
         {errorPass && <p className="text-red-500">Password does not match</p>}

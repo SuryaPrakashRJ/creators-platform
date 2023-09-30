@@ -137,7 +137,7 @@ export default function AddProduct() {
         items={[
           {
             title: "Admin",
-            href: "/admin/profile",
+            href: "/admin/overview",
           },
           {
             title: "My Store",

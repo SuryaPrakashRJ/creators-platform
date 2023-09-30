@@ -2,7 +2,7 @@
 import { redirect } from "next/navigation";
 
 const Page = () => {
-  redirect("/admin/profile");
+  redirect("/admin/overview");
   return (
     <div className="flex flex-col space-y-4  text-center justify-center">
       <h1>Dashboard Page</h1>
