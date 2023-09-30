@@ -4,7 +4,7 @@ import "./data-tables-css.css";
 import "./satoshi.css";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import  { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import Loader from "@/components/dashboard/common/Loader";
 import Sidebar from "@/components/dashboard/common/Sidebar";
 import Header from "@/components/dashboard/common/Header";
@@ -15,35 +15,32 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const {values} = useAuth();
+  const { values } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const { data: session } = useSession();
-const router = useRouter();
- useEffect(() => {
-  async function fetchData() {
-    const res = await fetch(`https://creators-platform-backend-production.up.railway.app/api/v1/users/${session?.user.id}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-    );
+  const router = useRouter();
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        `https://creators-platform-backend-production.up.railway.app/api/v1/users/${session?.user.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    const data = await res.json();
-    if(data.data.emailVerified === false){
-      router.push("/verify-email");
+      const data = await res.json();
+
+      values(data);
     }
-    else{
-    values(data)
-    }
-  }
-  fetchData();
-  setTimeout(() => {
-    setLoading(false);
-  }, 1500);
- }, []);
+    fetchData();
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, []);
 
   return (
     <>

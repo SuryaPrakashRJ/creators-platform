@@ -7,6 +7,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CheckIcon } from "@radix-ui/react-icons";
+import { nunito_sans } from "@/lib/fonts";
 import {
   Command,
   CommandEmpty,
@@ -20,6 +21,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Breadcrumb } from "antd";
+import { BsGlobe2 } from "react-icons/bs";
+import {
+  FaBehance,
+  FaDribbble,
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaTiktok,
+} from "react-icons/fa";
+import { FiFacebook, FiYoutube } from "react-icons/fi";
+import { HiOutlineMail } from "react-icons/hi";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function UpdateProfile() {
   const { user } = useAuth();
@@ -49,7 +62,7 @@ export default function UpdateProfile() {
     if (hasEmptyField) {
       console.log("has empty field");
       toast({
-        title:"Incomplete Links",
+        title: "Incomplete Links",
         description:
           "Please fill in all fields for your social media links before submitting.",
       });
@@ -138,6 +151,28 @@ export default function UpdateProfile() {
       label: "Website",
     },
   ];
+
+  const Hashtags = [
+    {
+      text: "Influencer",
+    },
+    {
+      text: "Influencer",
+    },
+    {
+      text: "Brands",
+    },
+    {
+      text: "Brands",
+    },
+    {
+      text: "Social Media",
+    },
+    {
+      text: "Content Creator",
+    },
+  ];
+
   const addNewLink = (e: any) => {
     e.preventDefault();
     const lastLink = socialMediaLinks[socialMediaLinks.length - 1];
@@ -188,29 +223,31 @@ export default function UpdateProfile() {
 
   return (
     <div className="space-y-3">
-      <Breadcrumb
+      
+      <div className=" flex flex-col justify-center   ">
+        <div className="2xl:container">
+          <div className="w-[100%] mx-auto grid lg:grid-cols-6 gap-4">
+          <div className=" lg:col-span-4">
+          <Breadcrumb
         className="px-5 py-1  text-lg font-semibold "
         separator=">"
         items={[
           {
             title: "Admin",
-            href: "/admin/dashboard",
+            href: "/admin/profile",
           },
 
           {
-            title: "Profile Settings",
+            title: "Settings",
           },
         ]}
       />
-      <div className="py-10 flex flex-col justify-center bg-[#ffffff] rounded-xl ">
-        <div className="2xl:container">
-          <div className="w-[90%] mx-auto grid grid-cols-1">
-            <form className="space-y-6">
+            <form className="space-y-6  py-4 bg-[#ffffff] rounded-xl">
               <div className="flex sm:flex-row flex-col">
                 <div className="px-3">
                   <label
                     htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-[#0f280a]"
+                    className="block mb-2 text-sm font-medium text-[#0f280a] text-center sm:text-left"
                   >
                     Update Your Display Picture &#42;
                   </label>
@@ -225,7 +262,7 @@ export default function UpdateProfile() {
                   </div>
                 </div>
 
-                <div className=" px-3  text-[#0f280a] flex items-end  rounded-lg">
+                <div className=" px-3  text-[#0f280a] flex justify-center sm:items-end   rounded-lg">
                   <UploadButton
                     className="bg-green-600 py-3 px-3  text-black rounded-lg"
                     endpoint="imageUploader"
@@ -239,7 +276,8 @@ export default function UpdateProfile() {
                       container: {
                         display: "flex",
                         background: "transparent",
-                      }}}
+                      },
+                    }}
                     onClientUploadComplete={(res) => {
                       // Do something with the response
                       const url = res?.[0].url || "";
@@ -253,6 +291,7 @@ export default function UpdateProfile() {
                 </div>
               </div>
 
+              <div className="px-4 space-y-6">
               <div className="flex sm:flex-row flex-col justify-between sm:space-x-5 space-y-5 sm:space-y-0">
                 <div className="w-full ">
                   <label
@@ -267,6 +306,7 @@ export default function UpdateProfile() {
                     placeholder={"Your Name"}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    maxLength={30}
                   ></input>
                 </div>
                 <div className="w-full">
@@ -279,9 +319,10 @@ export default function UpdateProfile() {
                   <input
                     id="message"
                     className="bg-[#f1f5f9]  hover:border-green-500 text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 dark:text-white"
-                    placeholder={ "Your username"}
+                    placeholder={"Your username"}
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    maxLength={30}
                   ></input>
                 </div>
               </div>
@@ -290,16 +331,17 @@ export default function UpdateProfile() {
                 <label
                   htmlFor="message"
                   className="block mb-2 text-sm font-medium text-[#0f280a]"
-                > 
+                >
                   Update Your Bio &#42;
                 </label>
                 <textarea
                   id="message"
                   className="bg-[#f1f5f9]  hover:border-green-500 text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 dark:text-white "
-                  placeholder={"Your Bio"}
+                  placeholder={"Your Bio in 300 words"}
                   value={bio}
                   rows={6}
                   onChange={(e) => setBio(e.target.value)}
+                  maxLength={300}
                 ></textarea>
               </div>
 
@@ -314,7 +356,7 @@ export default function UpdateProfile() {
                   {socialMediaLinks.map((link: any, index: number) => (
                     <div
                       key={index}
-                      className="grid grid-flow-col  lg:grid-cols-10 xl:grid-cols-12 mt-2 lg:space-x-10 xl:space-x-5"
+                      className="grid grid-flow-col   lg:grid-cols-10 xl:grid-cols-12 mt-2 lg:space-x-10 xl:space-x-5"
                     >
                       <div className="col-span-1 ">
                         <Popover
@@ -328,7 +370,7 @@ export default function UpdateProfile() {
                               variant="outline"
                               role="outline"
                               // aria-expanded={open}
-                              className="w-[6rem] border-[#22C55E] text-[#22C55E] hover:text-[#ffffff] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-green-600"
+                              className="w-[5rem] border-[#22C55E] text-[#22C55E] hover:text-[#ffffff] rounded-lg text-sm px-2 py-2.5 text-center hover:bg-green-600"
                             >
                               {link.value
                                 ? frameworks.find(
@@ -398,7 +440,7 @@ export default function UpdateProfile() {
                     className="bg-[#505050]   text-[#ffffff] rounded-lg text-sm text-center hover:bg-[#303030] hover:text-[#ffffff] font-medium  w-full sm:w-96 md:w-60 "
                     onClick={addNewLink}
                   >
-                    Add Links 
+                    Add Links
                   </Button>
                 </div>
               </div>
@@ -411,7 +453,198 @@ export default function UpdateProfile() {
                   {loading ? "Submitting..." : "Submit"}
                 </button>
               </div>
+              </div>
             </form>
+          </div>
+            <div className="lg:col-span-2 lg:block hidden">
+              <div className=" flex justify-center text-center items-center ">
+                <h1 className="mx-4 text-black font-semibold mt-2 mb-1.5">Preview</h1>
+              </div>
+              <div className="flex flex-col items-center  space-y-3 bg-[#ffffff] py-5 rounded-2xl  border-black border-y-4 border-x-2 ">
+                <div className=" space-y-4 items-center flex flex-col">
+                  <Image
+                    src={picUrl || user?.data.image}
+                    alt="profile pic"
+                    className="w-32   h-32 rounded-3xl object-center object-cover "
+                    height={84}
+                    width={84}
+                  />
+                  <p className={`font-bold text-[18px] text-black `}>{name || user?.data.name}</p>
+                </div>
+                <div></div>
+                {socialMediaLinks && (
+                  <div className="flex flex-row space-x-3">
+                    {Array.isArray(socialMediaLinks) &&
+                      socialMediaLinks.map((link: any, index: number) => (
+                        <div key={index}>
+                          {link.value === "youtube" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FiYoutube size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "twitter" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FaXTwitter size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "linkedin" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FaLinkedin size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "facebook" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FiFacebook size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "instagram" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FaInstagram size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "website" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <BsGlobe2 size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "github" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FaGithub size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "dribbble" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FaDribbble size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "behance" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FaBehance size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "tiktok" && (
+                            <a
+                              href={
+                                link.url.startsWith("http")
+                                  ? link.url
+                                  : "https://" + link.url
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <FaTiktok size={25} className="text-black" />
+                            </a>
+                          )}
+                          {link.value === "email" && (
+                            <a
+                              href={`mailto:${link.url}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <HiOutlineMail size={25} className="text-black" />
+                            </a>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                )}
+                <div>
+                  <div className=" text-center pt-2 w-fit mx-2  ">
+                    <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                      {Hashtags.map((hashtag, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
+                        >
+                          <span className="mr-1 text-black">#</span>
+                          {hashtag.text}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <p className={`font-bold text-[20px] text-center text-black`}>About</p>
+                  <p
+                    className={`text-[16px] text-[#606060]  px-5 max-w-[45rem] text-center   ${nunito_sans.className}`}
+                  >
+                    {bio || user?.data.bio}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

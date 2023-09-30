@@ -137,7 +137,7 @@ export default function AddProduct() {
         items={[
           {
             title: "Admin",
-            href: "/admin/dashboard",
+            href: "/admin/profile",
           },
           {
             title: "My Store",
@@ -293,6 +293,7 @@ export default function AddProduct() {
                             placeholder={"Enter the product title"}
                             onChange={(e) => setTitle(e.target.value)}
                             onBlur={handleBlur}
+                            maxLength={50}
                             value={title}></input>
                         </div>
                         <div className="w-full">
@@ -310,6 +311,7 @@ export default function AddProduct() {
                             }`}
                             placeholder={"Enter the product sub-title"}
                             onChange={(e) => setSubTitle(e.target.value)}
+                            maxLength={100}
                             value={subTitle}></input>
                         </div>
                       </div>
@@ -326,6 +328,7 @@ export default function AddProduct() {
                           placeholder={"Enter the product description"}
                           rows={6}
                           onChange={(e) => setDescription(e.target.value)}
+                          maxLength={300}
                           value={description}></textarea>
                       </div>
                       <div>
@@ -379,6 +382,7 @@ export default function AddProduct() {
                           className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
                           placeholder={"Enter the checkout button text"}
                           onChange={(e) => setButtonText(e.target.value)}
+                          maxLength={20}
                           value={buttonText}></input>
                       </div>
 

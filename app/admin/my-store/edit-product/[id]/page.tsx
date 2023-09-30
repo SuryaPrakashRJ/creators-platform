@@ -169,7 +169,7 @@ export default function Page({ params }: Props) {
           items={[
             {
               title: "Admin",
-              href: "/admin/dashboard",
+              href: "/admin/profile",
             },
             {
               title: "My Store",
@@ -246,6 +246,7 @@ export default function Page({ params }: Props) {
                           className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                           placeholder={"Enter the product title"}
                           value={title}
+                          maxLength={50}
                           onChange={(e) => setTitle(e.target.value)}
                         ></input>
                       </div>
@@ -258,6 +259,7 @@ export default function Page({ params }: Props) {
                         </label>
                         <input
                           id="message"
+                          maxLength={100}
                           className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5 "
                           placeholder={"Enter the product sub-title"}
                           value={subTitle}
@@ -280,6 +282,7 @@ export default function Page({ params }: Props) {
                         rows={6}
                         onChange={(e) => setDescription(e.target.value)}
                         value={description}
+                        maxLength={300}
                       ></textarea>
                     </div>
                     <div>
@@ -398,6 +401,7 @@ export default function Page({ params }: Props) {
                       </label>
                       <input
                         id="number"
+                        maxLength={20}
                         className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg  focus:border-green-500 block w-full p-2.5"
                         placeholder={"Enter the checkout button text"}
                         value={buttonText}

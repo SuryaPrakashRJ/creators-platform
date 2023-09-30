@@ -40,7 +40,7 @@ if(loading) return <Loader />
       <div className="mx-auto max-w-242.5">
       {(userData.emailVerified === false) && (
         <div className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold mb-3">
-        <p className="text-red-500">Kindly verify your email to get full access! Please check your inbox</p>
+        <p className="text-red-500">Kindly verify your email! Please check your inbox</p>
         </div>
       )}
         <div className="overflow-hidden rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -84,7 +84,7 @@ if(loading) return <Loader />
                     />
                   </svg> */}
                 </span>
-                <Link href='/admin/profile'><span>Edit Profile</span></Link>
+                <Link href='/admin/settings'><span>Edit Profile</span></Link>
               </label>
               
             </div>

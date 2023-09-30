@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { nunito_sans, bebas_neue } from "@/lib/fonts";
+import { nunito_sans } from "@/lib/fonts";
 import Link from "next/link";
 import { BsGlobe2 } from "react-icons/bs";
 import {
@@ -11,10 +11,10 @@ import {
   FaInstagram,
   FaLinkedin,
   FaTiktok,
-  FaTwitter,
 } from "react-icons/fa";
 import { FiFacebook, FiYoutube } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
+import { FaXTwitter } from "react-icons/fa6";
 interface Props {
   params: {
     username: string;
@@ -133,7 +133,7 @@ export default function Page({ params }: Props) {
                           <FiYoutube size={25} className="text-black" />
                         </a>
                       )}
-                      {link.value === "twitter" && (
+                      {link.value === "x" && (
                         <a
                           href={
                             link.url.startsWith("http")
@@ -143,7 +143,7 @@ export default function Page({ params }: Props) {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          <FaTwitter size={25} className="text-black" />
+                          <FaXTwitter size={25} className="text-black" />
                         </a>
                       )}
                       {link.value === "linkedin" && (
