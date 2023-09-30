@@ -43,35 +43,23 @@ export default function UpdateProfile() {
   const [username, setUsername] = useState(user?.data.username);
   const [picUrl, setPicUrl] = useState(user?.data.image);
   const [bio, setBio] = useState(user?.data.bio);
+  const [hashtags, setHashtags] = useState([{ hashtag: "#" }]);
   const [loading, setLoading] = useState(false);
   const [socialMediaLinks, setSocialMediaLinks] = useState([
     { url: "", platform: "", open: false, value: "" },
   ]);
-  const router = useRouter();
-
   useEffect(() => {
     if (user && typeof user.data.socialMediaLinks === "string") {
       setSocialMediaLinks(JSON.parse(user.data.socialMediaLinks));
+    }
+    if (user && typeof user.data.hashtags === "string") {
+      setHashtags(JSON.parse(user.data.hashtags));
     }
   }, [user]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    const hasEmptyField = socialMediaLinks.some(
-      (link) => link.url === "" || link.platform === "" || link.value === ""
-    );
-
-    if (hasEmptyField) {
-      console.log("has empty field");
-      toast({
-        title: "Incomplete Links",
-        description:
-          "Please fill in all fields for your social media links before submitting.",
-      });
-      setLoading(false);
-      return; // Exit early from the function
-    }
     const validusername = username.toLowerCase();
     const res = await fetch(
       `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}`,
@@ -87,6 +75,7 @@ export default function UpdateProfile() {
           image: picUrl,
           bio: bio,
           socialMediaLinks: JSON.stringify(socialMediaLinks),
+          hashtags: JSON.stringify(hashtags),
         }),
       }
     );
@@ -98,7 +87,7 @@ export default function UpdateProfile() {
         title: "Profile Updated",
         description: "Your profile has been updated",
       });
-      router.push("/admin/overview");
+      window.location.reload();
     } else {
       toast({
         title: "Error",
@@ -155,29 +144,13 @@ export default function UpdateProfile() {
     },
   ];
 
-  const Hashtags = [
-    {
-      text: "Influencer",
-    },
-    {
-      text: "Influencer",
-    },
-    {
-      text: "Brands",
-    },
-    {
-      text: "Brands",
-    },
-    {
-      text: "Social Media",
-    },
-    {
-      text: "Content Creator",
-    },
-  ];
-
   if (socialMediaLinks.length === 0) {
     setSocialMediaLinks([{ platform: "", url: "", open: false, value: "" }]);
+    return;
+  }
+
+  if (hashtags.length === 0) {
+    setHashtags([{ hashtag: "" }]);
     return;
   }
 
@@ -189,6 +162,32 @@ export default function UpdateProfile() {
         ...socialMediaLinks,
         { platform: "", url: "", open: false, value: "" },
       ]);
+    } else {
+      toast({
+        title: "Add Link",
+        description: "Add the previous link first",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleHashtagChange = (e: any, index: number) => {
+    const updatedTags = [...hashtags];
+    updatedTags[index].hashtag = e.target.value;
+    setHashtags(updatedTags);
+  };
+
+  const handleHashtagDelete = (index: number) => {
+    const updatedTags = [...hashtags];
+    updatedTags.splice(index, 1);
+    setHashtags(updatedTags);
+  };
+
+  const addNewHashtag = (e: any) => {
+    e.preventDefault();
+    const lastHashtag = hashtags[hashtags.length - 1];
+    if (lastHashtag.hashtag !== "") {
+      setHashtags([...hashtags, { hashtag: "" }]);
     } else {
       toast({
         title: "Add Link",
@@ -457,6 +456,49 @@ export default function UpdateProfile() {
                       </Button>
                     </div>
                   </div>
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block mb-2 text-sm font-medium  text-[#0f280a]"
+                    >
+                      Add Hashtags &#42;
+                    </label>
+                    <div>
+                      {hashtags.map((hashtag: any, index: number) => (
+                        <div
+                          key={index}
+                          className="grid grid-flow-col   lg:grid-cols-10 xl:grid-cols-12 mt-2 lg:space-x-10 xl:space-x-5"
+                        >
+                          <div className="col-span-12 flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0">
+                            <input
+                              type="text"
+                              placeholder="Add Hashtags"
+                              className="bg-[#f1f5f9] text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:text-white"
+                              value={hashtag.hashtag}
+                              onChange={(e) => handleHashtagChange(e, index)}
+                            ></input>
+                            <button
+                              type="button"
+                              className="  border-[#c52232] border  text-[#c52232] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-[#c52232] hover:text-[#ffffff] font-medium "
+                              onClick={() => handleHashtagDelete(index)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-4 flex justify-center">
+                      <Button
+                        variant="ghost"
+                        className="bg-[#505050]   text-[#ffffff] rounded-lg text-sm text-center hover:bg-[#303030] hover:text-[#ffffff] font-medium  w-full sm:w-96 md:w-60 "
+                        onClick={addNewHashtag}
+                      >
+                        Add Links
+                      </Button>
+                    </div>
+                  </div>
                   <div className="mt-5">
                     <button
                       type="submit"
@@ -640,15 +682,22 @@ export default function UpdateProfile() {
                 <div>
                   <div className=" text-center pt-2 w-fit mx-2  ">
                     <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
-                      {Hashtags.map((hashtag, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
-                        >
-                          <span className="mr-1 text-black">#</span>
-                          {hashtag.text}
+                      {hashtags.some((hashtag) => hashtag.hashtag) && (
+                        <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                          {hashtags.map(
+                            (hashtag, index) =>
+                              hashtag.hashtag && (
+                                <div
+                                  key={index}
+                                  className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
+                                >
+                                  <span className="mr-1 text-black">#</span>
+                                  {hashtag.hashtag}
+                                </div>
+                              )
+                          )}
                         </div>
-                      ))}
+                      )}
                     </div>
                   </div>
                 </div>

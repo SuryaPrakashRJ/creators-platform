@@ -29,18 +29,25 @@ useEffect(() => {
 },[user])
 
 let socialLinks = null
+let hashtags = null
 if(userData.socialMediaLinks){
     socialLinks = JSON.parse(userData.socialMediaLinks);
    }
-
+if(userData.hashtags){
+    hashtags = JSON.parse(userData.hashtags);
+}
 if(loading) return <Loader />
   return (
     <div className="mx-auto max-w-screen-2xl rounded-lg ">
-        
       <div className="mx-auto max-w-242.5">
       {(userData.emailVerified === false) && (
         <div className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold mb-3">
         <p className="text-red-500">Kindly verify your email! Please check your inbox</p>
+        </div>
+      )}
+      {(userData.socialMediaLinks === null || userData.hashtags === '[{"hashtag":""}]') && (
+        <div className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-md font-semibold mb-3">
+        <p className="text-black">Add Social Media links and Hashtags in Edit Profile section</p>
         </div>
       )}
         <div className="overflow-hidden rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -261,6 +268,29 @@ if(loading) return <Loader />
                   Here is your link: <a className="text-green-600 underline" target="_blank" href={`https://creatorcard.io/${userData.username}`}>creatorcard.io/{userData.username}</a>
                 </h2>  
               </div>
+              <div>
+              <div className=" text-center mt-2 flex pt-2 w-full mx-2 sm:mx-0 justify-center items-center ">
+                <div className="flex-row items-center  justify-center space-x-2 space-y-2 sm:space-y-0 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                {
+  hashtags.some((hashtag:any) => hashtag.hashtag) && (
+    <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+      {hashtags.map((hashtag:any, index:number) => (
+        hashtag.hashtag && (
+          <div
+            key={index}
+            className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
+          >
+            <span className="mr-1 text-black">#</span>
+            {hashtag.hashtag}
+          </div>
+        )
+      ))}
+    </div>
+  )
+}
+                </div>
+              </div>
+            </div>
             
               <div className="dark:bg-[#37404F] mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-2 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark">
                 <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">

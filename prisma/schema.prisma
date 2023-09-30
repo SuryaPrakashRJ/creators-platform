@@ -16,6 +16,7 @@ model User {
   createdAt        DateTime        @default(now())
   emailVerified    Boolean         @default(false)
   hashedPassword   String
+  hashtags         String?
   image            String?
   socialMediaLinks String?
   updatedAt        DateTime        @updatedAt

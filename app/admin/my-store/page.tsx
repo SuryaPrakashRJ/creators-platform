@@ -68,8 +68,12 @@ export default function Page() {
   console.log(data);
   const userData = user.data;
   let socialLinks = null;
+  let hashtags = null;
   if (userData.socialMediaLinks) {
     socialLinks = JSON.parse(userData.socialMediaLinks);
+  }
+  if(userData.hashtags){
+    hashtags = JSON.parse(userData.hashtags)
   }
 
   async function handleProductDelete(e: any) {
@@ -92,27 +96,6 @@ export default function Page() {
     setData(jsonData.data);
     setLoading(false);
   }
-
-  const Hashtags = [
-    {
-      text: "Influencer",
-    },
-    {
-      text: "Influencer",
-    },
-    {
-      text: "Brands",
-    },
-    {
-      text: "Brands",
-    },
-    {
-      text: "Social Media",
-    },
-    {
-      text: "Content Creator",
-    },
-  ];
 
   return (
     <div className="text-center flex flex-col items-center">
@@ -416,15 +399,22 @@ export default function Page() {
                       <div>
                         <div className=" text-center pt-2 w-fit mx-2  ">
                           <div className="flex-row items-center  justify-center space-x-2 space-y-2 sm:space-y-0 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
-                            {Hashtags.map((hashtag, index) => (
-                              <div
-                                key={index}
-                                className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
-                              >
-                                <span className="mr-1 text-black">#</span>
-                                {hashtag.text}
-                              </div>
-                            ))}
+                          {hashtags.some((hashtag:any) => hashtag.hashtag) && (
+                        <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                          {hashtags.map(
+                            (hashtag:any, index:number) =>
+                              hashtag.hashtag && (
+                                <div
+                                  key={index}
+                                  className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
+                                >
+                                  <span className="mr-1 text-black">#</span>
+                                  {hashtag.hashtag}
+                                </div>
+                              )
+                          )}
+                        </div>
+                      )}
                           </div>
                         </div>
                       </div>

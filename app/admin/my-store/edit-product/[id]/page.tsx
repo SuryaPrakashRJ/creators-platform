@@ -8,7 +8,7 @@ import type { UploadProps } from "antd";
 import { Breadcrumb, message, Upload } from "antd";
 import Loader from "@/components/dashboard/common/Loader";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 interface Props {
   params: {
     id: string;
@@ -26,6 +26,7 @@ export default function Page({ params }: Props) {
   const [buttonText, setButtonText] = useState("");
   const [fileUrl, setFileUrl] = useState<any>([]);
   const [attachmentId, setAttachmentId] = useState("");
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [preLoading, setPreLoading] = useState(true);
   useEffect(() => {
@@ -95,9 +96,10 @@ export default function Page({ params }: Props) {
     setLoading(false);
     if (post.message === "Product updated successfully") {
       toast({
-        title: "Product Added",
-        description: "Product has been added successfully",
+        title: "Product Updated",
+        description: "Product has been updated successfully",
       });
+      router.push("/admin/my-store");
     } else {
       toast({
         title: "Error",

@@ -11,7 +11,7 @@ try{
     const {email,name,username,password} = body
     const existingUser = await prisma.user.findFirst({
       where: {
-        OR: [{ email: email }, { username:username }]
+        OR: [{ email: email }, { username:username } ]
       }
     });
 
@@ -31,7 +31,8 @@ try{
             hashedPassword:hashedPassword,
             bio:"Please add a bio",
             image:"https://res.cloudinary.com/dpscigyio/image/upload/f_auto,q_auto/pudwsxkwsp3glaxkiyt2",
-            socialMediaLinks:""
+            socialMediaLinks:'[{"platform":"","url":"","open":false,"value":""}]',
+            hashtags:'[{"hashtag":""}]',
         }
     })
 

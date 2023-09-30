@@ -77,8 +77,12 @@ const router = useRouter()
     return <p className="text-red-500">{error}</p>;
   }
   let socialLinks = null;
+  let hashtags = null;
   if (user.socialMediaLinks) {
     socialLinks = JSON.parse(user.socialMediaLinks);
+  }
+  if (user.hashtags) {
+    hashtags = JSON.parse(user.hashtags);
   }
   console.log(userProducts);
 
@@ -273,15 +277,22 @@ const router = useRouter()
             <div>
               <div className=" text-center pt-2 w-fit mx-2 sm:mx-0 ">
                 <div className="flex-row items-center  justify-center space-x-2 space-y-2 sm:space-y-0 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
-                  {Hashtags.map((hashtag, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
-                    >
-                      <span className="mr-1 text-black">#</span>
-                      {hashtag.text}
-                    </div>
-                  ))}
+                {hashtags.some((hashtag:any) => hashtag.hashtag) && (
+                        <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                          {hashtags.map(
+                            (hashtag:any, index:number) =>
+                              hashtag.hashtag && (
+                                <div
+                                  key={index}
+                                  className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
+                                >
+                                  <span className="mr-1 text-black">#</span>
+                                  {hashtag.hashtag}
+                                </div>
+                              )
+                          )}
+                        </div>
+                      )}
                 </div>
               </div>
             </div>
