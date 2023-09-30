@@ -215,7 +215,7 @@ export default function Page() {
               <div className="my-4 flex justify-center text-center items-center  ">
                 <h1 className=" text-black font-semibold">Preview</h1>
               </div>
-              <div className=" bg-[#F8FAFC] text-black rounded-2xl max-h-[40rem] overflow-y-auto border-black border-y-4 border-x-2  ">
+              <div className=" bg-[#F8FAFC] text-black rounded-2xl max-h-[40rem] overflow-y-auto border-black border-y-4 border-x-2  scrollbar-hide">
                 <div className="flex flex-col space-y-7  text-center justify-center mx-1 ">
                   <div className="flex flex-col ">
                     <div className="flex flex-col mt-6   items-center  space-y-3 ">
@@ -415,7 +415,7 @@ export default function Page() {
                       )}
                       <div>
                         <div className=" text-center pt-2 w-fit mx-2  ">
-                          <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                          <div className="flex-row items-center  justify-center space-x-2 space-y-2 sm:space-y-0 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
                             {Hashtags.map((hashtag, index) => (
                               <div
                                 key={index}

@@ -176,6 +176,11 @@ export default function UpdateProfile() {
     },
   ];
 
+  if (socialMediaLinks.length === 0) {
+    setSocialMediaLinks([{ platform: "", url: "", open: false, value: "" }]);
+    return;
+  }
+
   const addNewLink = (e: any) => {
     e.preventDefault();
     const lastLink = socialMediaLinks[socialMediaLinks.length - 1];
@@ -431,7 +436,7 @@ export default function UpdateProfile() {
                             ></input>
 
                             <button
-                              type="submit"
+                              type="button"
                               className="  border-[#c52232] border  text-[#c52232] rounded-lg text-sm px-5 py-2.5 text-center hover:bg-[#c52232] hover:text-[#ffffff] font-medium "
                               onClick={() => handleDelete(index)}
                             >

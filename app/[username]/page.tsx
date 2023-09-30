@@ -68,7 +68,9 @@ export default function Page({ params }: Props) {
     return <Loader />;
   }
 
-  if (error) return <div>Error: {error}</div>;
+  // if (error) {
+  //   router.push("/available")
+  // }
   let socialLinks = null;
   if (user.socialMediaLinks) {
     socialLinks = JSON.parse(user.socialMediaLinks);
@@ -265,7 +267,7 @@ export default function Page({ params }: Props) {
             )}
             <div>
               <div className=" text-center pt-2 w-fit mx-2 sm:mx-0 ">
-                <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                <div className="flex-row items-center  justify-center space-x-2 space-y-2 sm:space-y-0 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
                   {Hashtags.map((hashtag, index) => (
                     <div
                       key={index}

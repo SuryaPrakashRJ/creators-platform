@@ -1,4 +1,10 @@
-const page = () => {
+export default function Page({
+    searchParams,
+  }: {
+    searchParams: {
+      url: string;
+    };
+  }) {
     return (
 <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
                 <div className="max-w-lg mx-auto space-y-3 text-center">
@@ -22,7 +28,7 @@ const page = () => {
                         Mail sent to your email address with the details of your purchase.
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-3">
-                        <a href="javascript:void(0)" className="block py-2 px-4 text-white font-medium bg-green-500 duration-150 hover:bg-green-600  rounded-lg">
+                        <a href={searchParams.url} className="block py-2 px-4 text-white font-medium bg-green-500 duration-150 hover:bg-green-600  rounded-lg">
                             Download here
                         </a>
                         
@@ -31,5 +37,3 @@ const page = () => {
             </div>
     )
 }
-
-export default page;

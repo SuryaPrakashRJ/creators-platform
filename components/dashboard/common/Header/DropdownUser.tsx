@@ -17,6 +17,7 @@ const router = useRouter();
   const handleLogOut = () => {
     setLoading(true);
     signOut();
+    router.push("/sign-in");
     values(null);
     setLoading(false);
   };

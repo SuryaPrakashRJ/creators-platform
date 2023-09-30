@@ -1,5 +1,6 @@
 'use client'
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from 'react';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ const Navbar = () => {
             className="inline-flex items-center gap-2 text-xl font-bold text-black md:text-1xl"
             aria-label="logo"
           >
-            <img
+            <Image
               src="https://res.cloudinary.com/dsdieyzkw/image/upload/v1695366242/zello/twokac3pyfcy4zl9h7xy.png"
               width={40}
               height={40}

@@ -1,6 +1,7 @@
-'use client'
+"use client";
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 export default function page({
   searchParams,
 }: {
@@ -10,27 +11,41 @@ export default function page({
     subheading: string;
     description: string;
     pricing: string;
-    image: string
+    image: string;
     buttonText: string;
   };
 }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const router = useRouter();
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    console.log(name, email);
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  function handleSubmit (e:any){
-    e.preventDefault()
-    console.log(name, email)
-    const res = fetch('https://creators-platform-backend-production.up.railway.app/api/v1/checkout/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        name,
-        email,
-        productid: searchParams.id
-      },
-    })
+    try {
+      const res = await fetch(
+        "https://creators-platform-backend-production.up.railway.app/api/v1/checkout/send",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            name,
+            email,
+            productid: searchParams.id,
+          },
+        }
+      );
 
-  }
+      const data = await res.json();
+      console.log(data);
+      if (data.message === "Email sent successfully") {
+        router.push("/successpage?url=" + data.attachmentUrl);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <section className="text-gray-700 body-font overflow-hidden bg-white">
       <div className="container px-5 py-24 mx-auto">
@@ -60,9 +75,7 @@ export default function page({
                 <input
                   required
                   name="name"
-                  onChange={
-                    (e) => setName(e.target.value)
-                  }
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
                 />
               </div>
@@ -86,7 +99,12 @@ export default function page({
                   ? "Free"
                   : `Price: ${searchParams.pricing}`}
               </span>
-              <button onClick={handleSubmit} className="flex ml-auto text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded">{searchParams.buttonText}</button>
+              <button
+                onClick={handleSubmit}
+                className="flex ml-auto text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded"
+              >
+                {searchParams.buttonText}
+              </button>
             </div>
           </div>
         </div>

@@ -258,7 +258,6 @@ export default function ConfirmPassword({
     
 
   const handleSubmit = async (e: any) => {
-   
     e.preventDefault();
     setLoading(true);
     if (password !== confirmPassword) {
@@ -338,6 +337,11 @@ export default function ConfirmPassword({
 
   const [isPasswordHidden, setPasswordHidden] = useState(true)
 
+  function togglePasswordVisibility(event: any) {
+    event.preventDefault();
+    setPasswordHidden(!isPasswordHidden);
+  }
+
 return (
      
   <div className='flex flex-col items-center justify-center py-28 rounded-lg' >
@@ -368,14 +372,14 @@ return (
           Enter mail to receive password reset link.
         </p>
 
-        <form onSubmit={handleSubmit}>
+        <form >
 
 
         <div>
          
           <div className="relative max-w-xs mt-2">
               <button className="text-gray-400 absolute right-3 inset-y-0 my-auto active:text-gray-600"
-                  onClick={() => setPasswordHidden(!isPasswordHidden)}
+                  onClick={togglePasswordVisibility}
               >
                   {
                       isPasswordHidden ? (
@@ -396,7 +400,7 @@ return (
                        placeholder="Retype password"
                        id="helper-text"
                        aria-describedby="helper-text-explanation"
-                       onChange={(e: any) => setConfirmPassword(e.target.value)}
+                       onChange={(e: any) => setPassword(e.target.value)}
                   className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-green-600 shadow-sm rounded-lg"
               />
           </div>
@@ -407,8 +411,8 @@ return (
           
           <div className="relative max-w-xs mt-2">
               <button className="text-gray-400 absolute right-3 inset-y-0 my-auto active:text-gray-600"
-                  onClick={() => setPasswordHidden(!isPasswordHidden)}
-              >
+                   onClick={togglePasswordVisibility}
+            >
                   {
                       isPasswordHidden ? (
                           <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -432,11 +436,15 @@ return (
                   className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-green-600 shadow-sm rounded-lg"
               />
           </div>
+          {
+              errorPass && <p className="text-red-500">Password does not match</p>
+          }
       </div >
 
           <div className="flex flex-wrap items-center justify-center gap-3 py-4">
             <button
               type="submit"
+              onClick={(e) => handleSubmit(e)}
               className=" mt-3 text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
               {loading ? "Submitting..." : "Submit"}
