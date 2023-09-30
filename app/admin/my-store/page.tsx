@@ -400,13 +400,13 @@ export default function Page() {
                         <div className=" text-center pt-2 w-fit mx-2  ">
                           <div className="flex-row items-center  justify-center space-x-2 space-y-2 sm:space-y-0 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
                           {hashtags.some((hashtag:any) => hashtag.hashtag) && (
-                        <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                        <div className="flex-row items-center  justify-center flex-grow flex-wrap inline-flex pb-4 text-graydark ">
                           {hashtags.map(
                             (hashtag:any, index:number) =>
                               hashtag.hashtag && (
                                 <div
                                   key={index}
-                                  className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
+                                  className="flex items-center justify-center m-1 px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
                                 >
                                   <span className="mr-1 text-black">#</span>
                                   {hashtag.hashtag}

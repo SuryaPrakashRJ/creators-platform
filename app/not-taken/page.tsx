@@ -16,10 +16,10 @@ export default function Page() {
             CreatorCard
           </a>
                     <p className="text-gray-800 text-4xl font-semibold sm:text-5xl">
-                       That user Name is still available
+                       That User Name is still available
                     </p>
                     <p className="text-gray-700">
-                        Create your own CreatorCard and share it with the world.
+                        Update your own CreatorCard and share it with the world.
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-3">
                         <a href='/sign-up' className="block py-2 px-4 text-white font-medium bg-green-500 duration-150 hover:bg-green-600  rounded-lg">

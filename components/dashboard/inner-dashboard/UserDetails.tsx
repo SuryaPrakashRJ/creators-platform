@@ -41,13 +41,13 @@ if(loading) return <Loader />
     <div className="mx-auto max-w-screen-2xl rounded-lg ">
       <div className="mx-auto max-w-242.5">
       {(userData.emailVerified === false) && (
-        <div className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-lg font-semibold mb-3">
+        <div className="px-5 py-3 rounded-lg  bg-[#ffffff] text-lg font-semibold mb-3">
         <p className="text-red-500">Kindly verify your email! Please check your inbox</p>
         </div>
       )}
       {(userData.socialMediaLinks === null || userData.hashtags === '[{"hashtag":""}]') && (
-        <div className="px-5 py-3 rounded-lg shadow-lg bg-[#ffffff] text-md font-semibold mb-3">
-        <p className="text-black">Add Social Media links and Hashtags in Edit Profile section</p>
+        <div className="px-5 py-3 rounded-lg bg-[#ffffff] text-md font-semibold mb-3">
+        <p className="text-black">Create your store profile</p>
         </div>
       )}
         <div className="overflow-hidden rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -55,7 +55,7 @@ if(loading) return <Loader />
             <img
               src="https://demo.tailadmin.com/src/images/cover/cover-01.png"
               alt="profile cover"
-              className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center blur-lg"
+              className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
             />
             <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4">
               <label
@@ -273,12 +273,12 @@ if(loading) return <Loader />
                 <div className="flex-row items-center  justify-center space-x-2 space-y-2 sm:space-y-0 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
                 {
   hashtags.some((hashtag:any) => hashtag.hashtag) && (
-    <div className="flex-row items-center  justify-center space-x-2 space-y-2 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+    <div className="flex-row items-center  justify-center  flex-grow flex-wrap inline-flex pb-4 text-graydark ">
       {hashtags.map((hashtag:any, index:number) => (
         hashtag.hashtag && (
           <div
             key={index}
-            className="flex items-center justify-center px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
+            className="flex items-center justify-center m-1 px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
           >
             <span className="mr-1 text-black">#</span>
             {hashtag.hashtag}

@@ -9,7 +9,7 @@ const Hero = () => {
               href="#"
             >
               <p className="mr-2 inline-block text-white text-sm">
-                Coming Soon
+                Sign up for beta version
               </p>
               {/* <span className="group-hover:bg-white/[.1] py-2 px-3 inline-flex justify-center items-center gap-x-2 rounded-full bg-white/[.075] font-semibold text-white text-sm">
             <svg className="w-2.5 h-2.5" width="16" height="16" viewBox="0 0 16 16" fill="none">
