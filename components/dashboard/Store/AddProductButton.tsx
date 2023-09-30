@@ -7,7 +7,7 @@ export default function AddProductButton() {
         router.push("/admin/my-store/add-product")
     }
     return(
-        <Button className="w-full text-white" onClick={handleAddProduct}>
+        <Button className="w-full text-white mt-4" onClick={handleAddProduct}>
             Add Product
         </Button>
     )
