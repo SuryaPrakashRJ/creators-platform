@@ -112,7 +112,7 @@ const router = useRouter()
     <div className=" bg-[#F8FAFC] text-black  ">
       <div className="flex flex-col space-y-7  text-center justify-center mx-1 ">
         <div className="flex flex-col md:flex-row md:justify-between md:h-screen ">
-        <div className={`flex flex-col mt-6 sm:mt-14 items-center md:justify-start md:overflow-y-auto md:sticky md:top-0 md:w-1/2.5 space-y-3 ${userProducts.length === 0 ? 'w-full' : ''}`}>
+        <div className={`flex flex-col mt-6 sm:mt-14 items-center md:justify-start md:overflow-y-auto md:sticky md:top-0 md:w-1/2.5 space-y-3 ${userProducts.length === 0 ? 'w-full' : 'w-1/2'}`}>
 
             <div className=" space-y-4 items-center flex flex-col">
               <Image
