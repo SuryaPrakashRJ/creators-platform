@@ -236,7 +236,7 @@ export default function Page() {
                                     />
                                   </a>
                                 )}
-                                {link.value === "twitter" && (
+                                {link.value === "x" && (
                                   <a
                                     href={
                                       link.url.startsWith("http")
@@ -421,7 +421,7 @@ export default function Page() {
                       <div className="space-y-2">
                         <p className={`font-bold text-[20px]  `}>About</p>
                         <p
-                          className={`text-[16px] text-[#606060]  px-5 max-w-[45rem]  ${nunito_sans.className}`}
+                          className={`text-[16px] text-[#606060]  px-5 max-w-[25rem] break-words ${nunito_sans.className}`}
                         >
                           {userData.bio}
                         </p>

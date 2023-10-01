@@ -112,7 +112,8 @@ const router = useRouter()
     <div className=" bg-[#F8FAFC] text-black  ">
       <div className="flex flex-col space-y-7  text-center justify-center mx-1 ">
         <div className="flex flex-col md:flex-row md:justify-between md:h-screen ">
-          <div className="flex flex-col mt-6 sm:mt-14 w-full  items-center md:justify-start md:overflow-y-auto md:sticky md:top-0 md:w-1/2.5 space-y-3 ">
+        <div className={`flex flex-col mt-6 sm:mt-14 items-center md:justify-start md:overflow-y-auto md:sticky md:top-0 md:w-1/2.5 space-y-3 ${userProducts.length === 0 ? 'w-full' : ''}`}>
+
             <div className=" space-y-4 items-center flex flex-col">
               <Image
                 src={user.image}
@@ -301,7 +302,7 @@ const router = useRouter()
                 About
               </p>
               <p
-                className={`text-[16px] text-[#606060] md:text-[16px] px-5 max-w-[45rem]  ${nunito_sans.className}`}
+                className={`text-[16px] text-[#606060] md:text-[16px] px-5 max-w-[25rem] sm:max-w-[35rem] md:max-w-[45rem] break-words  ${nunito_sans.className}`}
               >
                 {user.bio}
               </p>
@@ -309,11 +310,11 @@ const router = useRouter()
           </div>
 
           {userProducts.length > 0 && (
-            <div className="sm:bg-[#F8FAFC] mx-5 sm:mx-0 pr-10 text-center grid grid-cols-1 sm:grid-cols-2 items-center justify-center space-y-4 overflow-y-auto md:w-[45rem]">
+            <div className="sm:bg-[#F8FAFC] mx-5 sm:mx-0 pr-10 text-center grid grid-cols-1 sm:grid-cols-2 items-center justify-center space-y-4 overflow-y-auto md:w-[50rem]">
               <h2 className="text-2xl font-bold mt-6">Products</h2>
               {userProducts &&
                 userProducts.map((product: any, index: number) => (
-                  <div className=" relative flex w-full sm:max-w-[20rem] flex-col rounded-xl sm:mx-auto bg-white bg-clip-border text-gray-700 shadow-xl  bg-transparent ">
+                  <div className="  flex w-full mr-5 sm:max-w-[20rem] flex-col rounded-xl sm:mx-auto bg-white bg-clip-border text-gray-700 shadow-xl  bg-transparent ">
                     <div className="flex items-center  justify-center p-3">
                       <Image
                         src={product.productImgLink}

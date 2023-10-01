@@ -517,7 +517,7 @@ export default function UpdateProfile() {
                   Preview
                 </h1>
               </div>
-              <div className="flex flex-col items-center  space-y-3 bg-[#ffffff] py-5 rounded-2xl  border-black border-y-4 border-x-2 ">
+              <div className="flex flex-col items-center  space-y-3 bg-[#ffffff] py-5 rounded-2xl  border-black border-y-4 border-x-2  ">
                 <div className=" space-y-4 items-center flex flex-col">
                   <Image
                     src={picUrl || user?.data.image}
@@ -549,7 +549,7 @@ export default function UpdateProfile() {
                               <FiYoutube size={25} className="text-black" />
                             </a>
                           )}
-                          {link.value === "twitter" && (
+                          {link.value === "x" && (
                             <a
                               href={
                                 link.url.startsWith("http")
@@ -706,7 +706,7 @@ export default function UpdateProfile() {
                     About
                   </p>
                   <p
-                    className={`text-[16px] text-[#606060]  px-5 max-w-[45rem] text-center   ${nunito_sans.className}`}
+                    className={`text-[16px] text-[#606060]  px-5 max-w-[25rem] max-h-[30rem] text-center break-words   ${nunito_sans.className}`}
                   >
                     {bio || user?.data.bio}
                   </p>

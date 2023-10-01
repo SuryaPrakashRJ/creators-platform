@@ -47,7 +47,7 @@ if(loading) return <Loader />
       )}
       {(userData.socialMediaLinks === null || userData.hashtags === '[{"hashtag":""}]') && (
         <div className="px-5 py-3 rounded-lg bg-[#ffffff] text-md font-semibold mb-3">
-        <p className="text-black">Create your store profile</p>
+        <p className="text-black">Update your store profile</p>
         </div>
       )}
         <div className="overflow-hidden rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -130,7 +130,7 @@ if(loading) return <Loader />
                         <FiYoutube size={25} className="text-black" />
                       </a>
                     )}
-                    {link.value === "twitter" && (
+                    {link.value === "x" && (
                       <a
                         href={
                           link.url.startsWith("http")

@@ -130,7 +130,7 @@ const page = () => {
                             <FiYoutube size={25} className="text-black" />
                           </a>
                         )}
-                        {link.value === "twitter" && (
+                        {link.value === "x" && (
                           <a
                             href={
                               link.url.startsWith("http")
