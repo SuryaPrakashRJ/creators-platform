@@ -495,7 +495,7 @@ export default function UpdateProfile() {
                         className="bg-[#505050]   text-[#ffffff] rounded-lg text-sm text-center hover:bg-[#303030] hover:text-[#ffffff] font-medium  w-full sm:w-96 md:w-60 "
                         onClick={addNewHashtag}
                       >
-                        Add Links
+                        Add Hashtag
                       </Button>
                     </div>
                   </div>
