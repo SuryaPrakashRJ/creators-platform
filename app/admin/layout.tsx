@@ -24,7 +24,7 @@ export default function RootLayout({
     async function fetchData() {
       
       const res = await fetch(
-        `${process.env.BASEURL}/api/v1/users/${session?.user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKENDURL}/api/v1/users/${session?.user.id}`,
         {
           method: "GET",
           headers: {

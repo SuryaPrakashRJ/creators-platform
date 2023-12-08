@@ -24,7 +24,7 @@ export default function page({
 
     try {
       const res = await fetch(
-        `${process.env.BASEURL}/api/v1/checkout/send`,
+        `${process.env.NEXT_PUBLIC_BACKENDURL}/api/v1/checkout/send`,
         {
           method: "POST",
           headers: {

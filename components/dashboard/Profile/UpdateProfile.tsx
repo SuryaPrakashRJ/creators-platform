@@ -62,7 +62,7 @@ export default function UpdateProfile() {
     setLoading(true);
     const validusername = username.toLowerCase();
     const res = await fetch(
-      `${process.env.BASEURL}/${user?.data.id}`,
+      `${process.env.NEXT_PUBLIC_BACKENDURL}/${user?.data.id}`,
       {
         method: "PUT",
         headers: {
