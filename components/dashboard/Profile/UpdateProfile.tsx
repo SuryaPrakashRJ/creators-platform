@@ -62,7 +62,7 @@ export default function UpdateProfile() {
     setLoading(true);
     const validusername = username.toLowerCase();
     const res = await fetch(
-      `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}`,
+      `https://creator-platform-backend.onrender.com/api/v1/users/${user?.data.id}`,
       {
         method: "PUT",
         headers: {

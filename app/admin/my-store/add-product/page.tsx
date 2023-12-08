@@ -53,7 +53,7 @@ export default function AddProduct() {
       return;
     }
     const res = await fetch(
-      `https://creators-platform-backend-production.up.railway.app/api/v1/digital_download/add`,
+      `https://creator-platform-backend.onrender.com/api/v1/digital_download/add`,
       {
         method: "POST",
         headers: {
@@ -96,7 +96,7 @@ export default function AddProduct() {
     name: "file",
     multiple: true,
     action:
-      "https://creators-platform-backend-production.up.railway.app/api/v1/file/upload",
+      "https://creator-platform-backend.onrender.com/api/v1/file/upload",
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {

@@ -49,7 +49,7 @@ const page = () => {
   useEffect(() => {
     const Products = async () => {
       const res = await fetch(
-        `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}/products`
+        `https://creator-platform-backend.onrender.com/api/v1/users/${user?.data.id}/products`
       );
       const jsonData = await res.json();
       console.log(jsonData);
@@ -74,7 +74,7 @@ const page = () => {
     setLoading(true);
     const productId = e.currentTarget.getAttribute("data-product-id");
     await fetch(
-      `https://creators-platform-backend-production.up.railway.app/api/v1/digital_download/${productId}`,
+      `https://creator-platform-backend.onrender.com/api/v1/digital_download/${productId}`,
       {
         method: "DELETE",
         headers: {
@@ -84,7 +84,7 @@ const page = () => {
     );
 
     const res = await fetch(
-      `https://creators-platform-backend-production.up.railway.app/api/v1/users/${user?.data.id}/products`
+      `https://creator-platform-backend.onrender.com/api/v1/users/${user?.data.id}/products`
     );
     const jsonData = await res.json();
     setData(jsonData.data);

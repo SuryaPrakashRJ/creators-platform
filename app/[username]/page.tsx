@@ -37,7 +37,7 @@ const router = useRouter()
       try {
         // Fetch user details
         let res = await fetch(
-          `https://creators-platform-backend-production.up.railway.app/api/v1/users/username/${username}`
+          `https://creator-platform-backend.onrender.com/api/v1/users/username/${username}`
         );
         if (!res.ok) throw new Error("Failed to fetch user details");
 
@@ -51,7 +51,7 @@ const router = useRouter()
 
         // Using the user ID to fetch products
         res = await fetch(
-          `https://creators-platform-backend-production.up.railway.app/api/v1/users/${userData.data.id}/products`
+          `https://creator-platform-backend.onrender.com/api/v1/users/${userData.data.id}/products`
         );
         if (!res.ok) throw new Error("Failed to fetch products");
 
