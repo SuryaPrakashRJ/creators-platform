@@ -23,7 +23,7 @@ export default function RootLayout({
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(
-        `https://creator-platform-backend.onrender.com/api/v1/users/${session?.user.id}`,
+        `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/users/${session?.user.id}`,
         {
           method: "GET",
           headers: {

@@ -24,7 +24,7 @@ export default function page({
 
     try {
       const res = await fetch(
-        "https://creator-platform-backend.onrender.com/api/v1/checkout/send",
+        `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/checkout/send`,
         {
           method: "POST",
           headers: {
