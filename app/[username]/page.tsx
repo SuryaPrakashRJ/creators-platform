@@ -37,7 +37,7 @@ const router = useRouter()
       try {
         // Fetch user details
         let res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/users/username/${username}`
+          `${process.env.BASEURL}/api/v1/users/username/${username}`
         );
         if (!res.ok) throw new Error("Failed to fetch user details");
 
@@ -51,7 +51,7 @@ const router = useRouter()
 
         // Using the user ID to fetch products
         res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/users/${userData.data.id}/products`
+          `${process.env.BASEURL}/api/v1/users/${userData.data.id}/products`
         );
         if (!res.ok) throw new Error("Failed to fetch products");
 

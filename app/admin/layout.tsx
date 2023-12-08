@@ -22,8 +22,9 @@ export default function RootLayout({
   const router = useRouter();
   useEffect(() => {
     async function fetchData() {
+      
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/users/${session?.user.id}`,
+        `${process.env.BASEURL}/api/v1/users/${session?.user.id}`,
         {
           method: "GET",
           headers: {

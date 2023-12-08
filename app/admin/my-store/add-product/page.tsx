@@ -53,7 +53,7 @@ export default function AddProduct() {
       return;
     }
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/digital_download/add`,
+      `${process.env.BASEURL}/api/v1/digital_download/add`,
       {
         method: "POST",
         headers: {
@@ -96,7 +96,7 @@ export default function AddProduct() {
     name: "file",
     multiple: true,
     action:
-      `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/file/upload`,
+      `${process.env.BASEURL}/api/v1/file/upload`,
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {

@@ -32,7 +32,7 @@ export default function Page({ params }: Props) {
   useEffect(() => {
     const fetchProduct = async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/digital_download/${id}`,
+        `${process.env.BASEURL}/api/v1/digital_download/${id}`,
         {
           method: "GET",
           headers: {
@@ -73,7 +73,7 @@ export default function Page({ params }: Props) {
     e.preventDefault();
     setLoading(true);
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/digital_download/${data.product.id}`,
+      `${process.env.BASEURL}/api/v1/digital_download/${data.product.id}`,
       {
         method: "PUT",
         headers: {
@@ -113,7 +113,7 @@ export default function Page({ params }: Props) {
     name: "file",
     multiple: true,
     action:
-      `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/file/upload`,
+      `${process.env.BASEURL}/api/v1/file/upload`,
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
@@ -143,7 +143,7 @@ export default function Page({ params }: Props) {
     e.preventDefault();
     const urlKey = e.currentTarget.getAttribute("data-product-key");
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/file/delete`,
+      `${process.env.BASEURL}/api/v1/file/delete`,
       {
         method: "DELETE",
         headers: {
