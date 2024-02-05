@@ -19,7 +19,7 @@ import {
 import { FiFacebook, FiYoutube } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaXTwitter, FaDribbble } from "react-icons/fa6";
-import ProfileCard from "@/components/dashboard/Profile/ProfileCard"
+import ProfileCard from "@/components/dashboard/Profile/ProfileCard";
 interface Props {
   params: {
     username: string;
@@ -72,8 +72,8 @@ export default function Page() {
   if (userData.socialMediaLinks) {
     socialLinks = JSON.parse(userData.socialMediaLinks);
   }
-  if(userData.hashtags){
-    hashtags = JSON.parse(userData.hashtags)
+  if (userData.hashtags) {
+    hashtags = JSON.parse(userData.hashtags);
   }
 
   async function handleProductDelete(e: any) {
@@ -117,41 +117,26 @@ export default function Page() {
                   },
                 ]}
               />
-              
 
-
-              
               <AddProductButton />
               <ProfileCard />
               <Card title="Products">
-                
-                
-                
-
-
-
                 {data &&
                   data.DigitProducts.map((product: DigitProduct) => (
                     <div key={product.id} className="">
-                      
-                      <Card
-                        style={{ marginTop: 8 }}
-                        >
-
+                      <Card style={{ marginTop: 8 }}>
                         <div className="md:flex items-start ">
-                        <div className="w-full md:w-2/6 px-10 ">
+                          <div className="w-full md:w-2/6 px-10 ">
                             <div className="relative">
-                            <div className="flex flex-col  justify-center items-center text-center ">
-                              <img
-                                src={`${product.productImgLink}`}
-                                // className="  w-full  relative  rounded-md shadow-2 "
-                                alt=""
-                            
-                                 className="w-36 h-36 rounded-xl object-center object-cover border border-[#aeaeae]"
-                                 height={144}
-                                 width={144}
-                            
-                              />
+                              <div className="flex flex-col  justify-center items-center text-center ">
+                                <img
+                                  src={`${product.productImgLink}`}
+                                  // className="  w-full  relative  rounded-md shadow-2 "
+                                  alt=""
+                                  className="w-36 h-36 rounded-xl object-center object-cover border border-[#aeaeae]"
+                                  height={144}
+                                  width={144}
+                                />
                               </div>
                             </div>
                           </div>
@@ -399,22 +384,26 @@ export default function Page() {
                       <div>
                         <div className=" text-center pt-2 w-fit mx-2  ">
                           <div className="flex-row items-center  justify-center space-x-2 space-y-2 sm:space-y-0 flex-grow flex-wrap inline-flex pb-4 text-graydark ">
-                          {hashtags.some((hashtag:any) => hashtag.hashtag) && (
-                        <div className="flex-row items-center  justify-center flex-grow flex-wrap inline-flex pb-4 text-graydark ">
-                          {hashtags.map(
-                            (hashtag:any, index:number) =>
-                              hashtag.hashtag && (
-                                <div
-                                  key={index}
-                                  className="flex items-center justify-center m-1 px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
-                                >
-                                  <span className="mr-1 text-black">#</span>
-                                  {hashtag.hashtag}
-                                </div>
-                              )
-                          )}
-                        </div>
-                      )}
+                            {hashtags.some(
+                              (hashtag: any) => hashtag.hashtag
+                            ) && (
+                              <div className="flex-row items-center  justify-center flex-grow flex-wrap inline-flex pb-4 text-graydark ">
+                                {hashtags.map(
+                                  (hashtag: any, index: number) =>
+                                    hashtag.hashtag && (
+                                      <div
+                                        key={index}
+                                        className="flex items-center justify-center m-1 px-2 py-1 text-sm font-semibold leading-none bg-[#F1F5F9] rounded-full"
+                                      >
+                                        <span className="mr-1 text-black">
+                                          #
+                                        </span>
+                                        {hashtag.hashtag}
+                                      </div>
+                                    )
+                                )}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>

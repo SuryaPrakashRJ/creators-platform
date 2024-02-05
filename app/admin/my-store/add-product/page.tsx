@@ -121,13 +121,10 @@ export default function AddProduct() {
       console.log("Dropped files", e.dataTransfer.files);
     },
   };
-
   const selectedValue = useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
-
-  console.log(fileUrl);
 
   return (
     <div className="space-y-3 ">

@@ -1,13 +1,9 @@
 "use client";
-import AddProductButton from "@/components/dashboard/Store/AddProductButton";
 import { useEffect, useState } from "react";
-import { Breadcrumb, Card } from "antd";
+import {  Card } from "antd";
 import { useAuth } from "@/hooks/useAuth";
 import Loader from "@/components/dashboard/common/Loader";
 import Link from "next/link";
-import Image from "next/image";
-
-import { nunito_sans, bebas_neue } from "@/lib/fonts";
 import { BsGlobe2 } from "react-icons/bs";
 import {
   FaBehance,
@@ -19,11 +15,7 @@ import {
 import { FiFacebook, FiYoutube } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaXTwitter, FaDribbble } from "react-icons/fa6";
-interface Props {
-  params: {
-    username: string;
-  };
-}
+
 
 type DigitProduct = {
   id: number;
